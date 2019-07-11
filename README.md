@@ -1,11 +1,11 @@
-<p align="center">
+<div align="center">
   <a href="#">
     <img alt="kitten" src="https://raw.githubusercontent.com/docoder/kitten/master/assets/kitten.png" width="128">
   </a>
-</p>
-<h3 align="center">
-  Kitten
-</h3>
+  <h3 align="center">
+    Kitten
+    </h3>
+</div>
 <div align="center">
   Server JSON Driving UI
 
