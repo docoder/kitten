@@ -1,6 +1,6 @@
 {
   "name": "kittenjs-default-render",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kittenjs default render",
   "author": "docoder",
   "main": "build/index.js",
@@ -47,7 +47,7 @@
     "@types/react-reconciler": "^0.18.0",
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
-    "ant-colony-ui": "^1.5.24",
+    "ant-colony-ui": "1.5.25",
     "antd": "^3.20.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
