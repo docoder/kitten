@@ -9,7 +9,7 @@
 <div align="center">
   Server JSON Driving UI
 
-  [![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)[![NPM](https://img.shields.io/npm/v/kittenjs-default-render.svg)](https://www.npmjs.com/package/kittenjs-default-render)
+  [![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)  [![NPM](https://img.shields.io/npm/v/kittenjs-default-render.svg)](https://www.npmjs.com/package/kittenjs-default-render)
 
 </div>
 
