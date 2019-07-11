@@ -3,9 +3,9 @@
     <img alt="kitten" src="https://raw.githubusercontent.com/docoder/kitten/master/assets/kitten.png" width="128">
   </a>
 </p>
-<h1 align="center">
+<h3 align="center">
   Kitten
-</h1>
+</h3>
 <div align="center">
   Server JSON Driving UI
 
