@@ -1,0 +1,64 @@
+{
+  "name": "kittenjs-default-render",
+  "version": "0.1.0",
+  "description": "Kittenjs default render",
+  "author": "docoder",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "jsnext:main": "build/index.es.js",
+  "license": "MIT",
+  "repository": "docoder/kitten",
+  "keywords": [
+    "kitten",
+    "kittenjs",
+    "render",
+    "react",
+    "reactjs",
+    "json",
+    "ui",
+    "component",
+    "components",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "build"
+  ],
+  "peerDependencies": {
+    "ant-colony-ui": "^1.5.24",
+    "antd": "^3.20.0",
+    "kittenjs": ">=0.1.0",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "react-reconciler": ">=0.18.0",
+    "react-router-dom": ">=4.3.0",
+    "styled-components": ">=4.1.0"
+  },
+  "dependencies": {
+    "fbjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-reconciler": "^0.18.0",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/styled-components": "^4.1.16",
+    "ant-colony-ui": "^1.5.24",
+    "antd": "^3.20.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-reconciler": "^0.20.4",
+    "react-router-dom": "^5.0.1",
+    "rollup": "^1.16.7",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.21.2",
+    "styled-components": "^4.3.2",
+    "typescript": "^3.5.3"
+  }
+}
