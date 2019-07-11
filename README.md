@@ -32,7 +32,7 @@ yarn add react kittenjs
 #### 2.kittenjs-default-render
 
 ```bash
-yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui kittenjs-default-render
+yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-components kittenjs-default-render
 ```
 
 ## ⌨️ Development

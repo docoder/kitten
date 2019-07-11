@@ -1,4 +1,4 @@
-import { default as Kitten } from 'kittenjs'
+import Kitten from 'kittenjs'
 import Renderer from 'kittenjs-default-render'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
