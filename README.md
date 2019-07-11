@@ -14,9 +14,9 @@
 
 #### Kittenjs and Kittenjs-default-render is under active development!
 
-####Its API is not stable
+#### Its API is not stable
 
-####**Use it at your own risk**
+#### **Use it at your own risk**
 
 ## Installation
 
@@ -34,7 +34,7 @@ yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui kittenjs
 
 ## Development
 
-####1.install
+#### 1.install
 
 ```bash
 cd kittenjs
