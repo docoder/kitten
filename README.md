@@ -3,14 +3,15 @@
     <img alt="kitten" src="https://raw.githubusercontent.com/docoder/kitten/master/assets/kitten.png" width="128">
   </a>
 </p>
-<h3 align="center">
+<h1 align="center">
   Kitten
-</h3>
-<p align="center">
+</h1>
+<div align="center">
   Server JSON Driving UI
-</p>
 
-[![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)  [![NPM](https://img.shields.io/npm/v/kittenjs-default-render.svg)](https://www.npmjs.com/package/kittenjs-default-render)
+  [![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)[![NPM](https://img.shields.io/npm/v/kittenjs-default-render.svg)](https://www.npmjs.com/package/kittenjs-default-render)
+
+</div>
 
 ## ⚠️ Warning
 
