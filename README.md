@@ -15,13 +15,13 @@
 
 ## ⚠️ Warning
 
-#### Kittenjs and Kittenjs-default-render is under active development!
+#### Kitten (kittenjs and kittenjs-default-render) is under active development
 
 #### Its API is not stable
 
-#### **Use it at your own risk**
+#### Use it at your own risk
 
-## Installation
+## 📦 Installation
 
 #### 1.kittenjs
 
@@ -35,7 +35,7 @@ yarn add react kittenjs
 yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui kittenjs-default-render
 ```
 
-## Development
+## ⌨️ Development
 
 #### 1.install
 
@@ -79,5 +79,48 @@ yarn start
 
 cd example
 yarn run dev
+```
+
+## 🔨 Usage
+
+**You can see [example ](https://github.com/docoder/kitten/tree/master/example) for detail**
+
+```typescript
+import { default as Kitten } from 'kittenjs'
+import Renderer from 'kittenjs-default-render'
+import Sub1ListPlugin from './plugins/Sub1ListPlugin'
+import OtherListPlugin from './plugins/OtherListPlugin'
+const app = new Kitten({
+    appKey: "ke",
+    appTitle: 'Kitten Example',
+    pageAPI: 'http://api.example.com/pages',
+    loginUrl: 'http://api.example.com/login',
+    menus: [
+        {
+            key: 'dashbord',
+            label: '仪表盘',
+            index: true,
+            pageJSON: []
+        }, {
+            label: '菜单 1',
+            subs: [
+                {
+                    label: '子菜单 1', 
+                    key: 'sub1',
+                },
+                {
+                    label: '子菜单 2', 
+                    key: 'sub2'
+                }
+            ]
+        }
+    ],
+}, [
+    new Sub1ListPlugin(), // plugins
+    new OtherListPlugin()
+], [
+    'beforeTableColumnFinalization'  // debug kitten hooks
+])
+app.render(Renderer,  document.getElementById('root')!)
 ```
 
