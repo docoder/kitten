@@ -265,10 +265,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ant-colony-ui@1.5.25:
-  version "1.5.25"
-  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.5.25.tgz#725146edf5d0bd9ff43712bc2ab87b216c356247"
-  integrity sha512-RYsVOkTRFVuYGdHnyVBPaFMOmsS4Nc/+3a5kqLAj0mt/ou9ybtQ7yix8bZcWLmngO4IedOIun3/2UAiAqgHqXw==
+ant-colony-ui@1.5.26:
+  version "1.5.26"
+  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.5.26.tgz#1d85804f84c2017f4a2f010beae838f0f101db86"
+  integrity sha512-kym6tJ7pT8fFEFA2rFKY780eI/f4FVoSDSh5pEpvweyyNsFadm3URy5bDyxbvqAYvKushYBnUz1PoBajfDedWQ==
 
 antd@^3.20.1:
   version "3.20.1"

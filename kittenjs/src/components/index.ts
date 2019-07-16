@@ -4,6 +4,8 @@ import Table from './Table'
 import Form from './Form'
 import Alert from './Alert'
 import Loading from './Loading'
+import Button from './Button'
+import Stack from './Stack'
 
 export {
     App,
@@ -11,6 +13,8 @@ export {
     Table,
     Form,
     Alert,
-    Loading
+    Loading,
+    Button,
+    Stack
 }
 

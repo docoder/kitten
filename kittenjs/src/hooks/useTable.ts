@@ -15,7 +15,7 @@ export default function useTable(
 ): any[] {
     const app = React.useContext(App);
     const { send } = useGET()
-    const filter = Pages.useContainer().getFilter(app.config.appKey, tableKey)
+    const filter = Pages.useContainer().getFilter(pageKey, tableKey)
     const type = "TABLE_DATA_FETCHED";
 	const [state, dispatch] = React.useReducer(
 		(state, action) => {
@@ -36,7 +36,10 @@ export default function useTable(
                 t,
                 columns,
             );
-            const dataSource = meta.data ? meta.data : await send(u, filter)
+            const dataSource = meta.data ? meta.data.filter((d: any) => {
+                if (!filter || !filter.type) return true;
+                else return d.typeId === filter.type;
+            }) : await send(u, filter)
             app.hooks.afterTableDataSourceFetched.call(
                 app.config.appKey,
                 p,

@@ -12,7 +12,11 @@ import {
     createAlert,
     updateAlert,
     createLoading,
-    updateLoading
+    updateLoading,
+    createButton,
+    updateButton,
+    createModal,
+    updateModal
 } from './ui';
 const { unstable_cancelCallback, unstable_scheduleCallback }  = require('scheduler');
 
@@ -131,28 +135,36 @@ const hostConfig: HostConfig = {
     ): Instance | any {
         let domElement = null;
         switch (type) {
-            case 'layout':
+            case 'k_layout':
                 domElement = document.createElement('div');
                 createLayout(domElement, props);
                 break;
-            case 'page':
+            case 'k_page':
                 domElement = document.createElement('div');
                 break;
-            case 'table':
+            case 'k_table':
                 domElement = document.createElement('div');
                 createTable(domElement, props);
                 break;
-            case 'form':
+            case 'k_form':
                 domElement = document.createElement('div');
                 createForm(domElement, props);
                 break;
-            case 'alert':
+            case 'k_alert':
                 domElement = document.createElement('div');
                 createAlert(domElement, props);
                 break;
-            case 'loading':
+            case 'k_loading':
                 domElement = document.createElement('div');
                 createLoading(domElement, props);
+                break;
+            case 'k_button':
+                domElement = document.createElement('div');
+                createButton(domElement, props)
+                break;
+            case 'k_modal':
+                domElement = document.createElement('div')
+                createModal(domElement, props)
                 break;
             default:
                 domElement = document.createElement(type);
@@ -276,20 +288,26 @@ const hostConfig: HostConfig = {
     ) {
         let realDom = domElement
         switch (type) {
-            case 'layout':
+            case 'k_layout':
                 updateLayout(domElement, newProps)
                 break;
-            case 'table':
+            case 'k_table':
                 updateTable(domElement, newProps)
                 break;
-            case 'form':
+            case 'k_form':
                 updateForm(domElement, newProps)
                 break;
-            case 'alert':
+            case 'k_alert':
                 updateAlert(domElement, newProps)
                 break;
-            case 'loading':
+            case 'k_loading':
                 updateLoading(domElement, newProps)
+                break;
+            case 'k_button':
+                updateButton(domElement, newProps) 
+                break;
+            case 'k_modal':
+                updateModal(domElement, newProps) 
                 break;
         }
         updatePayload.forEach((propName: string) => {

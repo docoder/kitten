@@ -13,7 +13,7 @@ export interface AppProps {
 
 export default function Layout(props: AppProps): JSX.Element {
     return (
-        <layout
+        <k_layout
             style={{
                 ...props.style,
             }}

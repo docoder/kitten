@@ -1,7 +1,7 @@
 import React from 'react'
 import Index from './pages/Common'
 import Entry, { EntryProps, isEntryPropsWithAPI } from './pages/Common/entry'
-import { ConfigType, MenuItem, MenuGroup, isMenuGroup, AppHooks } from './app'
+import { ConfigType, MenuItem, MenuGroup, isMenuGroup, AppHooks, PageSection } from './app'
 import { AppProps } from './components/App'
 import { TableColumn } from './components/Table'
 import { FormItem } from './components/Form'
@@ -31,6 +31,7 @@ export {
     Plugin,
     AppHooks,
     ConfigType,
+    PageSection,
 
     MenuItem, 
     MenuGroup, 

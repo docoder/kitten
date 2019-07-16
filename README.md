@@ -105,11 +105,11 @@ const app = new Kitten({
             label: '菜单 1',
             subs: [
                 {
-                    label: '子菜单 1', 
+                    label: '子菜单 1',
                     key: 'sub1',
                 },
                 {
-                    label: '子菜单 2', 
+                    label: '子菜单 2',
                     key: 'sub2'
                 }
             ]
@@ -123,4 +123,8 @@ const app = new Kitten({
 ])
 app.render(Renderer,  document.getElementById('root')!)
 ```
+
+## License
+
+MIT © [docoder](https://github.com/docoder)
 

@@ -17,7 +17,7 @@ export default function Alert(props: IProps): JSX.Element {
         }
     }, [])
     return (
-        <loading
+        <k_loading
             show={props.show}
             type={props.type}
             timeout={props.timeout}

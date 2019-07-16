@@ -1,8 +1,10 @@
-import table from './Table';
-import form from './Form';
-import layout from './Layout';
-import alert from './Alert';
-import loading from './Loading';
+import table from './Table'
+import form from './Form'
+import layout from './Layout'
+import alert from './Alert'
+import loading from './Loading'
+import button from './Button'
+import modal from './Modal'
 export {
     table as createTable,
     form as createForm,
@@ -14,4 +16,8 @@ export {
     loading as createLoading,
     alert as updateAlert,
     loading as updateLoading,
+    button as createButton,
+    button as updateButton,
+    modal as createModal,
+    modal as updateModal
 }

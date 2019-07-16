@@ -2,28 +2,38 @@ import React from 'react';
 import {SyncHook, Hook} from 'tapable';
 import Plugin from '../plugins';
 import { debugHooks } from './debug-hooks';
-
-interface PageSectionFilterMeta {
+interface FilterMeta {
     filter: string
 }
-interface PageSectionFetchMeta {
+interface FetchMeta {
     url: string
     method?: string
     data?: {[x:string]: any}[]
 }
+export interface ActionMeta {
+    label: string
+    modal?: string
+    link?: string
+    url?: string
+}
+interface LayoutMeta {
+    direction: string
+    width?: number
+    inModal?: boolean 
+}
+export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta
 export interface PageSectionItem {
     key: string
     label: string
     id?: boolean
     type?: string
-    meta?: PageSectionFetchMeta
+    meta?: FetchMeta
 }
-export type PageSectionMeta = PageSectionFilterMeta | PageSectionFetchMeta
 export interface PageSection {
     type: string
     key: string
-    items: PageSectionItem[]
-    meta: PageSectionMeta
+    items?: (PageSectionItem | PageSection)[]
+    meta?: Meta
 }
 export interface MenuItem {
     key: string;

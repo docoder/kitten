@@ -16,15 +16,13 @@ export default function Page(props: IProps): JSX.Element {
         }
     }, [])
     return (
-        <page
+        <k_page
             style={{
-                display: 'flex',
-                flexDirection: 'column',
                 ...props.style,
             }}>
             {props.children}
             <Indicator /> 
-        </page>
+        </k_page>
     );
 };
 

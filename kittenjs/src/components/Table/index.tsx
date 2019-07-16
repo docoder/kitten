@@ -15,10 +15,10 @@ interface IProps {
     style?: React.CSSProperties;
     className?: string;
     meta: {
-        data?: {[x:string]: any};
-        url: string;
-        method: string;
-    }
+        url: string,
+        data?: {[x:string]: any},
+        method: string
+    } 
     columns: (TableColumn[]);
     pageKey: string;
     tableKey: string;
@@ -40,7 +40,7 @@ export default function Table(props: IProps): JSX.Element {
     })
     const dataSource = useTable(props.pageKey, props.tableKey, columns, props.meta);
     return (
-        <table
+        <k_table
             style={{
                 ...props.style,
             }}

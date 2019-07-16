@@ -18,7 +18,7 @@ export default function Alert(props: IProps): JSX.Element {
         }
     }, [])
     return (
-        <alert 
+        <k_alert 
             type={props.type}
             message={props.message}
             description={props.description}

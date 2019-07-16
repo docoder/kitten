@@ -1,6 +1,6 @@
 import React from 'react'
 import { App } from '../../app'
-import {Page, Table, Form} from '../../components'
+import {Page, Stack} from '../../components'
 import useGET from '../../hooks/useGET'
 
 export default function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any[]}):JSX.Element {
@@ -39,42 +39,12 @@ export default function PageContainer(props: {pageKey: string, pageAPI?: string,
     const { pageKey } = props
     return (
         <Page pageKey={pageKey} style={{padding: 20, background: 'white'}}>
-                    {state.data.map((c: any, i: number) => {
-                        switch (c.type) {
-                            case 'Table':
-                                return (
-                                    <Table
-                                        pageKey={pageKey}
-                                        tableKey={c.key}
-                                        style={{marginBottom: 20}}
-                                        key={i}
-                                        columns={c.items}
-                                        meta={{
-                                            url:c.meta.url,
-                                            method: c.meta.method,
-                                            data: c.meta.data
-                                        }}
-                                    />
-                                );
-                            case 'Form':
-                                return (
-                                    <Form
-                                        pageKey={pageKey}
-                                        formKey={c.key}
-                                        style={{marginBottom: 20}}
-                                        key={i}
-                                        items={c.items}
-                                        meta={{
-                                            url: c.meta.url,
-                                            method: c.meta.method,
-                                            filter: c.meta.filter
-                                        }} 
-                                    />
-                                )
-                            default:
-                                return null
-                        }
-                    })}
-                </Page>
+            <Stack 
+                pageKey={pageKey} 
+                items={state.data} 
+                direction="vertical" 
+                stackKey={`${pageKey}_main_stack`} 
+            />
+        </Page>
     );
 };
