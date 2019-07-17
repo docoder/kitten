@@ -133,7 +133,8 @@ const sub1PageJSON: PageSection[] = [
                 ],
                 meta: {
                     url: 'https://api.example.com/sub1/batchUpdateTypes',
-                    inModal: true
+                    modal: 'sub1BatchUpdateModal',
+                    method: 'POST'
                 },
             }
         ],

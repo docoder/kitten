@@ -19,7 +19,6 @@ export interface ActionMeta {
 interface LayoutMeta {
     direction: string
     width?: number
-    inModal?: boolean 
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta
 export interface PageSectionItem {

@@ -25,7 +25,7 @@ export async function GET (url: string, loginUrl?: string) {
 }
 export async function POST(url: string, loginUrl?: string, body?: Json) {
     try {
-        return await REQ('post', url,loginUrl, body)
+        return await REQ('post', url, loginUrl, body)
     } catch (error) {
         throw error;
     }
