@@ -49,6 +49,7 @@ export default function Form (props: IProps): JSX.Element {
             className={props.className}
             items={items}
             onSubmit={(values: {[key: string]: any}) => {
+                app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey)
                 if(props.meta.filter) {
                     setFilter(props.pageKey, props.meta.filter,values) 
                 }else {

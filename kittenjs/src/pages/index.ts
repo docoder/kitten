@@ -1,3 +1,3 @@
 import { createContainer } from './unstated'
-import usePage from '../hooks/usePage'
+import usePage from '../hooks/pages/usePage'
 export default createContainer(usePage)

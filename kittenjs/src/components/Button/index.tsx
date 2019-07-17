@@ -25,6 +25,7 @@ export default function Buttons(props: IProps): JSX.Element {
         }}
         {...props.meta} 
         onClick={() => {
+            app.hooks.beforeButtonClick.call(app.config.appKey, props.pageKey, props.buttonKey)
             if (props.meta.modal && props.meta.modal.length > 0) {
                 showModal(props.pageKey, props.meta.modal)
             }

@@ -61,15 +61,23 @@ export interface ConfigType {
 }
 export interface AppHooks {
     afterMenusFetched: Hook;
+    
     afterPageLoaded: Hook;
     afterPageUnloaded: Hook;
+
     afterComponentLoaded: Hook;
     afterComponentUnloaded: Hook;
-    afterFormSelectFetched: Hook;
-    afterTableDataSourceFetched: Hook;
+
     beforeFormSelectFetched: Hook;
+    afterFormSelectFetched: Hook;
+
     beforeTableDataSourceFetched: Hook;
+    afterTableDataSourceFetched: Hook;
+
     beforeTableColumnFinalization: Hook;
+
+    beforeButtonClick: Hook;
+    beforeFormSubmit: Hook;
 }
 interface AppType {
     config: ConfigType;
@@ -127,6 +135,9 @@ class HooksProvider {
                 'pageKey',
                 'column',
             ]),
+            
+            beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
+            beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values'])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {
