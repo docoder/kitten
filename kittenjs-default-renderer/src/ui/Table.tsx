@@ -13,6 +13,10 @@ export default function _Table(dom: HTMLElement, props: {[propName: string]: any
             scrollWidth={1000}
             floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
             columnsConfigGlobalTableKey={`Kitten-Reconciler-UI-Table-${props.appKey}-${props.pageKey}`}
+            pagination={props.pagination}
+            onChange={(pagination: any) => {
+               props.onPageChange(pagination.current, pagination.pageSize) 
+            }}
         />,
         dom,
     );

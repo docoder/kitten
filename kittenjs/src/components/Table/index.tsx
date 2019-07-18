@@ -17,6 +17,7 @@ interface IProps {
     meta: {
         url: string,
         data?: {[x:string]: any},
+        pageSize?: number,
         method: string
     } 
     columns: (TableColumn[]);
@@ -38,7 +39,7 @@ export default function Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, c);
         return {...c, dataIndex: c.key, title: c.label}
     })
-    const dataSource = useTable(props.pageKey, props.tableKey, columns, props.meta);
+    const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta);
     return (
         <k_table
             style={{
@@ -50,6 +51,16 @@ export default function Table(props: IProps): JSX.Element {
             rowKey={rowKey}
             columns={columns}
             dataSource={dataSource}
+            onPageChange={(page: number, pSize: number) => {
+                if (page !== currentPage) setCurrentPage(page)
+                if (pSize !== pageSize) setPageSize(pSize)
+            }}
+            pagination={{
+                current: currentPage,
+                total: total,
+                pageSize: pageSize,
+                position: 'both'
+            }}
         />
     );
 };

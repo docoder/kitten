@@ -6,6 +6,7 @@ export default function useFilter() {
         return f;
     }
     const setFilter = (pageKey: string, tableKey: string, values: {[x:string]: any}) => {
+        values.resetCurrentPage = true
         _setFilter({
             ..._filter,
             [`${pageKey}_${tableKey}`]: values

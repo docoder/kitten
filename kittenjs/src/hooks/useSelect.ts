@@ -47,6 +47,38 @@ export default function useSelect(
                     .map(async i => {
                         if (i.meta && i.meta.data) {
                             return i
+                        }else if (i.meta && i.meta.ref) {
+                            if (i.meta.refData) {
+                                i.meta.data = (refValue: string) => {
+                                    return i.meta.refData[refValue]
+                                }
+                                return i
+                            }else if (i.meta.url) {
+                                i.meta.data = (refValue: string) => {
+                                    const originalUrl = i.meta.url
+                                    async function fetchRefData(rfv: string) {
+                                        const url = originalUrl.replace('$refValue', rfv)
+                                        const selectData = await fetchSelectData(
+                                            pp,
+                                            ff,
+                                            i.key,
+                                            url
+                                        ); 
+                                        i.meta.data = await ((rv:string) => { 
+                                            return (r: string) => {
+                                                if (r === rv) return selectData
+                                                else {
+                                                    fetchRefData(r)
+                                                    return []
+                                                }
+                                            }
+                                        })(rfv)
+                                        dispatch({type, data: itms})
+                                    }
+                                    fetchRefData(refValue)
+                                    return []
+                                }
+                            }
                         }else if (i.meta && i.meta.url) {
                             i.meta.data = await fetchSelectData(
                                 pp,

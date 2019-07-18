@@ -1,6 +1,6 @@
 {
   "name": "kittenjs-default-render",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Kittenjs default render",
   "author": "docoder",
   "main": "build/index.js",

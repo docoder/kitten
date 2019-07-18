@@ -44,11 +44,36 @@ const sub1PageJSON: PageSection[] = [
                         {value: '1', label: '类型2'},
                         {value: '2', label: '类型3'} 
                     ],
-                    url:
-                        'https://api.example.com/types',
-                    method: 'GET',
+                    // url:
+                    //     'https://api.example.com/types',
+                    // method: 'GET',
                 },
             },
+            {
+                key: 'province',
+                label: '省',
+                type: 'select',
+                meta: {
+                    data: [
+                        {value: '0', label: '北京'},
+                        {value: '1', label: '山东'},
+                    ]
+                }
+            },
+            { 
+                key: 'city', 
+                label: '城市',
+                type: 'select',
+                meta: {
+                    ref: 'province',
+                    refData: {
+                        '0': [{value: '0', label: '北京'}],
+                        '1': [{value: '1', label: '烟台'}, {value: '2', label: '济南'}, {value:'3', label: '青岛'}]
+                    },
+                    // url: 'https://api.example.com/cities?provinceId=$refValue',
+                    // method: 'GET'
+                }
+            }
         ],
         meta: {
             filter: 'sub1Table',
@@ -102,6 +127,7 @@ const sub1PageJSON: PageSection[] = [
                     items: '类型3项目',
                 }
             ],
+            pageSize: 1,
             url:
                 'https://api.example.com/sub1/list',
             method: 'GET',

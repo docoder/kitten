@@ -5,10 +5,17 @@ import { debugHooks } from './debug-hooks';
 interface FilterMeta {
     filter: string
 }
+interface RefDataMeta {
+    ref: string,
+    refData?: {[x:string]: {[x:string]: any}[]}
+}
+interface DataMeta {
+    data: {[x:string]: any}[]
+    pageSize?: number
+}
 interface FetchMeta {
     url: string
     method?: string
-    data?: {[x:string]: any}[]
 }
 export interface ActionMeta {
     label: string
@@ -20,7 +27,7 @@ interface LayoutMeta {
     direction: string
     width?: number
 }
-export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta
+export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 export interface PageSectionItem {
     key: string
     label: string
