@@ -28,12 +28,20 @@ interface LayoutMeta {
     width?: number
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
+
+export interface TableAction {
+    key: string
+    label: string
+    modal?: string
+}
 export interface PageSectionItem {
     key: string
     label: string
     id?: boolean
     type?: string
     meta?: FetchMeta
+    actions?: TableAction[]
+    editable?: boolean
 }
 export interface PageSection {
     type: string

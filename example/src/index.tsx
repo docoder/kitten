@@ -87,14 +87,23 @@ const sub1PageJSON: PageSection[] = [
             {
                 key: 'number',
                 label: '编号',
-                // editable: {number: 'none'},
             },
             {key: 'type', label: '类型'},
             {
                 key: 'items',
                 label: '项目',
-                //render: 'split', render: '${number} - ${type}'
             },
+            {
+                key: 'operations',
+                label: '操作',
+                actions: [
+                    {
+                        key: 'sub1Edit',
+                        label: '编辑',
+                        modal: 'sub1EditModal'
+                    }
+                ]
+            }
         ],
         meta: {
             data: [
@@ -168,7 +177,43 @@ const sub1PageJSON: PageSection[] = [
             label: '批量更新',
             width: 400
         }
-    }
+    },
+    {
+        type: 'Modal',
+        key: 'sub1EditModal',
+        items: [
+            {
+                type: 'Form',
+                key: 'sub1EditModal',
+                items: [
+                    {
+                        key: 'type',
+                        label: '类型',
+                        type: 'select',
+                        meta: {
+                            data: [
+                                {value: '0', label: '类型1'},
+                                {value: '1', label: '类型2'},
+                                {value: '2', label: '类型3'} 
+                            ],
+                            url:
+                                'https://api.example.com/types',
+                            method: 'GET',
+                        },
+                    },
+                ],
+                meta: {
+                    url: 'https://api.example.com/sub1/batchUpdateTypes',
+                    modal: 'sub1EditModal',
+                    method: 'POST'
+                },
+            }
+        ],
+        meta: {
+            label: '编辑',
+            width: 400
+        }
+    } 
 ]
 const sub2PageJSON: PageSection[] = [
     {
@@ -201,7 +246,7 @@ const sub2PageJSON: PageSection[] = [
         type: 'Table',
         key: 'sub2Table',
         items: [
-            {key: 'id', label: 'ID', id: true},
+            {key: 'id', label: 'ID'},
             {
                 key: 'order',
                 label: '单号',

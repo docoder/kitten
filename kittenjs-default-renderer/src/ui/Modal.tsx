@@ -3,7 +3,7 @@ import { Modal } from 'ant-colony-ui'
 import ReactCommon from '../index';
 
 export default function _Modal(dom: HTMLElement, props: {[propName: string]: any}) {
-    console.log('===MODAL-PROPS===:', props)
+    // console.log('===MODAL-PROPS===:', props)
     ReactCommon.render(
         <Modal
             visible={props.visible}

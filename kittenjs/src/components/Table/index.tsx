@@ -1,16 +1,12 @@
 
 import React from 'react';
-import { App } from '../../app';
+import { App, PageSectionItem, TableAction } from '../../app';
 import useTable from '../../hooks/useTable'
-
-export type TableColumn = {
-    key: string,
-    label: string,
-    editable?: {[key: string]: any},
-    render?: {[key:string]: any},
-    id?: boolean
+import Pages from '../../pages'
+export interface TableColumn extends PageSectionItem {
+    render?: any
+    editable?: any
 }
-
 interface IProps {
     style?: React.CSSProperties;
     className?: string;
@@ -33,9 +29,23 @@ export default function Table(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props)
         }
     }, [])
+    const { showModal } = Pages.useContainer()
     const keyItem = props.columns.find(c => !!c.id)
     const rowKey = keyItem ? keyItem.key : 'key'
-    const columns = props.columns.map((c: {[propName: string]: any}) => {
+    const columns = props.columns.map((c: TableColumn) => {
+        if (c.actions && c.actions.length > 0) {
+            c.actions = c.actions.map((a: TableAction) => ({
+                key: a.key,
+                label: a.label,
+                callback: (text: string, record: any, index: number) => {
+                    if (a.modal && a.modal.length > 0) {
+                        showModal(props.pageKey, a.modal)
+                    } 
+                },
+                show: true,
+                modal: a.modal
+            }))
+        }
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, c);
         return {...c, dataIndex: c.key, title: c.label}
     })

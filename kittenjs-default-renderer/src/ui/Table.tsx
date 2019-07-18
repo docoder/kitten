@@ -4,7 +4,7 @@ import {Table} from 'ant-colony-ui';
 
 export default function _Table(dom: HTMLElement, props: {[propName: string]: any}) {
     
-    // console.log('===TABLE-PROPS===:', props)
+    console.log('===TABLE-PROPS===:', props)
     ReactDOM.render(
         <Table
             columns={props.columns}

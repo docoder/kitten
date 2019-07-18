@@ -63,7 +63,7 @@ export default function useTable(
                 })
                 totalCount = dataSource.length
             } else {
-                //TODO: doc {code: 0, data: {list: [...], total: xxx}}
+                //TODO: doc: {code: 0, data: {list: [...], total: xxx}}
                 const result = await send(u, {...filter, currentPage, total, pageSize})
                 if (result && result.data && result.data.list && result.data.total) {
                     dataSource = result.data.list
@@ -77,7 +77,8 @@ export default function useTable(
                 columns,
                 dataSource,
             );
-            dispatch({type: dataType, dataSource, total: totalCount})
+            //TODO: doc: better to config "id: true", or use index key
+            dispatch({type: dataType, dataSource: dataSource.map((d: any, i: number) => ({...d, key: i})), total: totalCount})
         }
         fetchTableData(pageKey, tableKey, meta.url);
     }, [pageKey, tableKey, meta.url, filter, currentPage, pageSize]);
