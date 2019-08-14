@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Table} from 'ant-colony-ui';
-
-export default function _Table(dom: HTMLElement, props: {[propName: string]: any}) {
+import {Table as AntTable} from 'ant-colony-ui';
+import styled from 'styled-components';
+const StyledTable = styled(AntTable)`
+    margin-top: ${props => props.blank ? '0px': '-20px'};
+`;
+export function Table(dom: HTMLElement, props: {[propName: string]: any}) {
     
     console.log('===TABLE-PROPS===:', props)
     ReactDOM.render(
-        <Table
+        <StyledTable
             columns={props.columns}
             dataSource={props.dataSource}
             rowKey={props.rowKey}
@@ -14,6 +17,7 @@ export default function _Table(dom: HTMLElement, props: {[propName: string]: any
             floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
             columnsConfigGlobalTableKey={`Kitten-Reconciler-UI-Table-${props.appKey}-${props.pageKey}`}
             pagination={props.pagination}
+            blank={props.pagination.total <= 0}
             onChange={(pagination: any) => {
                props.onPageChange(pagination.current, pagination.pageSize) 
             }}

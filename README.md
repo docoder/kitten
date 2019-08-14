@@ -86,8 +86,8 @@ yarn run dev
 **You can see [example ](https://github.com/docoder/kitten/tree/master/example) for detail**
 
 ```typescript
-import Kitten from 'kittenjs'
-import Renderer from 'kittenjs-default-render'
+import { Kitten } from 'kittenjs'
+import { Renderer } from 'kittenjs-default-render'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 const app = new Kitten({

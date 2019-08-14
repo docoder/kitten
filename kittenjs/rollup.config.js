@@ -11,17 +11,18 @@ export default {
     {
       file: pkg.main,
       format: "cjs",
-      exports: "named",
       sourcemap: true
     },
     {
       file: pkg.module,
       format: "es",
-      exports: "named",
       sourcemap: true
     }
   ],
-  external: ['util', 'react-dom'],
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
+  ],
   plugins: [
     external(),
     resolve(),

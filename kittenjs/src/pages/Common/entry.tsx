@@ -1,8 +1,8 @@
 import React from 'react'
 import { AppProvider, ConfigType } from '../../app'
-import Plugin from '../../plugins'
-import Pages from '../'
-import Page from './page'
+import { Plugin } from '../../plugins'
+import { Pages } from '../'
+import { Page } from './page'
 
 interface IProps {
     title: string,
@@ -24,8 +24,7 @@ export function isEntryPropsWithAPI (item: IPropsWithAPI | IPropsWithJSON): item
     return false
 }
 export type EntryProps = IPropsWithAPI | IPropsWithJSON
-export default function Entry(props: EntryProps):JSX.Element {
-     
+function _Entry(props: EntryProps):JSX.Element {
     const { config, plugins, pageKey, debugHooks } = props;
     let pageAPI = undefined;
     let pageJSON = undefined;
@@ -43,3 +42,4 @@ export default function Entry(props: EntryProps):JSX.Element {
     );
 };
 
+export const Entry = React.memo(_Entry)

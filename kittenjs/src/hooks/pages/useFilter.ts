@@ -1,5 +1,5 @@
 import React from 'react'
-export default function useFilter() {
+export function useFilter() {
     const [_filter, _setFilter] = React.useState<{[x: string]: {[x:string]: any}}>({})
     const getFilter = (pageKey: string, tableKey: string) => {
         const f = _filter[`${pageKey}_${tableKey}`]

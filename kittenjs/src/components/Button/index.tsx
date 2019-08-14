@@ -1,6 +1,6 @@
 import React from 'react'
 import { App, ActionMeta } from '../../app'
-import Pages from '../../pages'
+import { Pages } from '../../pages'
 
 interface IProps {
     style?: React.CSSProperties;
@@ -9,7 +9,7 @@ interface IProps {
     buttonKey: string;
 }
 
-export default function Buttons(props: IProps): JSX.Element {
+function _Buttons(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'button', props)
@@ -33,3 +33,4 @@ export default function Buttons(props: IProps): JSX.Element {
     );
 };
 
+export const Buttons = React.memo(_Buttons)

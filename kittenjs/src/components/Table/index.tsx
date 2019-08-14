@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { App, PageSectionItem, TableAction } from '../../app';
-import useTable from '../../hooks/useTable'
-import Pages from '../../pages'
+import { useTable } from '../../hooks/useTable'
+import { Pages } from '../../pages'
 export interface TableColumn extends PageSectionItem {
     render?: any
     editable?: any
@@ -21,7 +21,7 @@ interface IProps {
     tableKey: string;
 }
 
-export default function Table(props: IProps): JSX.Element {
+function _Table(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'table', props)
@@ -74,6 +74,4 @@ export default function Table(props: IProps): JSX.Element {
         />
     );
 };
-Table.defaultProps = {
-    method: 'GET',
-};
+export const Table = React.memo(_Table)

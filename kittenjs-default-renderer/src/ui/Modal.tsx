@@ -1,11 +1,11 @@
 import React from 'react'
-import { Modal } from 'ant-colony-ui'
-import ReactCommon from '../index';
+import { Modal as AntModal } from 'ant-colony-ui'
+import { Renderer as ReactCommon } from '../index';
 
-export default function _Modal(dom: HTMLElement, props: {[propName: string]: any}) {
+export function Modal(dom: HTMLElement, props: {[propName: string]: any}) {
     // console.log('===MODAL-PROPS===:', props)
     ReactCommon.render(
-        <Modal
+        <AntModal
             visible={props.visible}
             title={
                 <div style={{
@@ -27,7 +27,7 @@ export default function _Modal(dom: HTMLElement, props: {[propName: string]: any
             footer={null}
         >
           {props.children}
-        </Modal>,
+        </AntModal>,
         dom,
         ()=>{}
     );

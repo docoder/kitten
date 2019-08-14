@@ -1,9 +1,10 @@
 import React from 'react'
 import {App} from '../app'
-import useGET from '../hooks/useGET'
-import Pages from '../pages'
+import { useGET } from '../hooks/useGET'
+import { Pages } from '../pages'
+import { getValueByKeypath } from '../utils/modal'
 
-export default function useTable(
+export function useTable(
     pageKey: string,
     tableKey: string,
     columns: any[],
@@ -11,11 +12,12 @@ export default function useTable(
         url: string,
         data?: {[x:string]: any},
         pageSize?: number,
+        alias?: {[x:string]: string},
         method: string
     } 
 ): {dataSource: any[], currentPage: number, total: number, pageSize: number, setCurrentPage: Function, setPageSize: Function} {
     const app = React.useContext(App);
-    const { send } = useGET()
+    const get = useGET()
     const filter = Pages.useContainer().getFilter(pageKey, tableKey)
     const dataType = "TABLE_DATA_FETCHED"
     const pageType = "TABLE_SET_CURRENT_PAGE"
@@ -35,18 +37,24 @@ export default function useTable(
 		},
 		{ dataSource: [], currentPage: 1, total: 0, pageSize: meta.pageSize || 20 }
     );
-    const { currentPage, total, pageSize } = state
-    const setCurrentPage = (page: number) => {
-        dispatch({type: pageType, page})
-    }
-    const setPageSize = (size: number) => {
-        dispatch({type: sizeType, size})
-    }
+    const { currentPage, pageSize } = state
+    const setCurrentPage = React.useCallback(
+        (page: number) => {
+            dispatch({type: pageType, page})
+        },
+        []
+    )
+    const setPageSize = React.useCallback((size: number) => {
+            dispatch({type: sizeType, size})
+        },
+        []
+    )
     if (filter && filter.resetCurrentPage) {
         dispatch({type: pageType, page: 1})
-        filter.resetCurrentPage = false
+        delete filter.resetCurrentPage
     }
     React.useEffect(() => {
+        let mounted = true
         async function fetchTableData(p: string, t: string, u: string) {
             app.hooks.beforeTableDataSourceFetched.call(
                 app.config.appKey,
@@ -64,10 +72,22 @@ export default function useTable(
                 totalCount = dataSource.length
             } else {
                 //TODO: doc: {code: 0, data: {list: [...], total: xxx}}
-                const result = await send(u, {...filter, currentPage, total, pageSize})
-                if (result && result.data && result.data.list && result.data.total) {
-                    dataSource = result.data.list
-                    totalCount = result.data.total
+                let currentPageKey = 'currentPage'
+                let pageSizeKey = 'pageSize'
+                let listKey = 'list'
+                let totalKey = 'total'
+                if (meta.alias) {
+                    if (meta.alias.currentPage) currentPageKey = meta.alias.currentPage
+                    if (meta.alias.pageSize) pageSizeKey = meta.alias.pageSize
+                    if (meta.alias.list) listKey = meta.alias.list
+                    if (meta.alias.total) totalKey = meta.alias.total
+                }
+                const result = await get(u, {...filter, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
+                let list = getValueByKeypath(result.data, listKey)
+                let total = getValueByKeypath(result.data, totalKey)
+                if (result && result.data && list && total) {
+                    dataSource = list
+                    totalCount = total
                 }
             }
             app.hooks.afterTableDataSourceFetched.call(
@@ -78,9 +98,10 @@ export default function useTable(
                 dataSource,
             );
             //TODO: doc: better to config "id: true", or use index key
-            dispatch({type: dataType, dataSource: dataSource.map((d: any, i: number) => ({...d, key: i})), total: totalCount})
+            if (mounted) dispatch({type: dataType, dataSource: dataSource.map((d: any, i: number) => ({...d, key: i})), total: totalCount})
         }
         fetchTableData(pageKey, tableKey, meta.url);
+        return () => {mounted = false}
     }, [pageKey, tableKey, meta.url, filter, currentPage, pageSize]);
 
     return {...state, setCurrentPage, setPageSize};

@@ -1,4 +1,4 @@
 import { AppHooks } from '../app'
-export default interface Plugin {
+export interface Plugin {
     apply(hooks: AppHooks): void 
 }

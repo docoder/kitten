@@ -1,8 +1,8 @@
 import React from 'react'
-import Pages from '../../pages'
-import Alert from '../Alert'
-import Loading from '../Loading'
-export default function Indicator(): JSX.Element {
+import { Pages } from '../../pages'
+import { Alert } from '../Alert'
+import { Loading } from '../Loading'
+function _Indicator(): JSX.Element {
     
     const {
         error,
@@ -48,6 +48,7 @@ export default function Indicator(): JSX.Element {
             onClose={clearSuccess}
         />
     );
+    console.log('rrrrr>>>>', requestQuantity)
     return (
         <>
             { errorAlert }
@@ -58,3 +59,4 @@ export default function Indicator(): JSX.Element {
         </>
     )
 }
+export const Indicator = React.memo(_Indicator)

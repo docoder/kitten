@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import {Form} from 'ant-colony-ui';
+import {Form as AntForm} from 'ant-colony-ui';
 import styled from 'styled-components';
-const ModalForm = styled(Form)`
+const ModalForm = styled(AntForm)`
     & .ant-form {
         background: white;
         border: 0px;
@@ -13,9 +13,9 @@ const ModalForm = styled(Form)`
         padding: 0px;
     }
 `;
-export default function _Form(dom: HTMLElement, props: {[propName: string]: any}) {
-    // console.log('===FORM-PROPS===:', props)
-    const RealForm = props.inModal ? ModalForm : Form
+export function Form(dom: HTMLElement, props: {[propName: string]: any}) {
+    console.log('===FORM-PROPS===:', props)
+    const RealForm = props.inModal ? ModalForm : AntForm
     ReactDOM.render(
         <RealForm
             forms={props.items}

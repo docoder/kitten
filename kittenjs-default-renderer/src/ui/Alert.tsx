@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import {Alert} from 'ant-colony-ui';
+import {Alert as AntAlert} from 'ant-colony-ui';
 import styled from 'styled-components';
 
-const AppAlert = styled(Alert)`
+const AppAlert = styled(AntAlert)`
     &.ant-alert-with-description {
         position: fixed;
         top: 64px;
@@ -18,7 +18,7 @@ const AppAlert = styled(Alert)`
     }
     z-index: 150;
 `;
-export default function _Alert(dom: HTMLElement, props: {[propName: string]: any}) {
+export function Alert(dom: HTMLElement, props: {[propName: string]: any}) {
     // console.log('===ALERT-PROPS===:', props)
     ReactDOM.render(
         <AppAlert

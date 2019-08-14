@@ -5,7 +5,7 @@ const base = require('./webpack.base.config');
 module.exports = smart(base, {
     mode: 'development',
     devServer: {
-        port: 3000,
+        port: 3001,
         progress: true,
         contentBase: './build',
         compress: true,

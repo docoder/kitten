@@ -1,11 +1,12 @@
-import App from './App'
-import Page from './Page'
-import Table from './Table'
-import Form from './Form'
-import Alert from './Alert'
-import Loading from './Loading'
-import Button from './Button'
-import Stack from './Stack'
+import { App } from './App'
+import { Page } from './Page'
+import { Table } from './Table'
+import { Form } from './Form'
+import { Alert } from './Alert'
+import { Loading } from './Loading'
+import { Indicator } from './Indicator'
+import { Buttons } from './Button'
+import { Stack } from './Stack'
 
 export {
     App,
@@ -14,7 +15,8 @@ export {
     Form,
     Alert,
     Loading,
-    Button,
+    Indicator,
+    Buttons,
     Stack
 }
 

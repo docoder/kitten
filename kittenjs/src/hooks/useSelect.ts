@@ -1,14 +1,15 @@
 import React from 'react';
-import useGET from './useGET'
+import { useGET } from './useGET'
 import {App} from '../app';
 import {FormItem} from '../components/Form';
-export default function useSelect(
+import { getValueByKeypath } from '../utils/modal'
+export function useSelect(
     pageKey: string,
     formKey: string,
     items: any[]
 ): FormItem[] {
     const app = React.useContext(App)
-    const { send } = useGET()
+    const get = useGET()
     const type = 'SELECT_DATA_FETCHED'
     const [state, dispatch] = React.useReducer(
         (state, action) => {
@@ -22,7 +23,8 @@ export default function useSelect(
         {data: items},
     )
     React.useEffect(() => {
-        async function fetchSelectData( p: string, f: string, k: string, u: string) {
+        let mounted = true;
+        async function fetchSelectData( p: string, f: string, k: string, u: string, a: {[x:string]: string}) {
             app.hooks.beforeFormSelectFetched.call(
                 app.config.appKey,
                 p,
@@ -30,18 +32,28 @@ export default function useSelect(
                 items,
                 k,
             );
-            const data = await send (u) || []
+            const result = await get (u) || []
             app.hooks.afterFormSelectFetched.call(
                 app.config.appKey,
                 p,
                 f,
                 items,
                 k,
-                data,
+                result.data,
             );
+            //TODO: doc
+            let data = result.data
+            if (a) {
+                data = data.map((d: any) => ({
+                    label: getValueByKeypath(d, a.label || 'label'),
+                    value: getValueByKeypath(d, a.value || 'value')
+                }))
+            }
             return data
         }
         async function handleSelect(pp: string, ff: string, itms: any[]) {
+            const hasSelect = itms.find(i => i.type === 'select')
+            if (!hasSelect) return // 阻止无 select 的 items 造成一次重复渲染
             await Promise.all(
                 itms.filter(i => i.type === 'select')
                     .map(async i => {
@@ -54,6 +66,7 @@ export default function useSelect(
                                 }
                                 return i
                             }else if (i.meta.url) {
+                                const cachedSelectedData: {[x:string]: any} = {} // 缓存已经请求的结果，不用再次请求
                                 i.meta.data = (refValue: string) => {
                                     const originalUrl = i.meta.url
                                     async function fetchRefData(rfv: string) {
@@ -62,18 +75,21 @@ export default function useSelect(
                                             pp,
                                             ff,
                                             i.key,
-                                            url
+                                            url,
+                                            i.meta.alias
                                         ); 
-                                        i.meta.data = await ((rv:string) => { 
+                                        cachedSelectedData[rfv] = selectData
+                                        i.meta.data = ((rv:string) => { 
                                             return (r: string) => {
                                                 if (r === rv) return selectData
+                                                else if (cachedSelectedData[r]) return cachedSelectedData[r]
                                                 else {
                                                     fetchRefData(r)
                                                     return []
                                                 }
                                             }
                                         })(rfv)
-                                        dispatch({type, data: itms})
+                                        if(mounted) dispatch({type, data: itms})
                                     }
                                     fetchRefData(refValue)
                                     return []
@@ -85,6 +101,7 @@ export default function useSelect(
                                 ff,
                                 i.key,
                                 i.meta.url,
+                                i.meta.alias
                             );
                             return i
                         }else {
@@ -92,9 +109,11 @@ export default function useSelect(
                         }
                     }),
             );
-            dispatch({type, data: itms})
+            if(mounted) dispatch({type, data: itms})
         }
         handleSelect(pageKey, formKey, items)
+        const cleanup = () => { mounted = false; };
+        return cleanup;
     }, [pageKey, formKey, items])
     return state.data
 }

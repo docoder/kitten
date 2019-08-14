@@ -2,7 +2,7 @@ import React from 'react'
 import { App } from '../../components'
 import {inIframe} from '../../utils/Iframe'
 import { ConfigType } from '../../app'
-import Plugin from '../../plugins'
+import { Plugin } from '../../plugins'
 
 interface IProps {
     config: ConfigType
@@ -10,7 +10,7 @@ interface IProps {
     debugHooks?: string[]
 }
 
-export default function Index (props: IProps): JSX.Element {
+function _Index (props: IProps): JSX.Element {
     const hide = inIframe()
     const config = props.config
     const plugins = props.plugins
@@ -24,3 +24,4 @@ export default function Index (props: IProps): JSX.Element {
         />
     );
 };
+export const Index =  React.memo(_Index)

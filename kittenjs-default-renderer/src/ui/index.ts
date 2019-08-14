@@ -1,10 +1,10 @@
-import table from './Table'
-import form from './Form'
-import layout from './Layout'
-import alert from './Alert'
-import loading from './Loading'
-import button from './Button'
-import modal from './Modal'
+import { Table as table } from './Table'
+import { Form as form } from './Form'
+import { Layout as layout } from './Layout'
+import { Alert as alert } from './Alert'
+import { Loading as loading } from './Loading'
+import { Button as button } from './Button'
+import { Modal as modal } from './Modal'
 export {
     table as createTable,
     form as createForm,

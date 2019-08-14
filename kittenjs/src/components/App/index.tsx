@@ -1,6 +1,6 @@
 import React from 'react'
 import { ConfigType } from '../../app'
-import Plugin from '../../plugins'
+import { Plugin } from '../../plugins'
 
 export interface AppProps {
     style?: React.CSSProperties
@@ -11,7 +11,7 @@ export interface AppProps {
     hide: boolean
 }
 
-export default function Layout(props: AppProps): JSX.Element {
+function _Layout(props: AppProps): JSX.Element {
     return (
         <k_layout
             style={{
@@ -26,3 +26,4 @@ export default function Layout(props: AppProps): JSX.Element {
     );
 };
 
+export const App = React.memo(_Layout)

@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import {Button} from 'ant-colony-ui';
+import {Button as AntButton} from 'ant-colony-ui';
 
-export default function _Button(dom: HTMLElement, props: {[propName: string]: any}) {
-    // console.log('===BUTTON-PROPS===:', props)
-    let element = <Button
+export function Button(dom: HTMLElement, props: {[propName: string]: any}) {
+    console.log('===BUTTON-PROPS===:', props)
+    let element = <AntButton
             title={props.label} 
             onClick={props.onClick}
         />

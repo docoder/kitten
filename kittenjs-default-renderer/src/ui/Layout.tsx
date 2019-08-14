@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactCommon from '../index';
+import { Renderer as ReactCommon } from '../index';
 import {Frame} from 'ant-colony-ui';
 import {
     Router,
@@ -8,7 +8,7 @@ import {
     Redirect,
 } from 'react-router-dom';
 import { Entry, MenuItem, MenuGroup, isMenuGroup } from 'kittenjs'
-import connectRoute from '../utils/connectRoute';
+import { connectRoute } from '../utils/connectRoute';
 import { createBrowserHistory } from "history";
 interface PageLink {
     page: any;
@@ -17,7 +17,7 @@ interface PageLink {
     index: boolean;
 }
 const history = createBrowserHistory()
-export default function _Layout(
+export function Layout(
     dom: HTMLElement,
     props: {[x: string]: any},
 ) {

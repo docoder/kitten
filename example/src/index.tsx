@@ -44,6 +44,10 @@ const sub1PageJSON: PageSection[] = [
                         {value: '1', label: '类型2'},
                         {value: '2', label: '类型3'} 
                     ],
+                    alias: {
+                        label: 'typeName',
+                        value: 'typeId'
+                    }
                     // url:
                     //     'https://api.example.com/types',
                     // method: 'GET',
@@ -51,6 +55,7 @@ const sub1PageJSON: PageSection[] = [
             },
             {
                 key: 'province',
+                filterDisabled: true,
                 label: '省',
                 type: 'select',
                 meta: {
@@ -64,6 +69,7 @@ const sub1PageJSON: PageSection[] = [
                 key: 'city', 
                 label: '城市',
                 type: 'select',
+                filterAlias: 'cityId',
                 meta: {
                     ref: 'province',
                     refData: {
@@ -137,6 +143,11 @@ const sub1PageJSON: PageSection[] = [
                 }
             ],
             pageSize: 1,
+            alias: {
+                currentPage: 'page',
+                pageSize: 'size',
+                total: 'paginate.total' 
+            },
             url:
                 'https://api.example.com/sub1/list',
             method: 'GET',

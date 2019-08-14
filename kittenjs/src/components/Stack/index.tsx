@@ -1,9 +1,9 @@
 import React from 'react'
 import { App, PageSection } from '../../app'
-import Button from '../Button'
-import Table from '../Table'
-import Form from '../Form'
-import Modal from '../Modal'
+import { Buttons } from '../Button'
+import { Table } from '../Table'
+import { Form } from '../Form'
+import { Modal } from '../Modal'
 interface IProps {
     style?: React.CSSProperties;
     pageKey: string;
@@ -12,7 +12,7 @@ interface IProps {
     stackKey: string;
 }
 
-export default function Stack(props: IProps): JSX.Element {
+function _Stack(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'stack', props)
@@ -60,7 +60,7 @@ export default function Stack(props: IProps): JSX.Element {
                         )
                     case 'Button':
                         return (
-                            <Button
+                            <Buttons
                                 key={c.key}
                                 pageKey={props.pageKey}
                                 buttonKey={c.key}
@@ -87,3 +87,4 @@ export default function Stack(props: IProps): JSX.Element {
     );
 };
 
+export const Stack = React.memo(_Stack)

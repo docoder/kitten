@@ -1,11 +1,11 @@
 import React from 'react'
-import Index from './pages/Common'
-import Entry, { EntryProps, isEntryPropsWithAPI } from './pages/Common/entry'
+import { Index } from './pages/Common'
+import { Entry, EntryProps, isEntryPropsWithAPI } from './pages/Common/entry'
 import { ConfigType, MenuItem, MenuGroup, isMenuGroup, AppHooks, PageSection, PageSectionItem} from './app'
 import { AppProps } from './components/App'
 import { FormItem } from './components/Form'
 import { TableColumn } from './components/Table'
-import Plugin from './plugins'
+import { Plugin } from './plugins'
 
 class Kitten {
     config: ConfigType
@@ -26,7 +26,7 @@ class Kitten {
     }
 }
 export {
-    Kitten as default,
+    Kitten,
     Entry,
     Plugin,
     AppHooks,

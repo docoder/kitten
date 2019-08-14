@@ -8,7 +8,7 @@ interface IProps {
     timeout: Function;
 }
 
-export default function Alert(props: IProps): JSX.Element {
+function _Loading(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, 'global', 'loading', props)
@@ -24,5 +24,5 @@ export default function Alert(props: IProps): JSX.Element {
         />
     );
 };
-
+export const Loading = React.memo(_Loading)
  

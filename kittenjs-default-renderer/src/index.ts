@@ -390,7 +390,7 @@ const hostConfig: HostConfig = {
 const UIRenderer = Reconciler(
     hostConfig,
 );
-const ReactUI = {
+export const Renderer = {
     render(element: Reconciler.ReactNodeList, domContainer: Reconciler.OpaqueRoot | any, callback: () => void | null | undefined) {
         let root = domContainer._reactRootContainer;
 
@@ -408,4 +408,3 @@ const ReactUI = {
         return UIRenderer.updateContainer(element, root, null, callback);
     },
 };
-export default ReactUI;

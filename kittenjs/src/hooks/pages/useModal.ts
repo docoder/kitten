@@ -1,5 +1,5 @@
 import React from 'react'
-export default function useModal() {
+export function useModal() {
     const [_modalShow, _setModalShow] = React.useState<{[x: string]: boolean}>({})
     const isShowModal = (pageKey: string, modalKey: string) => {
         const f = _modalShow[`${pageKey}_${modalKey}`]

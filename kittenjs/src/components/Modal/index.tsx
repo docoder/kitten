@@ -1,7 +1,7 @@
 import React from 'react'
 import { App, PageSection } from '../../app'
-import Stack from '../Stack'
-import Pages from '../../pages'
+import { Stack } from '../Stack'
+import { Pages } from '../../pages'
 interface IProps {
     style?: React.CSSProperties
     title?: string
@@ -11,7 +11,7 @@ interface IProps {
     modalKey: string
 }
 
-export default function Page(props: IProps): JSX.Element {
+function _Modal(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'modal', props)
@@ -42,3 +42,4 @@ export default function Page(props: IProps): JSX.Element {
     );
 };
 
+export const Modal = React.memo(_Modal)

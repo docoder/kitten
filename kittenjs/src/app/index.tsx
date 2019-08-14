@@ -1,6 +1,6 @@
 import React from 'react';
 import {SyncHook, Hook} from 'tapable';
-import Plugin from '../plugins';
+import { Plugin } from '../plugins';
 import { debugHooks } from './debug-hooks';
 interface FilterMeta {
     filter: string
@@ -16,6 +16,7 @@ interface DataMeta {
 interface FetchMeta {
     url: string
     method?: string
+    alias?: {[x:string]: string}
 }
 export interface ActionMeta {
     label: string
@@ -46,6 +47,8 @@ export interface PageSectionItem {
 export interface PageSection {
     type: string
     key: string
+    filterAlias?: string
+    filterDisabled?: boolean
     items?: (PageSectionItem | PageSection)[]
     meta?: Meta
 }
