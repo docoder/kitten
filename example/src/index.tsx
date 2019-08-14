@@ -1,5 +1,5 @@
-import Kitten, { PageSection } from 'kittenjs'
-import Renderer from 'kittenjs-default-render'
+import { Kitten, PageSection } from 'kittenjs'
+import { Renderer } from 'kittenjs-default-render'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 const sub1PageJSON: PageSection[] = [
