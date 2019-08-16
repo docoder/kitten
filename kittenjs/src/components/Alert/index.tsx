@@ -17,8 +17,9 @@ function _Alert(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'alert', props)
         }
     }, [])
+    const Comp = app.ui? app.ui.Alert : null
     return (
-        <k_alert 
+        <Comp
             type={props.type}
             message={props.message}
             description={props.description}

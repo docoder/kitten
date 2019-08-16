@@ -14,13 +14,14 @@ function _Page(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'page', props)
         }
     }, [])
+    const Comp = app.ui? app.ui.Page : null
     return (
-        <k_page
+        <Comp
             style={{
                 ...props.style,
             }}>
-            {props.children} 
-        </k_page>
+            {props.children}
+        </Comp>
     );
 };
 

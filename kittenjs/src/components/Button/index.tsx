@@ -9,7 +9,7 @@ interface IProps {
     buttonKey: string;
 }
 
-function _Buttons(props: IProps): JSX.Element {
+function _Button(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'button', props)
@@ -18,8 +18,9 @@ function _Buttons(props: IProps): JSX.Element {
         }
     }, [])
     const { showModal } = Pages.useContainer()
+    const Comp = app.ui? app.ui.Button : null
     return (
-        <k_button 
+        <Comp 
         style={{
             ...props.style,
         }}
@@ -33,4 +34,4 @@ function _Buttons(props: IProps): JSX.Element {
     );
 };
 
-export const Buttons = React.memo(_Buttons)
+export const Button = React.memo(_Button)

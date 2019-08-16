@@ -1,6 +1,6 @@
 import React from 'react'
 import { App, PageSection } from '../../app'
-import { Buttons } from '../Button'
+import { Button } from '../Button'
 import { Table } from '../Table'
 import { Form } from '../Form'
 import { Modal } from '../Modal'
@@ -22,7 +22,11 @@ function _Stack(props: IProps): JSX.Element {
     }, [])
     const vertical = props.direction === 'vertical'
     return (
-        <div style={{display: 'flex', flexDirection: vertical ? 'column' : 'row', ...vertical?{marginBottom: '-20px'} : {marginRight: '-10px'}, ...props.style}}>
+        <div style={{
+                display: 'flex', 
+                flexDirection: vertical ? 'column' : 'row', 
+                ...props.style
+            }}>
             {props.items.map((c: any) => {
                 switch (c.type) {
                     case 'Table':
@@ -60,7 +64,7 @@ function _Stack(props: IProps): JSX.Element {
                         )
                     case 'Button':
                         return (
-                            <Buttons
+                            <Button
                                 key={c.key}
                                 pageKey={props.pageKey}
                                 buttonKey={c.key}

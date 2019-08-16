@@ -1,25 +1,14 @@
 import React from 'react'
-import { App } from '../../components'
+import { Layout } from '../../components'
 import {inIframe} from '../../utils/Iframe'
-import { ConfigType } from '../../app'
-import { Plugin } from '../../plugins'
+import { App } from '../../app'
 
-interface IProps {
-    config: ConfigType
-    plugins: Plugin[]
-    debugHooks?: string[]
-}
-
-function _Index (props: IProps): JSX.Element {
+function _Index (): JSX.Element {
     const hide = inIframe()
-    const config = props.config
-    const plugins = props.plugins
-    const debugHooks = props.debugHooks
+    const app = React.useContext(App)
     return (
-        <App
-            config={config}
-            plugins={plugins}
-            debugHooks={debugHooks}
+        <Layout
+            config={app.config}
             hide={hide}
         />
     );

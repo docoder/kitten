@@ -9,7 +9,7 @@ export function useGET() {
     const send = React.useCallback(
         async (url: string, filter?: {[x:string]: any}) => {
             try {
-                // startRequest();
+                startRequest();
                 let u = url;
                 if (filter && Object.keys(filter).length > 0) {
                     let paramsStr = '?';
@@ -19,7 +19,7 @@ export function useGET() {
                     u = `${url}${paramsStr.slice(0, -1)}`
                 }
                 const data = await GET(u, app.config.loginUrl)
-                // endRequest();
+                endRequest();
                 //TODO: DOC
                 if (data.code === 0 && data.data) {
                     return data

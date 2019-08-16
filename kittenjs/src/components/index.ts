@@ -1,22 +1,22 @@
-import { App } from './App'
+import { Layout } from './Layout'
 import { Page } from './Page'
 import { Table } from './Table'
 import { Form } from './Form'
 import { Alert } from './Alert'
 import { Loading } from './Loading'
 import { Indicator } from './Indicator'
-import { Buttons } from './Button'
+import { Button } from './Button'
 import { Stack } from './Stack'
 
 export {
-    App,
+    Layout,
     Page,
     Table,
     Form,
     Alert,
     Loading,
     Indicator,
-    Buttons,
+    Button,
     Stack
 }
 

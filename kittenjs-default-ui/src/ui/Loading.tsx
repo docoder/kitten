@@ -1,15 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import {Loading as AntLoading} from 'ant-colony-ui';
 
-export function Loading(dom: HTMLElement, props: {[propName: string]: any}) {
+export function Loading(props: {[propName: string]: any}) {
     // console.log('===LOADING-PROPS===:', props)
-    ReactDOM.render(
+    return (
         <AntLoading
             show={props.show}
             type={props.type}
             timeout={props.timeout}
-        />,
-        dom,
-    );
+        />
+    )
 }

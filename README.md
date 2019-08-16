@@ -9,13 +9,13 @@
 <div align="center">
   Server JSON Driving UI
 
- [![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)  [![NPM](https://img.shields.io/npm/v/kittenjs-default-render.svg)](https://www.npmjs.com/package/kittenjs-default-render)
+ [![NPM](https://img.shields.io/npm/v/kittenjs.svg)](https://www.npmjs.com/package/kittenjs)  [![NPM](https://img.shields.io/npm/v/kittenjs-default-ui.svg)](https://www.npmjs.com/package/kittenjs-default-ui)
 
 </div>
 
 ## ⚠️ Warning
 
-#### Kitten (kittenjs and kittenjs-default-render) is under active development
+#### Kitten (kittenjs and kittenjs-default-ui) is under active development
 
 #### Its API is not stable
 
@@ -29,10 +29,10 @@
 yarn add react kittenjs
 ```
 
-#### 2.kittenjs-default-render
+#### 2.kittenjs-default-ui
 
 ```bash
-yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-components kittenjs-default-render
+yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-components kittenjs-default-ui
 ```
 
 ## ⌨️ Development
@@ -43,7 +43,7 @@ yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-c
 cd kittenjs
 yarn
 
-cd kittenjs-default-render
+cd kittenjs-default-ui
 yarn
 
 cd example
@@ -58,14 +58,14 @@ yarn link
 # Fix Duplicate React: https://github.com/facebook/react/issues/15315#issuecomment-479802153
 npm link ../example/node_modules/react
 
-cd kittenjs-default-render
+cd kittenjs-default-ui
 yarn link
 yarn link "kittenjs"
 npm link ../example/node_modules/react
 
 cd example
 yarn link "kittenjs"
-yarn link "kittenjs-default-render"
+yarn link "kittenjs-default-ui"
 ```
 
 #### 3.run in development mode
@@ -74,7 +74,7 @@ yarn link "kittenjs-default-render"
 cd kittenjs
 yarn start
 
-cd kittenjs-default-render
+cd kittenjs-default-ui
 yarn start
 
 cd example
@@ -87,10 +87,10 @@ yarn run dev
 
 ```typescript
 import { Kitten } from 'kittenjs'
-import { Renderer } from 'kittenjs-default-render'
+import { Renderer, ui } from 'kittenjs-default-ui'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
-const app = new Kitten({
+const app = new Kitten(ui, {
     appKey: "ke",
     appTitle: 'Kitten Example',
     pageAPI: 'http://api.example.com/pages',

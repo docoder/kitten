@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import {Alert as AntAlert} from 'ant-colony-ui';
 import styled from 'styled-components';
 
@@ -18,15 +17,16 @@ const AppAlert = styled(AntAlert)`
     }
     z-index: 150;
 `;
-export function Alert(dom: HTMLElement, props: {[propName: string]: any}) {
+export function Alert( props: {[propName: string]: any}) {
     // console.log('===ALERT-PROPS===:', props)
-    ReactDOM.render(
+    return (
         <AppAlert
+            style={props.style}
+            className={props.className}
             type={props.type}
             messge={props.messge}
             description={props.description}
             onClose={props.onClose}
-        />,
-        dom,
-    );
+        />
+    )
 }

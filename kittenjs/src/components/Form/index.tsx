@@ -31,7 +31,7 @@ interface IProps {
 }
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
-    React.useEffect(() => {   
+    React.useEffect(() => {
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'form', props)
         return () => {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'form', props)
@@ -40,8 +40,9 @@ function _Form (props: IProps): JSX.Element {
     const items = useSelect(props.pageKey, props.formKey, props.items)
     const { setFilter } = Pages.useContainer()
     const submit = useSubmit(props.meta.url, props.meta.method, props.pageKey, props.meta.modal)
+    const Comp = app.ui? app.ui.Form : null
     return (
-        <k_form
+        <Comp
             style={{
                 ...props.style,
             }} 

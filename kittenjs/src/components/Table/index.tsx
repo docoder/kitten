@@ -50,8 +50,9 @@ function _Table(props: IProps): JSX.Element {
         return {...c, dataIndex: c.key, title: c.label}
     })
     const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta);
+    const Comp = app.ui? app.ui.Table : null
     return (
-        <k_table
+        <Comp
             style={{
                 ...props.style,
             }}

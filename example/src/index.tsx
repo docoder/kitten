@@ -1,5 +1,5 @@
 import { Kitten, PageSection } from 'kittenjs'
-import { Renderer } from 'kittenjs-default-render'
+import { Renderer, ui } from 'kittenjs-default-ui'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 const sub1PageJSON: PageSection[] = [
@@ -277,7 +277,7 @@ const sub2PageJSON: PageSection[] = [
     }
 ]
 
-const app = new Kitten({
+const app = new Kitten(ui, {
     appKey: "ke",
     appTitle: 'Kitten Example',
     pageAPI: 'http://api.example.com/pages',
@@ -286,7 +286,6 @@ const app = new Kitten({
         {
             key: 'dashbord',
             label: '仪表盘',
-            index: true,
             pageJSON: []
         }, {
             label: '菜单 1',

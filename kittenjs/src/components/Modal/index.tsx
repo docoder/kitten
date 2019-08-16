@@ -20,8 +20,9 @@ function _Modal(props: IProps): JSX.Element {
         }
     }, [])
     const { hideModal, isShowModal } = Pages.useContainer()
+    const Comp = app.ui? app.ui.Modal : null
     return (
-        <k_modal
+        <Comp
             style={{display: 'none'}}
             visible={isShowModal(props.pageKey, props.modalKey)}
             title={props.title}
@@ -30,15 +31,13 @@ function _Modal(props: IProps): JSX.Element {
                 hideModal(props.pageKey, props.modalKey)
             }}
         >
-            <Pages.Provider>
-                <Stack 
-                    pageKey={props.pageKey} 
-                    items={props.contens} 
-                    direction="vertical" 
-                    stackKey={`${props.pageKey}_${props.modalKey}_main_stack`} 
-                />
-            </Pages.Provider>
-        </k_modal>
+            <Stack 
+                pageKey={props.pageKey} 
+                items={props.contens} 
+                direction="vertical" 
+                stackKey={`${props.pageKey}_${props.modalKey}_main_stack`} 
+            />
+        </Comp>
     );
 };
 

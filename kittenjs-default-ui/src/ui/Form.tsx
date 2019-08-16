@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import {Form as AntForm} from 'ant-colony-ui';
 import styled from 'styled-components';
 const ModalForm = styled(AntForm)`
@@ -13,16 +12,18 @@ const ModalForm = styled(AntForm)`
         padding: 0px;
     }
 `;
-export function Form(dom: HTMLElement, props: {[propName: string]: any}) {
+export function Form(props: {[propName: string]: any}) {
     console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
-    ReactDOM.render(
+    return (
         <RealForm
+            style={props.style}
+            className={props.className}
             forms={props.items}
             onSubmit={props.onSubmit}
             actionDirection="right"
             columnCount={props.inModal ? 1 : 4}
-        />,
-        dom,
-    );
+            disableEnterSubmit={false}
+        />
+    ) 
 }

@@ -16,8 +16,9 @@ function _Loading(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'loading', props)
         }
     }, [])
+    const Comp = app.ui? app.ui.Loading : null
     return (
-        <k_loading
+        <Comp
             show={props.show}
             type={props.type}
             timeout={props.timeout}

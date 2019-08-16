@@ -1,11 +1,12 @@
 import React from 'react'
-import { AppProvider, ConfigType } from '../../app'
+import { UIType, ConfigType } from '../../app'
 import { Plugin } from '../../plugins'
 import { Pages } from '../'
 import { Page } from './page'
 
 interface IProps {
     title: string,
+    ui: UIType,
     config: ConfigType
     plugins: Plugin[]
     debugHooks?: string[]
@@ -25,7 +26,7 @@ export function isEntryPropsWithAPI (item: IPropsWithAPI | IPropsWithJSON): item
 }
 export type EntryProps = IPropsWithAPI | IPropsWithJSON
 function _Entry(props: EntryProps):JSX.Element {
-    const { config, plugins, pageKey, debugHooks } = props;
+    const { pageKey } = props;
     let pageAPI = undefined;
     let pageJSON = undefined;
     if (isEntryPropsWithAPI(props)) {
@@ -34,11 +35,9 @@ function _Entry(props: EntryProps):JSX.Element {
         pageJSON = props.pageJSON
     }
     return (
-        <AppProvider config={config} plugins={plugins} debugHooks={debugHooks}>
-            <Pages.Provider>
-               <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={pageJSON} />
-            </Pages.Provider>
-        </AppProvider>
+        <Pages.Provider>
+            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={pageJSON} />
+        </Pages.Provider>
     );
 };
 

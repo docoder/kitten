@@ -24,33 +24,15 @@ export default {
     ...Object.keys(pkg.peerDependencies || {})
   ],
   plugins: [
+    commonjs({
+      include: ["node_modules/**"],
+    }),
     external(),
     resolve(),
     typescript({
       rollupCommonJSResolveHack: true,
       exclude: "**/__tests__/**",
       clean: true
-    }),
-    commonjs({
-      include: ["node_modules/**"],
-      namedExports: {
-        "node_modules/react/index.js": [
-          "Children",
-          "Component",
-          "PropTypes",
-          "createElement",
-          "useLayoutEffect",
-          "useEffect",
-          "useMemo",
-          "useContext",
-          "useRef",
-          "useReducer"
-        ],
-        'node_modules/react-is/index.js': [
-            'isValidElementType', 
-            'isContextConsumer'
-        ]
-      }
     })
   ]
 };

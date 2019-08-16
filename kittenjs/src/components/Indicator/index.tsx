@@ -48,7 +48,6 @@ function _Indicator(): JSX.Element {
             onClose={clearSuccess}
         />
     );
-    console.log('rrrrr>>>>', requestQuantity)
     return (
         <>
             { errorAlert }

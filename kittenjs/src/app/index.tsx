@@ -2,6 +2,19 @@ import React from 'react';
 import {SyncHook, Hook} from 'tapable';
 import { Plugin } from '../plugins';
 import { debugHooks } from './debug-hooks';
+
+interface UI {
+    Alert: any
+    Button: any
+    Form: any
+    Loading: any
+    Modal: any
+    Page: any
+    Table: any
+    Layout: any
+}
+export type UIType = UI | null
+
 interface FilterMeta {
     filter: string
 }
@@ -98,8 +111,9 @@ export interface AppHooks {
     beforeFormSubmit: Hook;
 }
 interface AppType {
-    config: ConfigType;
-    hooks: AppHooks;
+    ui: UIType
+    config: ConfigType
+    hooks: AppHooks
 }
 class HooksProvider {
     hooks: AppHooks;
@@ -168,19 +182,21 @@ class HooksProvider {
         }
     }
 }
+
 const initialConfig = {
     appKey: 'YOUR_APP_KEY',
     appTitle: 'YOUR_APP_TITLE',
     menus: []
 }
-const common = {config: initialConfig, hooks: new HooksProvider([]).hooks};
+const common = {ui: null, config: initialConfig, hooks: new HooksProvider([]).hooks};
 export const App = React.createContext<AppType>(common);
 interface IProps {
-    config: ConfigType,
-    plugins: Plugin[],
-    debugHooks?: string[],
+    ui: UIType
+    config: ConfigType
+    plugins: Plugin[]
+    debugHooks?: string[]
     children: React.ReactNode
 }
 export function AppProvider(props: IProps) {
-    return <App.Provider value={{config: props.config, hooks: new HooksProvider(props.plugins, props.debugHooks).hooks}}>{props.children}</App.Provider>;
+    return <App.Provider value={{ui:props.ui, config: props.config, hooks: new HooksProvider(props.plugins, props.debugHooks).hooks}}>{props.children}</App.Provider>;
 }

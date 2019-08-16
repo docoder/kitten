@@ -19,9 +19,9 @@ export function useTable(
     const app = React.useContext(App);
     const get = useGET()
     const filter = Pages.useContainer().getFilter(pageKey, tableKey)
-    const dataType = "TABLE_DATA_FETCHED"
-    const pageType = "TABLE_SET_CURRENT_PAGE"
-    const sizeType = "TABLE_SET_PAGE_SIZE"
+    const dataType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_DATA_FETCHED`
+    const pageType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_SET_CURRENT_PAGE`
+    const sizeType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_SET_PAGE_SIZE`
 	const [state, dispatch] = React.useReducer(
 		(state, action) => {
 			switch (action.type) {
