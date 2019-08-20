@@ -11,7 +11,6 @@ export function useSelect(
     const app = React.useContext(App)
     const get = useGET()
     const type = `${pageKey.toUpperCase()}_${formKey.toUpperCase()}_SELECT_DATA_FETCHED`
-    console.log('/////>>', type)
     const [state, dispatch] = React.useReducer(
         (state, action) => {
             switch (action.type) {

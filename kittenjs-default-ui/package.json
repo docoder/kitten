@@ -1,6 +1,6 @@
 {
   "name": "kittenjs-default-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kittenjs default UI",
   "author": "docoder",
   "main": "build/index.js",
@@ -33,11 +33,11 @@
     "kittenjs": ">=0.1.0",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
-    "styled-components": ">=4.1.0"
+    "styled-components": ">=4.1.0",
+    "react-router-dom": ">=5.0.0"
   },
   "dependencies": {
-    "fbjs": "^1.0.0",
-    "react-router-dom": "^5.0.1"
+    "fbjs": "^1.0.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
@@ -48,6 +48,7 @@
     "antd": "3.21.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "rollup": "^1.16.7",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",

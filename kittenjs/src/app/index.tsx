@@ -47,6 +47,7 @@ export interface TableAction {
     key: string
     label: string
     modal?: string
+    params?: any[]
 }
 export interface PageSectionItem {
     key: string
@@ -56,6 +57,7 @@ export interface PageSectionItem {
     meta?: FetchMeta
     actions?: TableAction[]
     editable?: boolean
+    data?: any[]
 }
 export interface PageSection {
     type: string

@@ -32,7 +32,7 @@ yarn add react kittenjs
 #### 2.kittenjs-default-ui
 
 ```bash
-yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-components kittenjs-default-ui
+yarn add react-dom react-router-dom antd ant-colony-ui styled-components kittenjs-default-ui
 ```
 
 ## ⌨️ Development
@@ -41,13 +41,13 @@ yarn add react-dom react-reconciler react-router-dom antd ant-colony-ui styled-c
 
 ```bash
 cd kittenjs
-yarn
+yarn install --ignore-scripts
 
 cd kittenjs-default-ui
-yarn
+yarn install --ignore-scripts
 
 cd example
-yarn
+yarn install --ignore-scripts
 ```
 
 #### 2.link

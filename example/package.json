@@ -10,14 +10,13 @@
   "license": "MIT",
   "repository": "docoder/kitten",
   "peerDependencies": {
-    "kittenjs": ">=0.1.0"
+    "kittenjs": ">=1.0.0"
   },
   "dependencies": {
     "ant-colony-ui": "1.6.0",
     "antd": "3.21.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-reconciler": "^0.20.4",
     "react-router-dom": "^5.0.1",
     "styled-components": "^4.3.2"
   },

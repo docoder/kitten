@@ -11,10 +11,10 @@ export function useModal() {
             [`${pageKey}_${modalKey}`]: false
         })
     }
-    const showModal = (pageKey: string, modalKey: string) => {
+    const showModal = (pageKey: string, modalKey: string, params: any = true) => {
         _setModalShow({
             ..._modalShow,
-            [`${pageKey}_${modalKey}`]: true
+            [`${pageKey}_${modalKey}`]: params
         })
     }
     return { isShowModal, hideModal, showModal }

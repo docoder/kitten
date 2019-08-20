@@ -1,6 +1,6 @@
 {
   "name": "kittenjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sever JSON Driving UI",
   "author": "docoder",
   "main": "build/index.js",
@@ -37,7 +37,6 @@
   "devDependencies": {
     "@types/node": "^12.0.12",
     "@types/react": "^16.8.23",
-    "@types/react-redux": "^7.1.1",
     "@types/tapable": "^1.0.4",
     "react": "^16.8.6",
     "rollup": "^1.16.6",
