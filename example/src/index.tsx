@@ -55,7 +55,7 @@ const sub1PageJSON: PageSection[] = [
             },
             {
                 key: 'province',
-                filterDisabled: true,
+                disabled: true,
                 label: '省',
                 type: 'select',
                 meta: {
@@ -69,7 +69,7 @@ const sub1PageJSON: PageSection[] = [
                 key: 'city', 
                 label: '城市',
                 type: 'select',
-                filterAlias: 'cityId',
+                alias: 'cityId',
                 meta: {
                     ref: 'province',
                     refData: {
@@ -105,8 +105,10 @@ const sub1PageJSON: PageSection[] = [
                 actions: [
                     {
                         key: 'sub1Edit',
-                        label: '编辑',
-                        modal: 'sub1EditModal'
+                        meta: {
+                            label: '编辑',
+                            modal: 'sub1EditModal'
+                        }
                     }
                 ]
             }

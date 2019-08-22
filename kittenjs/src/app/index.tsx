@@ -12,6 +12,7 @@ interface UI {
     Page: any
     Table: any
     Layout: any
+    Checkbox: any
 }
 export type UIType = UI | null
 
@@ -36,18 +37,19 @@ export interface ActionMeta {
     modal?: string
     link?: string
     url?: string
+    params?: {[x:string]: any}
+    method?: string
 }
 interface LayoutMeta {
     direction: string
     width?: number
+    columnsCount?: number
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
 export interface TableAction {
     key: string
-    label: string
-    modal?: string
-    params?: any[]
+    meta: ActionMeta
 }
 export interface PageSectionItem {
     key: string
@@ -57,13 +59,13 @@ export interface PageSectionItem {
     meta?: FetchMeta
     actions?: TableAction[]
     editable?: boolean
-    data?: any[]
+    data?: any[] | string
 }
 export interface PageSection {
     type: string
     key: string
-    filterAlias?: string
-    filterDisabled?: boolean
+    alias?: string
+    disabled?: boolean
     items?: (PageSectionItem | PageSection)[]
     meta?: Meta
 }
@@ -107,10 +109,12 @@ export interface AppHooks {
     beforeTableDataSourceFetched: Hook;
     afterTableDataSourceFetched: Hook;
 
+    beforeFormItemsFinalization: Hook;
     beforeTableColumnFinalization: Hook;
 
     beforeButtonClick: Hook;
     beforeFormSubmit: Hook;
+    beforeCheckboxChange: Hook;
 }
 interface AppType {
     ui: UIType
@@ -164,14 +168,18 @@ class HooksProvider {
                 'tableKey',
                 'columns',
             ]),
+
+            beforeFormItemsFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
             beforeTableColumnFinalization: new SyncHook([
                 'appKey',
                 'pageKey',
+                'tableKey',
                 'column',
             ]),
             
             beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
-            beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values'])
+            beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values']),
+            beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkbokKey', 'value'])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {

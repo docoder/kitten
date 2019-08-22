@@ -13,7 +13,7 @@ const ModalForm = styled(AntForm)`
     }
 `;
 export function Form(props: {[propName: string]: any}) {
-    console.log('===FORM-PROPS===:', props)
+    // console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
     return (
         <RealForm
@@ -22,7 +22,7 @@ export function Form(props: {[propName: string]: any}) {
             forms={props.items}
             onSubmit={props.onSubmit}
             actionDirection="right"
-            columnCount={props.inModal ? 1 : 4}
+            columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
             disableEnterSubmit={false}
         />
     ) 

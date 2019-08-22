@@ -6,8 +6,8 @@ import { Pages } from '../../pages'
 
 export type FormItem = {
     key: string, 
-    filterAlias?: string,
-    filterDisabled?: boolean,
+    alias?: string,
+    disabled?: boolean,
     label: string, 
     type?: string,
     meta?: {
@@ -28,6 +28,7 @@ interface IProps {
     };
     pageKey: string; 
     formKey: string;
+    columnsCount: number
 }
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
@@ -37,8 +38,23 @@ function _Form (props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'form', props)
         }
     }, [])
+    const { getParams, setFilter } = Pages.useContainer()
     const items = useSelect(props.pageKey, props.formKey, props.items)
-    const { setFilter } = Pages.useContainer()
+    items.forEach((i:any) => {
+        if (typeof i.data === 'string' && i.data.startsWith('$.')) {
+            if (props.meta.modal) {
+                const params = getParams(props.pageKey, props.meta.modal)
+                if (params) {
+                    const valueKey = i.data.split('.')[1]
+                    i.data = params[valueKey] || []
+                }else {
+                    i.data = []
+                }
+            }
+        }
+        app.hooks.beforeFormItemsFinalization.call(app.config.appKey, props.pageKey, props.formKey, items)
+    });
+    
     const submit = useSubmit(props.meta.url, props.meta.method, props.pageKey, props.meta.modal)
     const Comp = app.ui? app.ui.Form : null
     return (
@@ -49,19 +65,20 @@ function _Form (props: IProps): JSX.Element {
             inModal={props.meta.modal && props.meta.modal.length > 0}
             className={props.className}
             items={items}
+            columnsCount={props.columnsCount}
             onSubmit={(values: {[key: string]: any}) => {
                 app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey)
-                const keys = items.filter(i => !i.filterDisabled).map(i => i.key)
+                const keys = items.filter(i => !i.disabled).map(i => i.key)
                 let keyFilterAliasMap: any = {}
-                items.filter(i => i.filterAlias).forEach(i => {
-                   keyFilterAliasMap[i.key] = i.filterAlias 
+                items.filter(i => i.alias).forEach(i => {
+                    keyFilterAliasMap[i.key] = i.alias 
                 });
                 let newValues: {[x:string]: any} = {}
                 Object.keys(values).forEach((k: string) => {
-                   if (values[k] && keys.includes(k)) {
-                       const vk = keyFilterAliasMap[k] || k
-                       newValues[vk] = values[k]
-                   }
+                    if (values[k] && keys.includes(k)) {
+                        const vk = keyFilterAliasMap[k] || k
+                        newValues[vk] = values[k]
+                    }
                 });
                 if(props.meta.filter) {
                     setFilter(props.pageKey, props.meta.filter, newValues) 

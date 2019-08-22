@@ -7,6 +7,7 @@ import { Loading } from './Loading'
 import { Indicator } from './Indicator'
 import { Button } from './Button'
 import { Stack } from './Stack'
+import { Checkbox } from './Checkbox'
 
 export {
     Layout,
@@ -17,6 +18,7 @@ export {
     Loading,
     Indicator,
     Button,
-    Stack
+    Stack,
+    Checkbox
 }
 

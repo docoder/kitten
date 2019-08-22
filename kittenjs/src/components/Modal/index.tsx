@@ -19,13 +19,36 @@ function _Modal(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'modal', props)
         }
     }, [])
-    const { hideModal, isShowModal } = Pages.useContainer()
+    const { hideModal, isShowModal, getParams } = Pages.useContainer()
     const Comp = app.ui? app.ui.Modal : null
+    let newTitle:any = props.title
+    if (props.title) {
+        if (props.title.startsWith('$.')){
+            const params = getParams(props.pageKey, props.modalKey)
+            if (params) {
+                const valueKey = props.title.split('.')[1]
+                newTitle = params[valueKey] 
+            }
+        }else {
+            let reg = /{\$\.([^{}]*)}/g;
+            if (reg.test(props.title)) {
+                newTitle = props.title.replace(reg, function(match,p1){
+                    let valueKey = p1.trim();
+                    const params = getParams(props.pageKey, props.modalKey)
+                    if (params) {
+                        return params[valueKey]
+                    }
+                    return valueKey
+                })
+            }
+        }
+        
+    }
     return (
         <Comp
             style={{display: 'none'}}
             visible={isShowModal(props.pageKey, props.modalKey)}
-            title={props.title}
+            title={newTitle}
             width={props.width}
             onCancel={() => {
                 hideModal(props.pageKey, props.modalKey)

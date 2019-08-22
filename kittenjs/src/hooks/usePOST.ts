@@ -9,9 +9,9 @@ export function usePOST() {
     const send = React.useCallback(
         async (url: string, body: Json) => {
             try {
-                //startRequest();
+                startRequest();
                 const data = await POST(url, app.config.loginUrl, body)
-                //endRequest();
+                endRequest();
                 //TODO: DOC
                 if (data.code === 0 && data.data) {
                     return data

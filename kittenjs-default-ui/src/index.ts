@@ -8,6 +8,7 @@ import { Alert } from './ui/Alert'
 import { Loading } from './ui/Loading'
 import { Button } from './ui/Button'
 import { Modal } from './ui/Modal'
+import { Checkbox } from './ui/Checkbox'
 const ui = {
     Page,
     Table,
@@ -16,7 +17,8 @@ const ui = {
     Alert,
     Loading,
     Button,
-    Modal
+    Modal,
+    Checkbox
 }
 const Renderer = ReactDOM
 export {

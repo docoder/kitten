@@ -4,6 +4,7 @@ import { Button } from '../Button'
 import { Table } from '../Table'
 import { Form } from '../Form'
 import { Modal } from '../Modal'
+import { Checkbox } from '../Checkbox'
 interface IProps {
     style?: React.CSSProperties;
     pageKey: string;
@@ -48,7 +49,8 @@ function _Stack(props: IProps): JSX.Element {
                                 style={vertical ? {marginBottom: 20} : {marginRight: 10}}
                                 key={c.key}
                                 items={c.items}
-                                meta={c.meta} 
+                                meta={c.meta}
+                                columnsCount={c.meta.columnsCount}
                             />
                         )
                     case 'Stack':
@@ -81,6 +83,16 @@ function _Stack(props: IProps): JSX.Element {
                                 contens={c.items}
                                 title={c.meta.label}
                                 width={c.meta.width}
+                            />
+                        )
+                    case 'Checkbox':
+                        return (
+                            <Checkbox
+                                key={c.key}
+                                pageKey={props.pageKey}
+                                checkboxKey={c.key}
+                                meta={c.meta}
+                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
                             />
                         )
                     default:

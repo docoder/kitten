@@ -7,4 +7,5 @@ declare module 'ant-colony-ui' {
     export const Loading: React.DOMElement;
     export const Button: React.DOMElement;
     export const Modal: React.DOMElement;
+    export const Checkbox: React.DOMElement;
 }
