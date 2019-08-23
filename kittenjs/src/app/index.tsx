@@ -24,7 +24,7 @@ interface RefDataMeta {
     refData?: {[x:string]: {[x:string]: any}[]}
 }
 interface DataMeta {
-    data: {[x:string]: any}[]
+    data: {[x:string]: any}[] | string
     pageSize?: number
 }
 interface FetchMeta {
@@ -38,12 +38,15 @@ export interface ActionMeta {
     link?: string
     url?: string
     params?: {[x:string]: any}
-    method?: string
+    method?: string, 
+    confirm?: boolean,
+    confirmLabel?:string
 }
 interface LayoutMeta {
     direction: string
     width?: number
     columnsCount?: number
+    rowColCounts?: number []
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
@@ -59,13 +62,14 @@ export interface PageSectionItem {
     meta?: FetchMeta
     actions?: TableAction[]
     editable?: boolean
-    data?: any[] | string
+    required?: boolean
+    reg?: {pattern: string, message: string}
 }
 export interface PageSection {
     type: string
     key: string
     alias?: string
-    disabled?: boolean
+    actionDisabled?: boolean
     items?: (PageSectionItem | PageSection)[]
     meta?: Meta
 }
@@ -132,12 +136,14 @@ class HooksProvider {
                 'appKey',
                 'pageKey',
                 'compnent',
+                'componetKey',
                 'props',
             ]),
             afterComponentUnloaded: new SyncHook([
                 'appKey',
                 'pageKey',
                 'compnent',
+                'componetKey',
                 'props',
             ]),
             afterFormSelectFetched: new SyncHook([

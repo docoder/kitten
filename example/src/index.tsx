@@ -55,7 +55,7 @@ const sub1PageJSON: PageSection[] = [
             },
             {
                 key: 'province',
-                disabled: true,
+                actionDisabled: true,
                 label: '省',
                 type: 'select',
                 meta: {
@@ -107,7 +107,10 @@ const sub1PageJSON: PageSection[] = [
                         key: 'sub1Edit',
                         meta: {
                             label: '编辑',
-                            modal: 'sub1EditModal'
+                            modal: 'sub1EditModal',
+                            params: {
+                                title: '$.number', 
+                            },
                         }
                     }
                 ]
@@ -167,6 +170,7 @@ const sub1PageJSON: PageSection[] = [
                         key: 'type',
                         label: '类型',
                         type: 'select',
+                        required: true,
                         meta: {
                             data: [
                                 {value: '0', label: '类型1'},
@@ -203,6 +207,7 @@ const sub1PageJSON: PageSection[] = [
                         key: 'type',
                         label: '类型',
                         type: 'select',
+                        required: true,
                         meta: {
                             data: [
                                 {value: '0', label: '类型1'},
@@ -223,7 +228,7 @@ const sub1PageJSON: PageSection[] = [
             }
         ],
         meta: {
-            label: '编辑',
+            label: '编辑 {$.title}',
             width: 400
         }
     } 

@@ -4,7 +4,7 @@ import {Page as PageComp, Stack, Indicator} from '../../components'
 import { useGET } from '../../hooks/useGET'
 
 function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any[]}):JSX.Element {
-    // console.log('>>>>PAGE>>>>', props)
+    console.log('>>>>PAGE>>>>', props)
     const app = React.useContext(App)
     React.useEffect(() => {   
         app.hooks.afterPageLoaded.call(app.config.appKey, pageKey, props)

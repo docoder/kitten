@@ -13,8 +13,14 @@ const ModalForm = styled(AntForm)`
     }
 `;
 export function Form(props: {[propName: string]: any}) {
-    // console.log('===FORM-PROPS===:', props)
+    console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
+    props.items.map ((i:any) => {
+        if (i.type === 'checkbox' || i.type === 'radio') {
+            i.data = i.meta.data
+        }
+        return {...i}
+    })
     return (
         <RealForm
             style={props.style}
@@ -23,6 +29,7 @@ export function Form(props: {[propName: string]: any}) {
             onSubmit={props.onSubmit}
             actionDirection="right"
             columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
+            rowColCounts={props.rowColCounts}
             disableEnterSubmit={false}
         />
     ) 

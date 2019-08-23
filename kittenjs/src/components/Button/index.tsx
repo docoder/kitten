@@ -7,14 +7,15 @@ interface IProps {
     pageKey: string;
     meta: ActionMeta;
     buttonKey: string;
+    forceUpdate: Function;
 }
 
 function _Button(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'button', props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'button', props.buttonKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'button', props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'button', props.buttonKey, props)
         }
     }, [])
     const { showModal } = Pages.useContainer()

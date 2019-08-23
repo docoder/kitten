@@ -4,6 +4,7 @@ import { App, PageSectionItem, TableAction } from '../../app';
 import { useTable } from '../../hooks/useTable'
 import { Pages } from '../../pages'
 import { useGET } from '../../hooks/useGET'
+import { usePOST } from '../../hooks/usePOST'
 export interface TableColumn extends PageSectionItem {
     render?: any
     editable?: any
@@ -20,32 +21,52 @@ interface IProps {
     columns: (TableColumn[]);
     pageKey: string;
     tableKey: string;
+    forceUpdate: Function;
 }
 
 function _Table(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'table', props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'table', props.tableKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props.tableKey, props)
         }
     }, [])
     const { showModal, setParams } = Pages.useContainer()
     const keyItem = props.columns.find(c => !!c.id)
     const rowKey = keyItem ? keyItem.key : 'key'
     const get = useGET()
+    const post = usePOST()
     const columns = props.columns.map((c: TableColumn) => {
         let actions: any = c.actions
         if (c.actions && c.actions.length > 0) {
             actions = c.actions.map((a: TableAction) => ({
                 key: a.key,
                 label: a.meta.label,
+                confirm: a.meta.confirm,
+                confirmLabel: a.meta.confirmLabel,
                 callback: async (text: string, record: any, index: number) => {
                     let result: any = null
                     if (a.meta.url) {
-                        if (a.meta.method === 'GET' || !a.meta.method) {
+                        if (!a.meta.method || a.meta.method.toUpperCase() === 'GET') {
                             result = await get (a.meta.url) || []
-                        } 
+                        }else if (a.meta.method.toUpperCase() === 'POST') {
+                            const values:any = {}
+                            const params = a.meta.params
+                            if (params && params.post) {
+                                const post = params.post
+                                Object.keys(post).forEach((k:any) => {
+                                    const value = post[k]
+                                    if (value.startsWith('$.')) {
+                                        values[k] = record[value.split('.')[1]] 
+                                    }else {
+                                        values[k] = value
+                                    }
+                                })
+                            }
+                            result = await post(a.meta.url, values)
+                            if (result) setParams(props.pageKey, props.tableKey, {[a.key]: result.data})
+                        }
                     }
                     let params: any = null
                     if (a.meta.params && Object.keys(a.meta.params).length > 0) {
@@ -53,6 +74,7 @@ function _Table(props: IProps): JSX.Element {
                         params = {}
                         let keys = Object.keys(a.meta.params)
                         keys.forEach(k => {
+                            if (k === 'post' || k === 'get') return
                             const value = aParams[k] 
                             if (value.startsWith('$.')) {
                                 params[k] = record[value.split('.')[1]] 

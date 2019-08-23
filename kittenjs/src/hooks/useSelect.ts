@@ -56,7 +56,6 @@ export function useSelect(
                             const url = originalUrl.replace('$refValue', value)
                             const selectData = await fetchSelectData(i.key, url, i.meta.alias);
                             i.meta.data = selectData
-                            console.log('----->>>', type)
                             if(mounted) dispatch({type, data: itms})
                         }
                         i.meta.data = []

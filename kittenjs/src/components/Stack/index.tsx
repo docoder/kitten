@@ -16,12 +16,16 @@ interface IProps {
 function _Stack(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'stack', props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'stack', props.stackKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'stack', props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'stack', props.stackKey, props)
         }
     }, [])
     const vertical = props.direction === 'vertical'
+    const [ignored, _forceUpdate] = React.useReducer(x => x + 1, 0);
+    function forceUpdate() {
+        _forceUpdate(1);
+    }
     return (
         <div style={{
                 display: 'flex', 
@@ -39,6 +43,7 @@ function _Stack(props: IProps): JSX.Element {
                                 key={c.key}
                                 columns={c.items}
                                 meta={c.meta}
+                                forceUpdate={forceUpdate}
                             />
                         );
                     case 'Form':
@@ -50,7 +55,7 @@ function _Stack(props: IProps): JSX.Element {
                                 key={c.key}
                                 items={c.items}
                                 meta={c.meta}
-                                columnsCount={c.meta.columnsCount}
+                                forceUpdate={forceUpdate}
                             />
                         )
                     case 'Stack':
@@ -72,6 +77,7 @@ function _Stack(props: IProps): JSX.Element {
                                 buttonKey={c.key}
                                 meta={c.meta}
                                 style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                forceUpdate={forceUpdate}
                             />
                         )
                     case 'Modal': 
@@ -83,6 +89,7 @@ function _Stack(props: IProps): JSX.Element {
                                 contens={c.items}
                                 title={c.meta.label}
                                 width={c.meta.width}
+                                forceUpdate={forceUpdate}
                             />
                         )
                     case 'Checkbox':
@@ -93,6 +100,7 @@ function _Stack(props: IProps): JSX.Element {
                                 checkboxKey={c.key}
                                 meta={c.meta}
                                 style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                forceUpdate={forceUpdate}
                             />
                         )
                     default:

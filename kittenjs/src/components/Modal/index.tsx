@@ -9,14 +9,15 @@ interface IProps {
     contens: PageSection[] 
     pageKey: string
     modalKey: string
+    forceUpdate: Function
 }
 
 function _Modal(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'modal', props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'modal', props.modalKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'modal', props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'modal', props.modalKey, props)
         }
     }, [])
     const { hideModal, isShowModal, getParams } = Pages.useContainer()
