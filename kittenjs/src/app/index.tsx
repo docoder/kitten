@@ -47,6 +47,7 @@ interface LayoutMeta {
     width?: number
     columnsCount?: number
     rowColCounts?: number []
+    disableGroupCol?: boolean
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 

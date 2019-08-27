@@ -27,6 +27,7 @@ interface IProps {
         modal?: string;
         columnsCount: number;
         rowColCounts: number[];
+        disableGroupCol: boolean;
         params?: {[x:string]: any};
     };
     pageKey: string; 
@@ -70,6 +71,7 @@ function _Form (props: IProps): JSX.Element {
             items={items}
             columnsCount={props.meta.columnsCount}
             rowColCounts={props.meta.rowColCounts}
+            disableGroupCol={props.meta.disableGroupCol}
             onSubmit={(values: {[key: string]: any}) => {
                 app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey)
                 const keys = items.filter(i => !i.actionDisabled).map(i => i.key)
