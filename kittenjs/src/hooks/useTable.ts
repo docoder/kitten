@@ -14,7 +14,8 @@ export function useTable(
         pageSize?: number,
         alias?: {[x:string]: string},
         method: string
-    } 
+    },
+    reload: number
 ): {dataSource: any[], currentPage: number, total: number, pageSize: number, setCurrentPage: Function, setPageSize: Function} {
     const app = React.useContext(App);
     const get = useGET()
@@ -102,7 +103,7 @@ export function useTable(
         }
         fetchTableData(pageKey, tableKey, meta.url);
         return () => {mounted = false}
-    }, [pageKey, tableKey, meta.url, filter, currentPage, pageSize]);
+    }, [pageKey, tableKey, meta.url, filter, currentPage, pageSize, reload]);
 
     return {...state, setCurrentPage, setPageSize};
 }

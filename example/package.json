@@ -4,8 +4,9 @@
   "description": "Kittenjs Example",
   "author": "docoder",
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack.dev.config.js",
-    "build": "webpack --config ./webpack.prod.config.js"
+    "dev": "webpack-dev-server --env.NODE_ENV=local --config ./webpack.dev.config.js",
+    "build-dev": "webpack --env.NODE_ENV=development --config ./webpack.prod.config.js",
+    "build": "webpack --env.NODE_ENV=production --config ./webpack.prod.config.js"
   },
   "license": "MIT",
   "repository": "docoder/kitten",

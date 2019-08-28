@@ -27,7 +27,7 @@ export function useGET() {
                     setError(data)
                 }
             }catch (error) {
-               setError(error);
+                setError(error);
             }
             return null
         },

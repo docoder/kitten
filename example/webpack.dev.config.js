@@ -2,7 +2,7 @@ const path = require('path');
 const {smart} = require('webpack-merge');
 const base = require('./webpack.base.config');
 
-module.exports = smart(base, {
+module.exports = env => (smart(base(env), {
     mode: 'development',
     devServer: {
         port: 3001,
@@ -26,4 +26,4 @@ module.exports = smart(base, {
             },
         ]
     }
-});
+}));

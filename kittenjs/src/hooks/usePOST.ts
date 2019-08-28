@@ -19,7 +19,7 @@ export function usePOST() {
                     setError(data)
                 }
             }catch (error) {
-               setError(error);
+                setError(error);
             }
             return null
         },

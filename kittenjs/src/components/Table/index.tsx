@@ -37,6 +37,10 @@ function _Table(props: IProps): JSX.Element {
     const rowKey = keyItem ? keyItem.key : 'key'
     const get = useGET()
     const post = usePOST()
+    const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
+    function forceReload() {
+        _forceReload(1);
+    }
     const columns = props.columns.map((c: TableColumn) => {
         let actions: any = c.actions
         if (c.actions && c.actions.length > 0) {
@@ -48,11 +52,25 @@ function _Table(props: IProps): JSX.Element {
                 callback: async (text: string, record: any, index: number) => {
                     let result: any = null
                     if (a.meta.url) {
+                        const params = a.meta.params
                         if (!a.meta.method || a.meta.method.toUpperCase() === 'GET') {
-                            result = await get (a.meta.url) || []
+                            let url = a.meta.url
+                            let reqString='?'
+                            if (params && params.get) {
+                                const get = params.get
+                                Object.keys(get).forEach((k:any) => {
+                                    const value = get[k]
+                                    if (value.startsWith('$.')) {
+                                        reqString += `${k}=${record[value.split('.')[1]]}&`  
+                                    }else {
+                                        reqString += `${k}=${value}&`
+                                    }
+                                })
+                                url += reqString.substring(0, reqString.length - 1)
+                            }
+                            result = await get (url) || []
                         }else if (a.meta.method.toUpperCase() === 'POST') {
                             const values:any = {}
-                            const params = a.meta.params
                             if (params && params.post) {
                                 const post = params.post
                                 Object.keys(post).forEach((k:any) => {
@@ -66,9 +84,10 @@ function _Table(props: IProps): JSX.Element {
                             }
                             result = await post(a.meta.url, values)
                             if (result) setParams(props.pageKey, props.tableKey, {[a.key]: result.data})
+                            forceReload()
                         }
                     }
-                    let params: any = null
+                    let params: any = {}
                     if (a.meta.params && Object.keys(a.meta.params).length > 0) {
                         const aParams = a.meta.params
                         params = {}
@@ -87,7 +106,7 @@ function _Table(props: IProps): JSX.Element {
                     }
 
                     if (a.meta.modal && a.meta.modal.length > 0) {
-                        if (params) setParams(props.pageKey, a.meta.modal, params)
+                        setParams(props.pageKey, a.meta.modal, {...params, forceReload: forceReload })
                         showModal(props.pageKey, a.meta.modal)
                     } 
                 },
@@ -98,7 +117,7 @@ function _Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-    const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta);
+    const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
     const Comp = app.ui? app.ui.Table : null
     return (
         <Comp

@@ -11,14 +11,21 @@ export function useSubmit(
 ) {
     const get = useGET()
     const post = usePOST()
-    const { hideModal } = Pages.useContainer()
+    const { hideModal, getParams } = Pages.useContainer()
     const send = React.useCallback(
         async (values: {[x:string]: any}) => {
             let result = null
             if (method && method.toLowerCase() === 'post') {
-                result = post(url, values)
+                result = await post(url, values)
+                if (modalKey) {
+                    const params = getParams(pageKey, modalKey)
+                    if (params && params.forceReload ) {
+                        params.forceReload()
+                    }
+                    else window.location.reload(true)
+                } 
             }else {
-                result = get(url, values)
+                result = await get(url, values)
             }
             if (result && modalKey) {
                 hideModal(pageKey, modalKey)
