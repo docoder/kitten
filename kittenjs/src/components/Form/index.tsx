@@ -73,7 +73,6 @@ function _Form (props: IProps): JSX.Element {
             rowColCounts={props.meta.rowColCounts}
             disableGroupCol={props.meta.disableGroupCol}
             onSubmit={(values: {[key: string]: any}) => {
-                app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey)
                 const keys = items.filter(i => !i.actionDisabled).map(i => i.key)
                 let keyAliasMap: any = {}
                 items.filter(i => i.alias).forEach(i => {
@@ -86,28 +85,28 @@ function _Form (props: IProps): JSX.Element {
                         newValues[vk] = values[k]
                     }
                 });
-                
+                if (props.meta.params && props.meta.params.post) {
+                    const post = props.meta.params.post
+                    const keys = Object.keys(post)
+                    if (keys && keys.length > 0) {
+                        keys.forEach((k:string) => {
+                            const value = post[k]
+                            if (value.startsWith('$.') && props.meta.modal) {
+                                const modalParams = getParams(props.pageKey, props.meta.modal)
+                                if (post) {
+                                    const valueKey = value.split('.')[1]
+                                    newValues[k] = modalParams[valueKey] 
+                                }
+                            }else {
+                                newValues[k] = value
+                            }
+                        });
+                    }
+                }
+                app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey, newValues)
                 if(props.meta.filter) {
                     setFilter(props.pageKey, props.meta.filter, newValues) 
                 }else {
-                    if (props.meta.params && props.meta.params.post) {
-                        const post = props.meta.params.post
-                        const keys = Object.keys(post)
-                        if (keys && keys.length > 0) {
-                            keys.forEach((k:string) => {
-                                const value = post[k]
-                                if (value.startsWith('$.') && props.meta.modal) {
-                                    const modalParams = getParams(props.pageKey, props.meta.modal)
-                                    if (post) {
-                                        const valueKey = value.split('.')[1]
-                                        newValues[k] = modalParams[valueKey] 
-                                    }
-                                }else {
-                                    newValues[k] = value
-                                }
-                            });
-                        }
-                    }
                     submit(newValues)
                 }
             }}
