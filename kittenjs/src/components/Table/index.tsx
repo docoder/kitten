@@ -5,6 +5,7 @@ import { useTable } from '../../hooks/useTable'
 import { Pages } from '../../pages'
 import { useGET } from '../../hooks/useGET'
 import { usePOST } from '../../hooks/usePOST'
+import { useSelect } from '../../hooks/useSelect'
 export interface TableColumn extends PageSectionItem {
     render?: any
     editable?: any
@@ -16,7 +17,10 @@ interface IProps {
         url: string,
         data?: {[x:string]: any},
         pageSize?: number,
-        method: string
+        form?: string,
+        method: string,
+        params?: {form: {key: string, fields: string[]}},
+        rowAction?: string
     } 
     columns: (TableColumn[]);
     pageKey: string;
@@ -41,7 +45,68 @@ function _Table(props: IProps): JSX.Element {
     function forceReload() {
         _forceReload(1);
     }
-    const columns = props.columns.map((c: TableColumn) => {
+    async function extraRequest(meta: any, record: any) {
+        let result: any = null
+        if (meta.url) {
+            const params = meta.params
+            if (!meta.method || meta.method.toUpperCase() === 'GET') {
+                let url = meta.url
+                let reqString='?'
+                if (params && params.get) {
+                    const get = params.get
+                    Object.keys(get).forEach((k:any) => {
+                        const value = get[k]
+                        if (value.startsWith('$.')) {
+                            reqString += `${k}=${record[value.split('.')[1]]}&`  
+                        }else {
+                            reqString += `${k}=${value}&`
+                        }
+                    })
+                    url += reqString.substring(0, reqString.length - 1)
+                }
+                result = await get (url) || []
+            }else if (meta.method.toUpperCase() === 'POST') {
+                const values:any = {}
+                if (params && params.post) {
+                    const post = params.post
+                    Object.keys(post).forEach((k:any) => {
+                        const value = post[k]
+                        if (value.startsWith('$.')) {
+                            values[k] = record[value.split('.')[1]] 
+                        }else {
+                            values[k] = value
+                        }
+                    })
+                }
+                result = await post(meta.url, values)
+                if (result) forceReload()
+                
+            }
+        }
+        let params: any = {}
+        if (meta.params && Object.keys(meta.params).length > 0) {
+            const aParams = meta.params
+            params = {}
+            let keys = Object.keys(meta.params)
+            keys.forEach(k => {
+                if (k === 'post' || k === 'get') return
+                const value = aParams[k] 
+                if (value.startsWith('$.')) {
+                    params[k] = record[value.split('.')[1]] 
+                }else if(value.startsWith('$#') && result) {
+                    params[k] = result.data[value.split('#')[1]]
+                }else {
+                    params[k] = value
+                }
+            });
+        }
+        if (meta.modal && meta.modal.length > 0) {
+            setParams(props.pageKey, meta.modal, {...params, forceReload: forceReload })
+            showModal(props.pageKey, meta.modal)
+        }
+    }
+    let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns)
+    columns = columns.map((c: TableColumn) => {
         let actions: any = c.actions
         if (c.actions && c.actions.length > 0) {
             actions = c.actions.map((a: TableAction) => ({
@@ -49,66 +114,23 @@ function _Table(props: IProps): JSX.Element {
                 label: a.meta.label,
                 confirm: a.meta.confirm,
                 confirmLabel: a.meta.confirmLabel,
-                callback: async (text: string, record: any, index: number) => {
-                    let result: any = null
-                    if (a.meta.url) {
-                        const params = a.meta.params
-                        if (!a.meta.method || a.meta.method.toUpperCase() === 'GET') {
-                            let url = a.meta.url
-                            let reqString='?'
-                            if (params && params.get) {
-                                const get = params.get
-                                Object.keys(get).forEach((k:any) => {
-                                    const value = get[k]
-                                    if (value.startsWith('$.')) {
-                                        reqString += `${k}=${record[value.split('.')[1]]}&`  
-                                    }else {
-                                        reqString += `${k}=${value}&`
-                                    }
-                                })
-                                url += reqString.substring(0, reqString.length - 1)
-                            }
-                            result = await get (url) || []
-                        }else if (a.meta.method.toUpperCase() === 'POST') {
-                            const values:any = {}
-                            if (params && params.post) {
-                                const post = params.post
-                                Object.keys(post).forEach((k:any) => {
-                                    const value = post[k]
-                                    if (value.startsWith('$.')) {
-                                        values[k] = record[value.split('.')[1]] 
-                                    }else {
-                                        values[k] = value
-                                    }
-                                })
-                            }
-                            result = await post(a.meta.url, values)
-                            if (result) setParams(props.pageKey, props.tableKey, {[a.key]: result.data})
+                callback: (text: string, record: any, index: number) => {
+                    if (a.meta.rowAction) {
+                        if (a.meta.rowAction === 'insert') {
+                            props.meta.data = props.meta.data || [];
+                            props.meta.data.splice(index+1, 0, {
+								...record,
+                                [rowKey]: new Date().getTime(),
+                            })
+                            forceReload() 
+                        }
+                        else if (a.meta.rowAction === 'delete' && props.meta.data && props.meta.data.length > 1){
+                            props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
                             forceReload()
                         }
+                    }else {
+                        extraRequest(a.meta, record)
                     }
-                    let params: any = {}
-                    if (a.meta.params && Object.keys(a.meta.params).length > 0) {
-                        const aParams = a.meta.params
-                        params = {}
-                        let keys = Object.keys(a.meta.params)
-                        keys.forEach(k => {
-                            if (k === 'post' || k === 'get') return
-                            const value = aParams[k] 
-                            if (value.startsWith('$.')) {
-                                params[k] = record[value.split('.')[1]] 
-                            }else if(value.startsWith('$#') && result) {
-                                params[k] = result.data[value.split('#')[1]]
-                            }else {
-                                params[k] = value
-                            }
-                        });
-                    }
-
-                    if (a.meta.modal && a.meta.modal.length > 0) {
-                        setParams(props.pageKey, a.meta.modal, {...params, forceReload: forceReload })
-                        showModal(props.pageKey, a.meta.modal)
-                    } 
                 },
                 show: true,
                 modal: a.meta ? a.meta.modal: null
@@ -117,30 +139,82 @@ function _Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-    const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
+    
     const Comp = app.ui? app.ui.Table : null
-    return (
-        <Comp
-            style={{
-                ...props.style,
-            }}
-            appKey={app.config.appKey}
-            pageKey={props.pageKey}
-            className={props.className}
-            rowKey={rowKey}
-            columns={columns}
-            dataSource={dataSource}
-            onPageChange={(page: number, pSize: number) => {
-                if (page !== currentPage) setCurrentPage(page)
-                if (pSize !== pageSize) setPageSize(pSize)
-            }}
-            pagination={{
-                current: currentPage,
-                total: total,
-                pageSize: pageSize,
-                position: 'both'
-            }}
-        />
-    );
+    if (props.meta && props.meta.url) {
+        const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
+        return (
+            <Comp
+                style={{
+                    ...props.style,
+                }}
+                appKey={app.config.appKey}
+                pageKey={props.pageKey}
+                tableKey={props.tableKey}
+                className={props.className}
+                rowKey={rowKey}
+                columns={columns}
+                dataSource={dataSource}
+                onPageChange={(page: number, pSize: number) => {
+                    if (page !== currentPage) setCurrentPage(page)
+                    if (pSize !== pageSize) setPageSize(pSize)
+                }}
+                onCellChanged={(dataSource: any[], row: any, key: string) => {
+                    app.hooks.afterTableCellChanged.call(app.config.appKey, props.pageKey, props.tableKey, dataSource, row);
+                    const column = props.columns.find((c: any) => c.key === key)
+                    if (column && column.meta) {
+                        extraRequest(column.meta, row)
+                    }
+                }}
+                pagination={{
+                    current: currentPage,
+                    total: total,
+                    pageSize: pageSize,
+                    position: 'both'
+                }}
+            />
+        );
+    }else {
+        return (
+            <Comp
+                style={{
+                    ...props.style,
+                }}
+                appKey={app.config.appKey}
+                pageKey={props.pageKey}
+                tableKey={props.tableKey}
+                className={props.className}
+                rowKey={rowKey}
+                columns={columns}
+                dataSource={props.meta.data}
+                form={props.meta.form}
+                onCellChanged={(dataSource: any[], row: any, key: string) => {
+                    app.hooks.afterTableCellChanged.call(app.config.appKey, props.pageKey, props.tableKey, dataSource, row);
+                    const column = props.columns.find((c: any) => c.key === key)
+                    if (column && column.meta) {
+                        extraRequest(column.meta, row)
+                    }
+                    if(props.meta.form) {
+                        let params: any = { list: dataSource }
+                        if (props.meta.params && props.meta.params.form) {
+                            const { key, fields } = props.meta.params.form
+                            params = {}
+                            params[key] = dataSource.map((d:any) => {
+                                let data: any = {}
+                                Object.keys(d).forEach((k:string) => {
+                                    if (fields.includes(k)) {
+                                        data[k] = d[k]
+                                    }
+                                })
+                                return data
+                            })
+                        }
+                        setParams(props.pageKey, props.meta.form, params)
+                    }
+                }}
+            />
+        )
+    }
+    
 };
 export const Table = React.memo(_Table)

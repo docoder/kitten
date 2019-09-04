@@ -13,12 +13,10 @@ export default class Sub1ListPlugin implements Plugin {
                 }
                 if (column.key === 'items') {
                     column.render = (text: string, record: any) => {
-                        return (
-                            <div>
-                                <span style={{color: 'red'}}>{record.id}</span>{' '}
-                                - <span>{text}</span>
-                            </div>
-                        );
+                        const items = text.split(';')
+                        return items.map(i => (
+                            <div key={i}>{i}</div>
+                        ));
                     };
                 }
             },

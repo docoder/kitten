@@ -5,12 +5,12 @@ import {FormItem} from '../components/Form';
 import { getValueByKeypath } from '../utils/modal'
 export function useSelect(
     pageKey: string,
-    formKey: string,
+    componentKey: string,
     items: any[]
 ): FormItem[] {
     const app = React.useContext(App)
     const get = useGET()
-    const type = `${pageKey.toUpperCase()}_${formKey.toUpperCase()}_SELECT_DATA_FETCHED`
+    const type = `${pageKey.toUpperCase()}_${componentKey.toUpperCase()}_SELECT_DATA_FETCHED`
     const [state, dispatch] = React.useReducer(
         (state, action) => {
             switch (action.type) {
@@ -25,9 +25,9 @@ export function useSelect(
     React.useEffect(() => {
         let mounted = true;
         async function fetchSelectData (itemKey: string, itemUrl: string, itemAlias: {[x:string]: string}) {
-            app.hooks.beforeFormSelectFetched.call(app.config.appKey, pageKey, formKey, items, itemKey);
+            app.hooks.beforeFormSelectFetched.call(app.config.appKey, pageKey, componentKey, items, itemKey);
             const result = await get (itemUrl) || []
-            app.hooks.afterFormSelectFetched.call( app.config.appKey, pageKey, formKey, items, itemKey, result.data);
+            app.hooks.afterFormSelectFetched.call( app.config.appKey, pageKey, componentKey, items, itemKey, result.data);
             //TODO: doc
             let data = result.data
             if (itemAlias) {
@@ -72,6 +72,6 @@ export function useSelect(
         }
         handleSelect(items)
         return () => { mounted = false };
-    }, [pageKey, formKey, items])
+    }, [pageKey, componentKey, items])
     return state.data
 }

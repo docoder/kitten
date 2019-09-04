@@ -16,6 +16,9 @@ const ModalForm = styled(AntForm)`
     }
     
 `;
+const AccessoriesContainer = styled.div`
+    margin-bottom: 20px;
+`
 export function Form(props: {[propName: string]: any}) {
     // console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
@@ -36,6 +39,7 @@ export function Form(props: {[propName: string]: any}) {
             rowColCounts={props.rowColCounts}
             discol={props.disableGroupCol}
             disableEnterSubmit={false}
+            accessoryComponent={props.accessories ? () => <AccessoriesContainer>{props.accessories}</AccessoriesContainer>: undefined}
         />
     ) 
 }

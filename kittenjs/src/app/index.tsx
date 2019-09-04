@@ -40,7 +40,9 @@ export interface ActionMeta {
     params?: {[x:string]: any}
     method?: string, 
     confirm?: boolean,
-    confirmLabel?:string
+    confirmLabel?:string,
+    form?: string,
+    rowAction?: string
 }
 interface LayoutMeta {
     direction: string
@@ -48,6 +50,7 @@ interface LayoutMeta {
     columnsCount?: number
     rowColCounts?: number []
     disableGroupCol?: boolean
+    accessories?: PageSection []
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
@@ -120,6 +123,8 @@ export interface AppHooks {
     beforeButtonClick: Hook;
     beforeFormSubmit: Hook;
     beforeCheckboxChange: Hook;
+
+    afterTableCellChanged: Hook;
 }
 interface AppType {
     ui: UIType
@@ -136,7 +141,7 @@ class HooksProvider {
             afterComponentLoaded: new SyncHook([
                 'appKey',
                 'pageKey',
-                'compnent',
+                'component',
                 'componetKey',
                 'props',
             ]),
@@ -186,7 +191,8 @@ class HooksProvider {
             
             beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
             beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values']),
-            beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkbokKey', 'value'])
+            beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkbokKey', 'value']),
+            afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'datasource', 'row'])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {

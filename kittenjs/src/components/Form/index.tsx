@@ -3,6 +3,7 @@ import { App } from '../../app'
 import { useSelect } from '../../hooks/useSelect'
 import { useSubmit } from '../../hooks/useSubmit'
 import { Pages } from '../../pages'
+import { Stack } from '../Stack'
 
 export type FormItem = {
     key: string, 
@@ -29,6 +30,7 @@ interface IProps {
         rowColCounts: number[];
         disableGroupCol: boolean;
         params?: {[x:string]: any};
+        accessories: any[]
     };
     pageKey: string; 
     formKey: string;
@@ -72,6 +74,12 @@ function _Form (props: IProps): JSX.Element {
             columnsCount={props.meta.columnsCount}
             rowColCounts={props.meta.rowColCounts}
             disableGroupCol={props.meta.disableGroupCol}
+            accessories={props.meta.accessories ? <Stack 
+                pageKey={props.pageKey} 
+                items={props.meta.accessories} 
+                direction="vertical" 
+                stackKey={`${props.pageKey}_${props.formKey}_accessories_stack`} 
+            /> : undefined}
             onSubmit={(values: {[key: string]: any}) => {
                 const keys = items.filter(i => !i.actionDisabled).map(i => i.key)
                 let keyAliasMap: any = {}
@@ -85,6 +93,8 @@ function _Form (props: IProps): JSX.Element {
                         newValues[vk] = values[k]
                     }
                 });
+                const extraValues = getParams(props.pageKey, props.formKey)
+                newValues = { ...newValues, ...extraValues }
                 if (props.meta.params && props.meta.params.post) {
                     const post = props.meta.params.post
                     const keys = Object.keys(post)

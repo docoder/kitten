@@ -258,10 +258,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ant-colony-ui@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.6.0.tgz#fb008dcf57f906cdd59a882aaf3efcefcb7e676b"
-  integrity sha512-B+dVAM9yYNr73q0dwmhDoFA1t2UF4gj1a8/n7h7YEPEiJlCF+niwpgxvM3kvJw2AHjlUIxWAMotvQw/rN0U7aA==
+ant-colony-ui@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.6.1.tgz#912826c1d667da53bed3cd0ba243a29c8997c1ee"
+  integrity sha512-YgaVvcIOEwLMYsr4CMU/Yok7MCniyIXvczitgFU199L3sRKkolK4yaP7c9QYO+Xld9bwQhYtZJ6kg/Pk01UHGw==
 
 antd@3.21.4:
   version "3.21.4"

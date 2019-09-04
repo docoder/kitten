@@ -52,13 +52,7 @@ module.exports = env => {
             new MiniCssExtractPlugin({
                 filename: 'style.css',
             }),
-            new CleanWebpackPlugin(),
-            new webpack.BannerPlugin(`
-    @license Kitten v${Package.version}
-    
-    This source code is licensed under the MIT license found in the
-    LICENSE file in the root directory of this source tree.
-            `)
+            new CleanWebpackPlugin()
         ],
         resolve: {
             extensions: ['.js', '.ts', '.tsx'],

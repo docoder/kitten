@@ -13,7 +13,7 @@ export function Modal(props: {[propName: string]: any}) {
             width={props.width}
             footer={null}
         >
-          {props.children}
+            {props.children}
         </AntModal>
     )
 }

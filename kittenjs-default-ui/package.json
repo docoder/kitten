@@ -44,7 +44,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
-    "ant-colony-ui": "1.6.0",
+    "ant-colony-ui": "1.6.1",
     "antd": "3.21.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
