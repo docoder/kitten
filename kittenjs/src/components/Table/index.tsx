@@ -15,13 +15,14 @@ interface IProps {
     className?: string;
     meta: {
         url: string,
-        data?: {[x:string]: any},
+        data?: any,
         pageSize?: number,
         form?: string,
         method: string,
         params?: {form: {key: string, fields: string[]}},
         rowAction?: string
         label?: string
+        modal?: string
     } 
     columns: (TableColumn[]);
     pageKey: string;
@@ -37,7 +38,7 @@ function _Table(props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props.tableKey, props)
         }
     }, [])
-    const { showModal, setParams } = Pages.useContainer()
+    const { showModal, setParams, getParams } = Pages.useContainer()
     const keyItem = props.columns.find(c => !!c.id)
     const rowKey = keyItem ? keyItem.key : 'key'
     const get = useGET()
@@ -137,9 +138,29 @@ function _Table(props: IProps): JSX.Element {
                 modal: a.meta ? a.meta.modal: null
             }))
         }
+
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
+
+    if (props.meta.data && typeof props.meta.data === 'string') {
+        if (props.meta.modal && props.meta.data.startsWith('$.')) {
+            const params = getParams(props.pageKey, props.meta.modal)
+            if (params) {
+                const valueKey = props.meta.data.split('.')[1]
+                const data = params[valueKey]
+                if (data && Array.isArray(data)) {
+                    props.meta.data = data
+                }else {
+                    props.meta.data = []
+                }
+            }else {
+                props.meta.data = []
+            }
+        }else{
+            props.meta.data = []
+        }
+    }
     
     const Comp = app.ui? app.ui.Table : null
     if (props.meta && props.meta.url) {

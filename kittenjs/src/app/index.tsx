@@ -68,6 +68,7 @@ export interface PageSectionItem {
     editable?: boolean
     required?: boolean
     reg?: {pattern: string, message: string}
+    value?: string
 }
 export interface PageSection {
     type: string

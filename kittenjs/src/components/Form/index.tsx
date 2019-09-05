@@ -15,7 +15,8 @@ export type FormItem = {
         url: string,
         method: string,
         data?: {value: string, label: string}[]
-    }
+    },
+    value?: string
 }
 interface IProps {
     style?: React.CSSProperties;
@@ -47,6 +48,13 @@ function _Form (props: IProps): JSX.Element {
     const { getParams, setFilter } = Pages.useContainer()
     const items = useSelect(props.pageKey, props.formKey, props.items)
     items.forEach((i:any) => {
+        if (i.value && i.value.startsWith('$.') && props.meta.modal) {
+            const params = getParams(props.pageKey, props.meta.modal)
+            if (params) {
+                const valueKey = i.value.split('.')[1]
+                i.value = params[valueKey] || []
+            } 
+        }
         if (i.meta && typeof i.meta.data === 'string' && i.meta.data.startsWith('$.')) {
             if (props.meta.modal) {
                 const params = getParams(props.pageKey, props.meta.modal)

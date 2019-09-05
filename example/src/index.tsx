@@ -111,7 +111,9 @@ const sub1PageJSON: PageSection[] = [
                             // $. 取 table record
                             // $# 取 url 请求数据
                             params: {
-                                title: '$.number', 
+                                number: '$.number',
+                                type: '$.type',
+                                items: '$.items'
                             },
                             // url: 'https://api.example.com/beforeSub1Edit',
                             // method: 'GET'
@@ -297,11 +299,13 @@ const sub1PageJSON: PageSection[] = [
                 type: 'Form',
                 key: 'sub1EditModal',
                 items: [
+                    {key: 'number', label: '编码', required: true, value: '$.number'},
                     {
                         key: 'type',
                         label: '类型',
                         type: 'select',
                         required: true,
+                        value: '$.type',
                         meta: {
                             data: [
                                 {value: '0', label: '类型1'},
@@ -317,13 +321,79 @@ const sub1PageJSON: PageSection[] = [
                 meta: {
                     url: 'https://api.example.com/sub1/edit',
                     modal: 'sub1EditModal',
-                    method: 'POST'
+                    method: 'POST',
+                    columnsCount: 2,
+                    accessories: [
+                        {
+                            type: 'Table',
+                            key: 'sub1AddItems',
+                            items: [
+                                {
+                                    key: 'province',
+                                    label: '省',
+                                    editable: true,
+                                    type: 'select',
+                                    meta: {
+                                        data: [
+                                            {value: '0', label: '北京'},
+                                            {value: '1', label: '山东'},
+                                        ], 
+                                    }
+                                },
+                                {
+                                    key: 'city',
+                                    label: '城市',
+                                    editable: true,
+                                    type: 'select',
+                                    meta: {
+                                        ref: 'province',
+                                        refData: {
+                                            '0': [{value: '0', label: '北京'}],
+                                            '1': [{value: '1', label: '烟台'}, {value: '2', label: '济南'}, {value:'3', label: '青岛'}]
+                                        },
+                                    }
+                                },
+                                {
+                                    key: 'item',
+                                    label: '项目',
+                                    editable: true
+                                },
+                                {
+                                    key: 'operations',
+                                    label: '操作',
+                                    actions: [
+                                        {
+                                            key: 'addSub2',
+                                            meta: {
+                                                label: '添加',
+                                                rowAction: 'insert'
+                                            }
+                                        }, 
+                                        {
+                                            key: 'deleteSub2',
+                                            meta: {
+                                                label: '删除',
+                                                rowAction: 'delete'
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            meta: {
+                                data: '$.items',
+                                label: '项目',
+                                modal: 'sub1EditModal',
+                                form: 'sub1AddForm',
+                                params: {form: {key: 'items', fields: ['province', 'city', 'item']}},
+                            }
+                        }
+                    ]
                 },
             }
         ],
         meta: {
-            label: '编辑 {$.title}',
-            width: 400
+            label: '编辑 {$.number}',
+            width: 800
         }
     } 
 ]
