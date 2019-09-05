@@ -118,16 +118,26 @@ function _Table(props: IProps): JSX.Element {
                 confirmLabel: a.meta.confirmLabel,
                 callback: (text: string, record: any, index: number) => {
                     if (a.meta.rowAction) {
+                        const keys = Object.keys(record)
+                        const blankValue: any = {}
+                        keys.forEach((k: string) => {
+                            blankValue[k] = undefined
+                        })
                         if (a.meta.rowAction === 'insert') {
                             props.meta.data = props.meta.data || [];
                             props.meta.data.splice(index+1, 0, {
-								...record,
+								...blankValue,
                                 [rowKey]: new Date().getTime(),
                             })
                             forceReload() 
                         }
-                        else if (a.meta.rowAction === 'delete' && props.meta.data && props.meta.data.length > 1){
-                            props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
+                        else if (a.meta.rowAction === 'delete' && props.meta.data ){
+                            if (props.meta.data.length > 1) {
+                                props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
+                            }else {
+                                
+                                props.meta.data=[blankValue] 
+                            }
                             forceReload()
                         }
                     }else {
@@ -150,7 +160,10 @@ function _Table(props: IProps): JSX.Element {
                 const valueKey = props.meta.data.split('.')[1]
                 const data = params[valueKey]
                 if (data && Array.isArray(data)) {
-                    props.meta.data = data
+                    props.meta.data = data.map((d:any, index: number) => ({
+                        ...d, 
+                        [rowKey]: (d[rowKey] || index)
+                    }))
                 }else {
                     props.meta.data = []
                 }

@@ -13,9 +13,9 @@ export default class Sub1ListPlugin implements Plugin {
                 }
                 if (column.key === 'items') {
                     column.render = (text: string, record: any) => {
-                        const items = text.split(';')
-                        return items.map(i => (
-                            <div key={i}>{i}</div>
+                        const items = record.items
+                        return items.map((i: any, index: number) => (
+                            <div key={index}>{`${i.provinceName}-${i.cityName}-${i.item}`}</div>
                         ));
                     };
                 }

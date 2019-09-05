@@ -129,28 +129,39 @@ const sub1PageJSON: PageSection[] = [
                     number: 'test-111',
                     typeId: '0',
                     type: '类型1',
-                    items: '北京-北京-项目1;山东-烟台-项目2',
+                    items: [
+                        {province: '0', provinceName: '北京', city: '0', cityName: '北京', item: '项目1'},
+                        {province: '1', provinceName: '山东', city: '1', cityName: '烟台', item: '项目2'}
+                    ],
                 },
                 {
                     id: 2,
                     number: '',
                     typeId: '0',
                     type: '类型1',
-                    items: '山东-济南-项目1;山东-青岛-项目1',
+                    items: [
+                        {province:'1', provinceName: '山东', city:'2', cityName: '济南', item: '项目1'},
+                        {province:'1', provinceName: '山东', city:'3', cityName: '青岛', item: '项目1'}
+                    ]
                 },
                 {
                     id: 3,
                     number: null,
                     typeId: '1',
                     type: '类型2',
-                    items: '山东-青岛-项目1',
+                    items: [
+                        {province:'1', provinceName: '山东', city:'3', cityName: '青岛', item: '项目1'}
+                    ],
                 },
                 {
                     id: 4,
                     number: 'test-222',
                     typeId: '2',
                     type: '类型3',
-                    items: '山东-烟台-项目1;山东-烟台-项目2',
+                    items: [
+                        {province:'1', provinceName: '山东', city:'1', cityName: '烟台', item: '项目1'},
+                        {province:'1', provinceName: '山东', city:'1', cityName: '烟台', item: '项目2'}
+                    ],
                 }
             ],
             pageSize: 1,
@@ -350,7 +361,7 @@ const sub1PageJSON: PageSection[] = [
                                         refData: {
                                             '0': [{value: '0', label: '北京'}],
                                             '1': [{value: '1', label: '烟台'}, {value: '2', label: '济南'}, {value:'3', label: '青岛'}]
-                                        },
+                                        }
                                     }
                                 },
                                 {
@@ -384,7 +395,10 @@ const sub1PageJSON: PageSection[] = [
                                 label: '项目',
                                 modal: 'sub1EditModal',
                                 form: 'sub1AddForm',
-                                params: {form: {key: 'items', fields: ['province', 'city', 'item']}},
+                                params: {
+                                    form: {key: 'items', fields: ['province', 'city', 'item']},
+                                    get: {number: '$.number'}
+                                },
                             }
                         }
                     ]

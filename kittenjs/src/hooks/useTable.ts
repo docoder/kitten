@@ -13,13 +13,16 @@ export function useTable(
         data?: {[x:string]: any},
         pageSize?: number,
         alias?: {[x:string]: string},
-        method: string
+        method: string,
+        params?: {[x:string]: any}
+        modal?: string
     },
     reload: number
 ): {dataSource: any[], currentPage: number, total: number, pageSize: number, setCurrentPage: Function, setPageSize: Function} {
     const app = React.useContext(App);
     const get = useGET()
     const filter = Pages.useContainer().getFilter(pageKey, tableKey)
+    const { getParams } = Pages.useContainer()
     const dataType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_DATA_FETCHED`
     const pageType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_SET_CURRENT_PAGE`
     const sizeType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_SET_PAGE_SIZE`
@@ -83,7 +86,20 @@ export function useTable(
                     if (meta.alias.list) listKey = meta.alias.list
                     if (meta.alias.total) totalKey = meta.alias.total
                 }
-                const result = await get(u, {...filter, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
+                const values:any = {}
+                if (meta.params && meta.params.get) {
+                    const get = meta.params.get
+                    Object.keys(get).forEach((k:any) => {
+                        const value = get[k]
+                        if (meta.modal && value.startsWith('$.')) {
+                            const params = getParams(pageKey, meta.modal)
+                            values[k] = params[value.split('.')[1]]
+                        }else {
+                            values[k] = value
+                        }
+                    })
+                }
+                const result = await get(u, {...filter, ...values, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
                 let list = getValueByKeypath(result.data, listKey)
                 let total = getValueByKeypath(result.data, totalKey)
                 if (result && result.data && list && total) {
