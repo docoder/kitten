@@ -10,6 +10,11 @@ const StyledTable = styled(AntTable)`
         min-height: 32px;
     }
 `;
+const TableTitle = styled.div`
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 12px;
+    margin-bottom: 10px;
+`
 
 export function Table(props: {[propName: string]: any}) {
     console.log('===TABLE-PROPS===:', props)
@@ -24,6 +29,8 @@ export function Table(props: {[propName: string]: any}) {
         return {...c}
     })
     return (
+        <>
+        {props.title && <TableTitle>{props.title}:</TableTitle>}
         <StyledTable
             style={props.style}
             className={props.className}
@@ -48,6 +55,7 @@ export function Table(props: {[propName: string]: any}) {
                 forceUpdate()
             }}
         />
+        </>
     ) 
 }
 

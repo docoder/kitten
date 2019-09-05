@@ -21,6 +21,7 @@ interface IProps {
         method: string,
         params?: {form: {key: string, fields: string[]}},
         rowAction?: string
+        label?: string
     } 
     columns: (TableColumn[]);
     pageKey: string;
@@ -148,6 +149,7 @@ function _Table(props: IProps): JSX.Element {
                 style={{
                     ...props.style,
                 }}
+                title={props.meta.label}
                 appKey={app.config.appKey}
                 pageKey={props.pageKey}
                 tableKey={props.tableKey}
@@ -180,6 +182,7 @@ function _Table(props: IProps): JSX.Element {
                 style={{
                     ...props.style,
                 }}
+                title={props.meta.label}
                 appKey={app.config.appKey}
                 pageKey={props.pageKey}
                 tableKey={props.tableKey}
@@ -199,15 +202,20 @@ function _Table(props: IProps): JSX.Element {
                         if (props.meta.params && props.meta.params.form) {
                             const { key, fields } = props.meta.params.form
                             params = {}
-                            params[key] = dataSource.map((d:any) => {
-                                let data: any = {}
-                                Object.keys(d).forEach((k:string) => {
-                                    if (fields.includes(k)) {
-                                        data[k] = d[k]
-                                    }
+                            if (fields && fields.length > 0) {
+                                params[key] = dataSource.map((d:any) => {
+                                    let data: any = {}
+                                    Object.keys(d).forEach((k:string) => {
+                                        if (fields.includes(k)) {
+                                            data[k] = d[k]
+                                        }
+                                    })
+                                    return data
                                 })
-                                return data
-                            })
+                            }else {
+                                params[key] = dataSource
+                            }
+                            
                         }
                         setParams(props.pageKey, props.meta.form, params)
                     }
