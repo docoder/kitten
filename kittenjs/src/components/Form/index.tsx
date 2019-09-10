@@ -31,7 +31,8 @@ interface IProps {
         rowColCounts: number[];
         disableGroupCol: boolean;
         params?: {[x:string]: any};
-        accessories: any[]
+        accessories: any[];
+        componentKey?: string;
     };
     pageKey: string; 
     formKey: string;
@@ -45,7 +46,7 @@ function _Form (props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'form', props.formKey, props)
         }
     }, [])
-    const { getParams, setFilter } = Pages.useContainer()
+    const { getParams, setFilter, setParams, hideModal } = Pages.useContainer()
     const items = useSelect(props.pageKey, props.formKey, props.items)
     items.forEach((i:any) => {
         if (i.value && i.value.startsWith('$.') && props.meta.modal) {
@@ -122,8 +123,17 @@ function _Form (props: IProps): JSX.Element {
                     }
                 }
                 app.hooks.beforeFormSubmit.call(app.config.appKey, props.pageKey, props.formKey, newValues)
-                if(props.meta.filter) {
+                if(props.meta.componentKey) {
+                    setParams(props.pageKey, props.meta.componentKey, newValues)
+                    if (props.meta.modal) {
+                        hideModal(props.pageKey, props.meta.modal)
+                    }
+                }
+                else if(props.meta.filter) {
                     setFilter(props.pageKey, props.meta.filter, newValues) 
+                    if (props.meta.modal) {
+                        hideModal(props.pageKey, props.meta.modal)
+                    }
                 }else {
                     submit(newValues)
                 }

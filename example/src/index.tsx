@@ -180,11 +180,11 @@ const sub1PageJSON: PageSection[] = [
         key: 'sub1AddModal',
         items: [
             {
-                key: 'testNestModal',
+                key: 'sub1AddItemButton',
                 type: 'Button',
                 meta: {
-                    label: '嵌套 Modal',
-                    modal: 'testNestModalModal'
+                    label: '添加项目',
+                    modal: 'sub1AddItemModal'
                 }
             },
             {
@@ -217,7 +217,7 @@ const sub1PageJSON: PageSection[] = [
                     accessories: [
                         {
                             type: 'Table',
-                            key: 'sub1AddItems',
+                            key: 'sub1AddItemsTable',
                             items: [
                                 {
                                     key: 'province',
@@ -289,10 +289,49 @@ const sub1PageJSON: PageSection[] = [
             },
             {
                 type: 'Modal',
-                key: 'testNestModalModal',
-                items: [],
+                key: 'sub1AddItemModal',
+                items: [
+                    {
+                        type: 'Form',
+                        key: 'sub1Filter',
+                        items: [
+                            {
+                                key: 'province',
+                                label: '省',
+                                type: 'select',
+                                meta: {
+                                    data: [
+                                        {value: '0', label: '北京'},
+                                        {value: '1', label: '山东'},
+                                    ]
+                                }
+                            },
+                            { 
+                                key: 'city', 
+                                label: '城市',
+                                type: 'select',
+                                meta: {
+                                    ref: 'province',
+                                    refData: {
+                                        '0': [{value: '0', label: '北京'}],
+                                        '1': [{value: '1', label: '烟台'}, {value: '2', label: '济南'}, {value:'3', label: '青岛'}]
+                                    },
+                                }
+                            },
+                            { 
+                                key: 'item', 
+                                label: '项目'
+                            }
+                        ],
+                        meta: {
+                            columnsCount: 1,
+                            componentKey: 'sub1AddItemsTable',
+                            modal: 'sub1AddItemModal'
+                        },
+                    }
+                ],
                 meta: {
-                    label: '嵌套 Modal',
+                    label: '添加项目',
                     width: 600
                 }
             }
@@ -337,7 +376,7 @@ const sub1PageJSON: PageSection[] = [
                     accessories: [
                         {
                             type: 'Table',
-                            key: 'sub1AddItems',
+                            key: 'sub1EditItemsTable',
                             items: [
                                 {
                                     key: 'province',
@@ -397,8 +436,7 @@ const sub1PageJSON: PageSection[] = [
                                 form: 'sub1AddForm',
                                 params: {
                                     form: {key: 'items', fields: ['province', 'city', 'item']},
-                                    get: {number: '$.number'}
-                                },
+                                }
                             }
                         }
                     ]
@@ -487,7 +525,7 @@ const sub2PageJSON: PageSection[] = [
             ],
             url:
             'https://api.example.com/sub2/list',
-            method: 'GET',
+            method: 'GET'
         },
     }
 ]

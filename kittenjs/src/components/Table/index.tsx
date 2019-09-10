@@ -176,10 +176,15 @@ function _Table(props: IProps): JSX.Element {
     }
     
     const Comp = app.ui? app.ui.Table : null
-    if (props.meta && props.meta.url) {
-        const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
-        return (
-            <Comp
+
+    function renderTable(dataSource: any[], pagination: any) {
+        const values = getParams(props.pageKey, props.tableKey) 
+        if (values && Object.keys(values).length > 0) {
+            
+            dataSource.push({[rowKey]: new Date().getTime(), ...values}) 
+            setParams(props.pageKey, props.tableKey, {})
+        } 
+        return (<Comp
                 style={{
                     ...props.style,
                 }}
@@ -191,40 +196,11 @@ function _Table(props: IProps): JSX.Element {
                 rowKey={rowKey}
                 columns={columns}
                 dataSource={dataSource}
-                onPageChange={(page: number, pSize: number) => {
-                    if (page !== currentPage) setCurrentPage(page)
-                    if (pSize !== pageSize) setPageSize(pSize)
-                }}
-                onCellChanged={(dataSource: any[], row: any, key: string) => {
-                    app.hooks.afterTableCellChanged.call(app.config.appKey, props.pageKey, props.tableKey, dataSource, row);
-                    const column = props.columns.find((c: any) => c.key === key)
-                    if (column && column.meta) {
-                        extraRequest(column.meta, row)
-                    }
-                }}
-                pagination={{
-                    current: currentPage,
-                    total: total,
-                    pageSize: pageSize,
-                    position: 'both'
-                }}
-            />
-        );
-    }else {
-        return (
-            <Comp
-                style={{
-                    ...props.style,
-                }}
-                title={props.meta.label}
-                appKey={app.config.appKey}
-                pageKey={props.pageKey}
-                tableKey={props.tableKey}
-                className={props.className}
-                rowKey={rowKey}
-                columns={columns}
-                dataSource={props.meta.data}
                 form={props.meta.form}
+                onPageChange={pagination ? (page: number, pSize: number) => {
+                    if (page !== pagination.currentPage) pagination.setCurrentPage(page)
+                    if (pSize !== pagination.pageSize) pagination.setPageSize(pSize)
+                } : undefined}
                 onCellChanged={(dataSource: any[], row: any, key: string) => {
                     app.hooks.afterTableCellChanged.call(app.config.appKey, props.pageKey, props.tableKey, dataSource, row);
                     const column = props.columns.find((c: any) => c.key === key)
@@ -254,8 +230,20 @@ function _Table(props: IProps): JSX.Element {
                         setParams(props.pageKey, props.meta.form, params)
                     }
                 }}
-            />
-        )
+                pagination={pagination ? {
+                    current: pagination.currentPage,
+                    total: pagination.total,
+                    pageSize: pagination.pageSize,
+                    position: 'both'
+                }: false}
+            />)
+    }
+
+    if (props.meta && props.meta.url) {
+        const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
+        return renderTable(dataSource, {currentPage, total, pageSize, setCurrentPage,  setPageSize});
+    }else {
+        return renderTable(props.meta.data || [], false);
     }
     
 };

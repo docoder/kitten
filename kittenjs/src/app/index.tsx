@@ -38,14 +38,15 @@ export interface ActionMeta {
     link?: string
     url?: string
     params?: {[x:string]: any}
-    method?: string, 
-    confirm?: boolean,
-    confirmLabel?:string,
-    form?: string,
+    method?: string
+    confirm?: boolean
+    confirmLabel?:string
+    form?: string
     rowAction?: string
+    componentKey?: string
 }
 interface LayoutMeta {
-    direction: string
+    direction?: string
     width?: number
     columnsCount?: number
     rowColCounts?: number []
