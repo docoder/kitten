@@ -15,7 +15,8 @@ export function useTable(
         alias?: {[x:string]: string},
         method: string,
         params?: {[x:string]: any}
-        modal?: string
+        modal?: string,
+        disablePagination?: boolean
     },
     reload: number
 ): {dataSource: any[], currentPage: number, total: number, pageSize: number, setCurrentPage: Function, setPageSize: Function} {
@@ -99,12 +100,28 @@ export function useTable(
                         }
                     })
                 }
-                const result = await get(u, {...filter, ...values, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
-                let list = getValueByKeypath(result.data, listKey)
-                let total = getValueByKeypath(result.data, totalKey)
-                if (result && result.data && list && total) {
-                    dataSource = list
-                    totalCount = total
+                if (meta.disablePagination) {
+                    const result = await get(u, {...filter, ...values})
+                    if (result && result.data ) {
+                        let list = getValueByKeypath(result.data, listKey)
+                        if (list) {
+                            dataSource = list
+                        }else if (Array.isArray(result.data)) {
+                            dataSource = result.data 
+                        }
+                        totalCount = 0
+                    }
+                }else {
+                    const result = await get(u, {...filter, ...values, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
+                    if (result && result.data ) {
+                        let list = getValueByKeypath(result.data, listKey)
+                        let total = getValueByKeypath(result.data, totalKey)
+                        if (list && total) {
+                            dataSource = list
+                            totalCount = total
+                        }
+                    }
+                    
                 }
             }
             app.hooks.afterTableDataSourceFetched.call(

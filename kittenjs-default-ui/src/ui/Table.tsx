@@ -37,9 +37,9 @@ export function Table(props: {[propName: string]: any}) {
             columns={props.columns}
             dataSource={props.dataSource}
             rowKey={props.rowKey}
-            scrollWidth={(props.form || props.modal) ? undefined : 1000}
+            scrollWidth={(props.columns.length < 6) ? undefined : 1000}
             floatingScrollDomQuery=".ant-table-scroll .ant-table-body"
-            columnsConfigGlobalTableKey={(props.form || props.modal) ? undefined : `Kittenjs-Default-UI-Table-${props.appKey}-${props.pageKey}-${props.tableKey}`}
+            columnsConfigGlobalTableKey={(props.columns.length < 6) ? undefined : `Kittenjs-Default-UI-Table-${props.appKey}-${props.pageKey}-${props.tableKey}`}
             pagination={props.pagination}
             onChange={(pagination: any) => {
                 props.onPageChange(pagination.current, pagination.pageSize) 

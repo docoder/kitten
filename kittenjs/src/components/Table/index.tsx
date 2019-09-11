@@ -23,6 +23,7 @@ interface IProps {
         rowAction?: string
         label?: string
         modal?: string
+        disablePagination?: boolean
     } 
     columns: (TableColumn[]);
     pageKey: string;
@@ -136,7 +137,10 @@ function _Table(props: IProps): JSX.Element {
                                 props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
                             }else {
                                 
-                                props.meta.data=[blankValue] 
+                                props.meta.data=[{
+                                    ...blankValue,
+                                    [rowKey]: new Date().getTime(),
+                                }] 
                             }
                             forceReload()
                         }
@@ -196,7 +200,6 @@ function _Table(props: IProps): JSX.Element {
                 rowKey={rowKey}
                 columns={columns}
                 dataSource={dataSource}
-                form={props.meta.form}
                 onPageChange={pagination ? (page: number, pSize: number) => {
                     if (page !== pagination.currentPage) pagination.setCurrentPage(page)
                     if (pSize !== pagination.pageSize) pagination.setPageSize(pSize)
@@ -241,7 +244,7 @@ function _Table(props: IProps): JSX.Element {
 
     if (props.meta && props.meta.url) {
         const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
-        return renderTable(dataSource, {currentPage, total, pageSize, setCurrentPage,  setPageSize});
+        return renderTable(dataSource, props.meta.disablePagination ? false : {currentPage, total, pageSize, setCurrentPage,  setPageSize});
     }else {
         return renderTable(props.meta.data || [], false);
     }

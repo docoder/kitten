@@ -22,10 +22,10 @@ function _Button(props: IProps): JSX.Element {
     const Comp = app.ui? app.ui.Button : null
     return (
         <Comp 
+        {...props.meta}
         style={{
             ...props.style,
-        }}
-        {...props.meta} 
+        }} 
         onClick={() => {
             app.hooks.beforeButtonClick.call(app.config.appKey, props.pageKey, props.buttonKey)
             if (props.meta.modal && props.meta.modal.length > 0) {

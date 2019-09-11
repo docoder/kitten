@@ -13,14 +13,6 @@
 
 </div>
 
-## ⚠️ Warning
-
-#### Kitten (kittenjs and kittenjs-default-ui) is under active development
-
-#### Its API is not stable
-
-#### Use it at your own risk
-
 ## 📦 Installation
 
 #### 1.kittenjs

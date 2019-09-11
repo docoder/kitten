@@ -2,7 +2,6 @@ import React from 'react'
 import {Button as AntButton} from 'ant-colony-ui';
 
 export function Button(props: {[propName: string]: any}) {
-    // console.log('===BUTTON-PROPS===:', props)
     let element = <AntButton
             title={props.label} 
             onClick={props.onClick}

@@ -39,7 +39,7 @@ function _Stack(props: IProps): JSX.Element {
                             <Table
                                 pageKey={props.pageKey}
                                 tableKey={c.key}
-                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                                 key={c.key}
                                 columns={c.items}
                                 meta={c.meta}
@@ -51,7 +51,7 @@ function _Stack(props: IProps): JSX.Element {
                             <Form
                                 pageKey={props.pageKey}
                                 formKey={c.key}
-                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                                 key={c.key}
                                 items={c.items}
                                 meta={c.meta}
@@ -66,7 +66,7 @@ function _Stack(props: IProps): JSX.Element {
                                 stackKey={c.key}
                                 items={c.items}
                                 direction={c.meta.direction}
-                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                             />
                         )
                     case 'Button':
@@ -76,7 +76,7 @@ function _Stack(props: IProps): JSX.Element {
                                 pageKey={props.pageKey}
                                 buttonKey={c.key}
                                 meta={c.meta}
-                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                                 forceUpdate={forceUpdate}
                             />
                         )
@@ -90,6 +90,7 @@ function _Stack(props: IProps): JSX.Element {
                                 title={c.meta.label}
                                 width={c.meta.width}
                                 forceUpdate={forceUpdate}
+                                style={c.meta.style}
                             />
                         )
                     case 'Checkbox':
@@ -99,7 +100,7 @@ function _Stack(props: IProps): JSX.Element {
                                 pageKey={props.pageKey}
                                 checkboxKey={c.key}
                                 meta={c.meta}
-                                style={vertical ? {marginBottom: 20} : {marginRight: 10}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                                 forceUpdate={forceUpdate}
                             />
                         )

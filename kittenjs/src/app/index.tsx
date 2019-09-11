@@ -25,7 +25,8 @@ interface RefDataMeta {
 }
 interface DataMeta {
     data: {[x:string]: any}[] | string
-    pageSize?: number
+    pageSize?: number,
+    disablePagination?: boolean
 }
 interface FetchMeta {
     url: string
@@ -52,6 +53,7 @@ interface LayoutMeta {
     rowColCounts?: number []
     disableGroupCol?: boolean
     accessories?: PageSection []
+    style?: {[x:string]: string}
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
