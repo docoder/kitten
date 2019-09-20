@@ -16,6 +16,14 @@ const sub1PageJSON: PageSection[] = [
                 }
             },
             {
+                key: 'link',
+                type: 'Button',
+                meta: {
+                    label: 'sub2页面',
+                    link: '/sub2'  // / 表示为跟页面，非子页面
+                }
+            },
+            {
                 key: 'download',
                 type: 'Button',
                 meta: {
@@ -117,6 +125,13 @@ const sub1PageJSON: PageSection[] = [
                             },
                             // url: 'https://api.example.com/beforeSub1Edit',
                             // method: 'GET'
+                        }
+                    },
+                    {
+                        key: 'sub1Subpage',
+                        meta: {
+                            label: '子页面',
+                            link: 'subpage'
                         }
                     }
                 ]
@@ -546,7 +561,21 @@ const app = new Kitten(ui, {
                 {
                     label: '子菜单 1', 
                     key: 'sub1',
-                    pageJSON: JSON.parse(JSON.stringify(sub1PageJSON)) 
+                    pageJSON: JSON.parse(JSON.stringify(sub1PageJSON)),
+                    subPages: [
+                        {
+                            key: 'subpage',
+                            label: '子页面1',
+                            pageJSON: [{
+                                key: 'backToSub1',
+                                type: 'Button',
+                                meta: {
+                                    label: '返回',
+                                    link: '<'
+                                }
+                            }]
+                        }
+                    ]
                 },
                 {
                     label: '子菜单 2', 

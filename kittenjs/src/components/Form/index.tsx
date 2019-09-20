@@ -37,6 +37,7 @@ interface IProps {
     pageKey: string; 
     formKey: string;
     forceUpdate: Function;
+    history: any;
 }
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
@@ -88,6 +89,7 @@ function _Form (props: IProps): JSX.Element {
                 items={props.meta.accessories} 
                 direction="vertical" 
                 stackKey={`${props.pageKey}_${props.formKey}_accessories_stack`} 
+                history={props.history}
             /> : undefined}
             onSubmit={(values: {[key: string]: any}) => {
                 const keys = items.filter(i => !i.actionDisabled).map(i => i.key)

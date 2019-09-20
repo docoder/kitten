@@ -11,6 +11,7 @@ interface IProps {
     plugins: Plugin[]
     debugHooks?: string[]
     pageKey: string;
+    history: any;
 }
 interface IPropsWithAPI extends IProps {
     pageAPI: string;
@@ -36,7 +37,7 @@ function _Entry(props: EntryProps):JSX.Element {
     }
     return (
         <Pages.Provider>
-            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={pageJSON} />
+            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={pageJSON} history={props.history} />
         </Pages.Provider>
     );
 };

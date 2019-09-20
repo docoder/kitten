@@ -10,6 +10,7 @@ interface IProps {
     pageKey: string
     modalKey: string
     forceUpdate: Function
+    history: any;
 }
 
 function _Modal(props: IProps): JSX.Element {
@@ -60,6 +61,7 @@ function _Modal(props: IProps): JSX.Element {
                 items={props.contens} 
                 direction="vertical" 
                 stackKey={`${props.pageKey}_${props.modalKey}_main_stack`} 
+                history={props.history}
             />
         </Comp>
     );

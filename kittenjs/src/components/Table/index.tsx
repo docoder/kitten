@@ -24,11 +24,13 @@ interface IProps {
         label?: string
         modal?: string
         disablePagination?: boolean
+        link?: string
     } 
     columns: (TableColumn[]);
     pageKey: string;
     tableKey: string;
     forceUpdate: Function;
+    history: any;
 }
 
 function _Table(props: IProps): JSX.Element {
@@ -143,6 +145,14 @@ function _Table(props: IProps): JSX.Element {
                                 }] 
                             }
                             forceReload()
+                        }
+                    }else if (a.meta.link) {
+                        console.log('===>', a.meta.link)
+                        const link = a.meta.link
+                        if(link.startsWith('/')) {
+                            props.history.push(link.substring(1))
+                        }else {
+                            props.history.push(`${props.pageKey}/${link}`) 
                         }
                     }else {
                         extraRequest(a.meta, record)

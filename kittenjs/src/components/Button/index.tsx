@@ -8,6 +8,7 @@ interface IProps {
     meta: ActionMeta;
     buttonKey: string;
     forceUpdate: Function;
+    history: any;
 }
 
 function _Button(props: IProps): JSX.Element {
@@ -30,7 +31,18 @@ function _Button(props: IProps): JSX.Element {
             app.hooks.beforeButtonClick.call(app.config.appKey, props.pageKey, props.buttonKey)
             if (props.meta.modal && props.meta.modal.length > 0) {
                 showModal(props.pageKey, props.meta.modal)
+            }else if (props.meta.link) {
+                const link = props.meta.link
+                if(link === '<') {
+                    props.history.goBack()
+                }else if(link.startsWith('/')) {
+                    props.history.push(link.substring(1))
+                }else {
+                    props.history.push(`${props.pageKey}/${link}`) 
+                }
+                
             }
+            
         }} />
     );
 };

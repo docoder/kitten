@@ -11,6 +11,7 @@ interface IProps {
     items: PageSection[];
     direction: string;
     stackKey: string;
+    history: any;
 }
 
 function _Stack(props: IProps): JSX.Element {
@@ -44,6 +45,7 @@ function _Stack(props: IProps): JSX.Element {
                                 columns={c.items}
                                 meta={c.meta}
                                 forceUpdate={forceUpdate}
+                                history={props.history}
                             />
                         );
                     case 'Form':
@@ -56,6 +58,7 @@ function _Stack(props: IProps): JSX.Element {
                                 items={c.items}
                                 meta={c.meta}
                                 forceUpdate={forceUpdate}
+                                history={props.history}
                             />
                         )
                     case 'Stack':
@@ -67,6 +70,7 @@ function _Stack(props: IProps): JSX.Element {
                                 items={c.items}
                                 direction={c.meta.direction}
                                 style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                history={props.history}
                             />
                         )
                     case 'Button':
@@ -78,6 +82,7 @@ function _Stack(props: IProps): JSX.Element {
                                 meta={c.meta}
                                 style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
                                 forceUpdate={forceUpdate}
+                                history = {props.history}
                             />
                         )
                     case 'Modal': 
@@ -91,6 +96,7 @@ function _Stack(props: IProps): JSX.Element {
                                 width={c.meta.width}
                                 forceUpdate={forceUpdate}
                                 style={c.meta.style}
+                                history={props.history}
                             />
                         )
                     case 'Checkbox':

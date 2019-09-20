@@ -1,6 +1,6 @@
 {
   "name": "kittenjs-default-ui",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Kittenjs default UI",
   "author": "docoder",
   "main": "build/index.js",
@@ -28,7 +28,7 @@
     "build"
   ],
   "peerDependencies": {
-    "ant-colony-ui": "^1.5.26",
+    "ant-colony-ui": "^1.6.5",
     "antd": "^3.20.0",
     "kittenjs": ">=0.1.0",
     "react": ">=16.8.0",
@@ -44,8 +44,9 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
-    "ant-colony-ui": "1.6.2",
+    "ant-colony-ui": "1.6.5",
     "antd": "3.21.4",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
