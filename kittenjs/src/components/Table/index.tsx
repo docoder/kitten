@@ -137,17 +137,18 @@ function _Table(props: IProps): JSX.Element {
                         else if (a.meta.rowAction === 'delete' && props.meta.data ){
                             if (props.meta.data.length > 1) {
                                 props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
+                                handleFormData(props.meta.data)
                             }else {
                                 
                                 props.meta.data=[{
                                     ...blankValue,
                                     [rowKey]: new Date().getTime(),
                                 }] 
+                                handleFormData([])
                             }
                             forceReload()
                         }
                     }else if (a.meta.link) {
-                        console.log('===>', a.meta.link)
                         const link = a.meta.link
                         if(link.startsWith('/')) {
                             props.history.push(link.substring(1))
@@ -189,14 +190,43 @@ function _Table(props: IProps): JSX.Element {
         }
     }
     
+    function handleFormData(dataSource: any[]) {
+        if(props.meta.form) {
+            let ps: any = { list: dataSource }
+            if (props.meta.params && props.meta.params.form) {
+                const { key, fields } = props.meta.params.form
+                ps = {}
+                if (fields && fields.length > 0) {
+                    ps[key] = dataSource.map((d:any) => {
+                        let data: any = {}
+                        Object.keys(d).forEach((k:string) => {
+                            if (fields.includes(k)) {
+                                data[k] = d[k]
+                            }
+                        })
+                        return data
+                    })
+                }else {
+                    ps[key] = dataSource
+                }
+                
+            }  
+            const lastParams = getParams(props.pageKey, props.meta.form) 
+            const newParams = lastParams ? {...lastParams, ...ps} : ps;
+            setParams(props.pageKey, props.meta.form, newParams)
+        }
+    }
+
     const Comp = app.ui? app.ui.Table : null
 
     function renderTable(dataSource: any[], pagination: any) {
         const values = getParams(props.pageKey, props.tableKey) 
         if (values && Object.keys(values).length > 0) {
-            
-            dataSource.push({[rowKey]: new Date().getTime(), ...values}) 
+            dataSource.push({[rowKey]: new Date().getTime(), ...values})
             setParams(props.pageKey, props.tableKey, {})
+            setTimeout(() => {
+                handleFormData(dataSource)
+            }, 0);
         } 
         return (<Comp
                 style={{
@@ -216,33 +246,11 @@ function _Table(props: IProps): JSX.Element {
                 } : undefined}
                 onCellChanged={(dataSource: any[], row: any, key: string) => {
                     app.hooks.afterTableCellChanged.call(app.config.appKey, props.pageKey, props.tableKey, dataSource, row);
-                    const column = props.columns.find((c: any) => c.key === key)
-                    if (column && column.meta) {
-                        extraRequest(column.meta, row)
-                    }
-                    if(props.meta.form) {
-                        let params: any = { list: dataSource }
-                        if (props.meta.params && props.meta.params.form) {
-                            const { key, fields } = props.meta.params.form
-                            params = {}
-                            if (fields && fields.length > 0) {
-                                params[key] = dataSource.map((d:any) => {
-                                    let data: any = {}
-                                    Object.keys(d).forEach((k:string) => {
-                                        if (fields.includes(k)) {
-                                            data[k] = d[k]
-                                        }
-                                    })
-                                    return data
-                                })
-                            }else {
-                                params[key] = dataSource
-                            }
-                            
-                        }
-                        const lastParams = getParams(props.pageKey, props.meta.form) 
-                        setParams(props.pageKey, props.meta.form, lastParams ? {...lastParams, ...params} : params)
-                    }
+                    // const column = props.columns.find((c: any) => c.key === key)
+                    // if (column && column.meta) {
+                    //     extraRequest(column.meta, row)
+                    // }
+                    handleFormData(dataSource) 
                 }}
                 pagination={pagination ? {
                     current: pagination.currentPage,
