@@ -90,6 +90,7 @@ export interface MenuItem {
     subPages?: (MenuItem)[]
 }
 export interface MenuGroup {
+    key?: string
     label: string;
     subs: MenuItem[];
 }

@@ -32,6 +32,7 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
             dispatch({type, data})
         }
         if ((!props.pageJSON || props.pageJSON.length <= 0) && props.pageAPI) {
+            
             fetchPageJson(`${props.pageAPI}?page=${props.pageKey}`)
         }
     }, [])

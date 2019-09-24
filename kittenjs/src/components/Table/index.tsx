@@ -240,7 +240,8 @@ function _Table(props: IProps): JSX.Element {
                             }
                             
                         }
-                        setParams(props.pageKey, props.meta.form, params)
+                        const lastParams = getParams(props.pageKey, props.meta.form) 
+                        setParams(props.pageKey, props.meta.form, lastParams ? {...lastParams, ...params} : params)
                     }
                 }}
                 pagination={pagination ? {

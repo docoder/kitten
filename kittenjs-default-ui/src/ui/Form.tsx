@@ -14,6 +14,14 @@ const ModalForm = styled(AntForm)`
     & .ant-checkbox-group .ant-col {
         ${props => props.discol ? 'width: auto;' : ''};
     }
+
+    & .ant-form-item-children .ant-checkbox-group {
+        margin-bottom: -8px;
+    }
+
+    & .ant-row .ant-form-item-children .ant-radio-group {
+        margin-bottom: -8px;
+    }
     
 `;
 const AccessoriesContainer = styled.div`
