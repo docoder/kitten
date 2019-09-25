@@ -50,7 +50,7 @@ function _Form (props: IProps): JSX.Element {
     const { getParams, setFilter, setParams, hideModal } = Pages.useContainer()
     const items = useSelect(props.pageKey, props.formKey, props.items)
     items.forEach((i:any) => {
-        if (i.value && i.value.startsWith('$.') && props.meta.modal) {
+        if (i.value && (typeof i.value === 'string') && i.value.startsWith('$.') && props.meta.modal) {
             const params = getParams(props.pageKey, props.meta.modal)
             if (params) {
                 const valueKey = i.value.split('.')[1]

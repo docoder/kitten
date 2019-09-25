@@ -111,57 +111,61 @@ function _Table(props: IProps): JSX.Element {
         }
     }
     let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns)
+    let emptyAction: any = undefined
     columns = columns.map((c: TableColumn) => {
         let actions: any = c.actions
+        
         if (c.actions && c.actions.length > 0) {
-            actions = c.actions.map((a: TableAction) => ({
-                key: a.key,
-                label: a.meta.label,
-                confirm: a.meta.confirm,
-                confirmLabel: a.meta.confirmLabel,
-                callback: (text: string, record: any, index: number) => {
-                    if (a.meta.rowAction) {
-                        const keys = Object.keys(record)
-                        const blankValue: any = {}
-                        keys.forEach((k: string) => {
-                            blankValue[k] = undefined
-                        })
-                        if (a.meta.rowAction === 'insert') {
-                            props.meta.data = props.meta.data || [];
-                            props.meta.data.splice(index+1, 0, {
-								...blankValue,
-                                [rowKey]: new Date().getTime(),
+            const blankValue: any = {}
+            const insertAction = (index: number) => {
+                props.meta.data = props.meta.data || [];
+                props.meta.data.splice(index+1, 0, {
+                    ...blankValue,
+                    [rowKey]: new Date().getTime(),
+                })
+                forceReload()
+            }
+            actions = c.actions.map((a: TableAction) => {
+                if (a.meta.rowAction && a.meta.rowAction === 'insert') {
+                    emptyAction = {}
+                    emptyAction.title = a.meta.label
+                    emptyAction.callback = () => {insertAction(0)}
+                }
+                return {
+                    key: a.key,
+                    label: a.meta.label,
+                    confirm: a.meta.confirm,
+                    confirmLabel: a.meta.confirmLabel,
+                    callback: (text: string, record: any, index: number) => {
+                        if (a.meta.rowAction) {
+                            const keys = Object.keys(record)
+                            
+                            keys.forEach((k: string) => {
+                                blankValue[k] = undefined
                             })
-                            forceReload() 
-                        }
-                        else if (a.meta.rowAction === 'delete' && props.meta.data ){
-                            if (props.meta.data.length > 1) {
+                            if (a.meta.rowAction === 'insert') {
+                                insertAction(index) 
+                            }
+                            else if (a.meta.rowAction === 'delete' && props.meta.data ){
                                 props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
                                 handleFormData(props.meta.data)
-                            }else {
-                                
-                                props.meta.data=[{
-                                    ...blankValue,
-                                    [rowKey]: new Date().getTime(),
-                                }] 
-                                handleFormData([])
+                                forceReload()
                             }
-                            forceReload()
-                        }
-                    }else if (a.meta.link) {
-                        const link = a.meta.link
-                        if(link.startsWith('/')) {
-                            props.history.push(link.substring(1))
+                        }else if (a.meta.link) {
+                            const link = a.meta.link
+                            if(link.startsWith('/')) {
+                                props.history.push(link.substring(1))
+                            }else {
+                                props.history.push(`${props.pageKey}/${link}`) 
+                            }
                         }else {
-                            props.history.push(`${props.pageKey}/${link}`) 
+                            extraRequest(a.meta, record)
                         }
-                    }else {
-                        extraRequest(a.meta, record)
-                    }
-                },
-                show: true,
-                modal: a.meta ? a.meta.modal: null
-            }))
+                    },
+                    show: true,
+                    modal: a.meta ? a.meta.modal: null
+                }
+            })
         }
 
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
@@ -232,6 +236,7 @@ function _Table(props: IProps): JSX.Element {
                 style={{
                     ...props.style,
                 }}
+                emptyAction={emptyAction}
                 title={props.meta.label}
                 appKey={app.config.appKey}
                 pageKey={props.pageKey}

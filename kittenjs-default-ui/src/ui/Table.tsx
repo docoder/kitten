@@ -32,6 +32,7 @@ export function Table(props: {[propName: string]: any}) {
         <>
         {props.title && <TableTitle>{props.title}:</TableTitle>}
         <StyledTable
+            emptyAction={props.emptyAction}
             style={props.style}
             className={props.className}
             columns={props.columns}
