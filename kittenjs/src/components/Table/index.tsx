@@ -131,11 +131,24 @@ function _Table(props: IProps): JSX.Element {
                     emptyAction.title = a.meta.label
                     emptyAction.callback = () => {insertAction(0)}
                 }
+                let actionShow: any = true
+                if ((typeof a.meta.show) === 'boolean') {
+                    actionShow = !!a.meta.show
+                }else if (a.meta.show && (typeof a.meta.show) === 'string' ) {
+                    const showString = a.meta.show as string
+                    if (showString.startsWith('$.')) {
+                        actionShow = (text: string, record: any, index: number) => {
+                            const valueKey = showString.split('.')[1]
+                            return !!record[valueKey]
+                        }
+                    }
+                }
                 return {
                     key: a.key,
                     label: a.meta.label,
                     confirm: a.meta.confirm,
                     confirmLabel: a.meta.confirmLabel,
+                    show: actionShow,
                     callback: (text: string, record: any, index: number) => {
                         if (a.meta.rowAction) {
                             const keys = Object.keys(record)
@@ -162,7 +175,6 @@ function _Table(props: IProps): JSX.Element {
                             extraRequest(a.meta, record)
                         }
                     },
-                    show: true,
                     modal: a.meta ? a.meta.modal: null
                 }
             })

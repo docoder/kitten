@@ -45,6 +45,7 @@ export interface ActionMeta {
     form?: string
     rowAction?: string
     componentKey?: string
+    show?: string | boolean
 }
 interface LayoutMeta {
     direction?: string
