@@ -1,5 +1,5 @@
 const href = window.location.href;
-export function fetch2(url: string, options?: any, loginUrl: string = 'https://docoder.com') {
+export function fetch2(url: string, options?: any, loginUrl: string = '') {
     let realUrl = url;
     let opt = options || {}
     opt.credentials = opt.credentials || 'include'
