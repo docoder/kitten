@@ -29,7 +29,17 @@ export function useSelect(
             const result = await get (itemUrl) || []
             app.hooks.afterFormSelectFetched.call( app.config.appKey, pageKey, componentKey, items, itemKey, result.data);
             //TODO: doc
-            let data = result.data
+            let data:any[] = []
+            if (Array.isArray(result.data)) {
+                data = result.data
+            }else if ((typeof result.data === 'object')) {
+                if (itemAlias) {
+                    data = getValueByKeypath(result.data, itemAlias.list || 'list')
+                }else {
+                    data = result.data.list || []
+                }
+                
+            }
             if (itemAlias) {
                 data = data.map((d: any) => ({
                     label: getValueByKeypath(d, itemAlias.label || 'label'),
