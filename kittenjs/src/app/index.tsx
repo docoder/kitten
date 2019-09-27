@@ -73,6 +73,7 @@ export interface PageSectionItem {
     required?: boolean
     reg?: {pattern: string, message: string}
     value?: string
+    disabled?: boolean
 }
 export interface PageSection {
     type: string
