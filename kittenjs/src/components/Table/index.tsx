@@ -35,7 +35,36 @@ interface IProps {
 
 function _Table(props: IProps): JSX.Element {
     const app = React.useContext(App)
-    React.useEffect(() => {   
+    const dataSourceRef = React.useRef<any[]>();
+    function forceReload() {
+        _forceReload(1);
+    }
+    React.useEffect(() => {
+        dataSourceRef.current = []
+        if (props.meta.data && typeof props.meta.data === 'string') {
+            if (props.meta.modal && props.meta.data.startsWith('$.')) {
+                const params = getParams(props.pageKey, props.meta.modal)
+                if (params) {
+                    const valueKey = props.meta.data.split('.')[1]
+                    const data = params[valueKey]
+                    if (data && Array.isArray(data)) {
+                        dataSourceRef.current = data.map((d:any, index: number) => ({
+                            ...d, 
+                            [rowKey]: (d[rowKey] || index)
+                        }))
+                    }else {
+                        dataSourceRef.current = []
+                    }
+                }else {
+                    dataSourceRef.current = []
+                }
+            }else{
+                dataSourceRef.current = []
+            }
+        }else {
+            dataSourceRef.current = props.meta.data
+        }
+        forceReload()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'table', props.tableKey, props)
         return () => {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props.tableKey, props)
@@ -47,12 +76,8 @@ function _Table(props: IProps): JSX.Element {
     const get = useGET()
     const post = usePOST()
     const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
-    function forceReload() {
-        _forceReload(1);
-    }
-
-
-    let metaDataSource: any[] = []
+    
+    
     async function extraRequest(meta: any, record: any) {
         let result: any = null
         if (meta.url) {
@@ -123,8 +148,8 @@ function _Table(props: IProps): JSX.Element {
         if (c.actions && c.actions.length > 0) {
             const blankValue: any = {}
             const insertAction = (index: number) => {
-                metaDataSource = metaDataSource || [];
-                metaDataSource.splice(index+1, 0, {
+                dataSourceRef.current = dataSourceRef.current || [];
+                dataSourceRef.current.splice(index+1, 0, {
                     ...blankValue,
                     [rowKey]: new Date().getTime(),
                 })
@@ -164,9 +189,9 @@ function _Table(props: IProps): JSX.Element {
                             if (a.meta.rowAction === 'insert') {
                                 insertAction(index) 
                             }
-                            else if (a.meta.rowAction === 'delete' && metaDataSource ){
-                                metaDataSource = metaDataSource.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
-                                handleFormData(metaDataSource)
+                            else if (a.meta.rowAction === 'delete' && dataSourceRef.current ){
+                                dataSourceRef.current = dataSourceRef.current.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
+                                handleFormData(dataSourceRef.current)
                                 forceReload()
                             }
                         }else if (a.meta.link) {
@@ -188,30 +213,6 @@ function _Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-    
-    if (props.meta.data && typeof props.meta.data === 'string') {
-        if (props.meta.modal && props.meta.data.startsWith('$.')) {
-            const params = getParams(props.pageKey, props.meta.modal)
-            if (params) {
-                const valueKey = props.meta.data.split('.')[1]
-                const data = params[valueKey]
-                if (data && Array.isArray(data)) {
-                    metaDataSource = data.map((d:any, index: number) => ({
-                        ...d, 
-                        [rowKey]: (d[rowKey] || index)
-                    }))
-                }else {
-                    metaDataSource = []
-                }
-            }else {
-                metaDataSource = []
-            }
-        }else{
-            metaDataSource = []
-        }
-    }else {
-        metaDataSource = props.meta.data
-    }
     
     function handleFormData(dataSource: any[]) {
         if(props.meta.form) {
@@ -289,7 +290,7 @@ function _Table(props: IProps): JSX.Element {
         const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
         return renderTable(dataSource, props.meta.disablePagination ? false : {currentPage, total, pageSize, setCurrentPage,  setPageSize});
     }else {
-        return renderTable(metaDataSource || [], false);
+        return renderTable(dataSourceRef.current || [], false);
     }
     
 };
