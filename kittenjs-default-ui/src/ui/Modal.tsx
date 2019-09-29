@@ -12,6 +12,7 @@ export function Modal(props: {[propName: string]: any}) {
             onCancel={props.onCancel}
             width={props.width}
             footer={null}
+            destroyOnClose={true}
         >
             {props.children}
         </AntModal>
