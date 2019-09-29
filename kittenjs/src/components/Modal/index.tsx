@@ -67,4 +67,4 @@ function _Modal(props: IProps): JSX.Element {
     );
 };
 
-export const Modal = React.memo(_Modal)
+export const Modal = _Modal

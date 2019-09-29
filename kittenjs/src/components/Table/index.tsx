@@ -50,6 +50,9 @@ function _Table(props: IProps): JSX.Element {
     function forceReload() {
         _forceReload(1);
     }
+
+
+    let metaDataSource: any[] = []
     async function extraRequest(meta: any, record: any) {
         let result: any = null
         if (meta.url) {
@@ -110,16 +113,18 @@ function _Table(props: IProps): JSX.Element {
             showModal(props.pageKey, meta.modal)
         }
     }
+
     let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns)
     let emptyAction: any = undefined
+    
     columns = columns.map((c: TableColumn) => {
         let actions: any = c.actions
         
         if (c.actions && c.actions.length > 0) {
             const blankValue: any = {}
             const insertAction = (index: number) => {
-                props.meta.data = props.meta.data || [];
-                props.meta.data.splice(index+1, 0, {
+                metaDataSource = metaDataSource || [];
+                metaDataSource.splice(index+1, 0, {
                     ...blankValue,
                     [rowKey]: new Date().getTime(),
                 })
@@ -159,9 +164,9 @@ function _Table(props: IProps): JSX.Element {
                             if (a.meta.rowAction === 'insert') {
                                 insertAction(index) 
                             }
-                            else if (a.meta.rowAction === 'delete' && props.meta.data ){
-                                props.meta.data = props.meta.data.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
-                                handleFormData(props.meta.data)
+                            else if (a.meta.rowAction === 'delete' && metaDataSource ){
+                                metaDataSource = metaDataSource.slice(0).filter((d: any) => d[rowKey] !== record[rowKey]) 
+                                handleFormData(metaDataSource)
                                 forceReload()
                             }
                         }else if (a.meta.link) {
@@ -183,7 +188,7 @@ function _Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-
+    
     if (props.meta.data && typeof props.meta.data === 'string') {
         if (props.meta.modal && props.meta.data.startsWith('$.')) {
             const params = getParams(props.pageKey, props.meta.modal)
@@ -191,19 +196,21 @@ function _Table(props: IProps): JSX.Element {
                 const valueKey = props.meta.data.split('.')[1]
                 const data = params[valueKey]
                 if (data && Array.isArray(data)) {
-                    props.meta.data = data.map((d:any, index: number) => ({
+                    metaDataSource = data.map((d:any, index: number) => ({
                         ...d, 
                         [rowKey]: (d[rowKey] || index)
                     }))
                 }else {
-                    props.meta.data = []
+                    metaDataSource = []
                 }
             }else {
-                props.meta.data = []
+                metaDataSource = []
             }
         }else{
-            props.meta.data = []
+            metaDataSource = []
         }
+    }else {
+        metaDataSource = props.meta.data
     }
     
     function handleFormData(dataSource: any[]) {
@@ -282,7 +289,7 @@ function _Table(props: IProps): JSX.Element {
         const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
         return renderTable(dataSource, props.meta.disablePagination ? false : {currentPage, total, pageSize, setCurrentPage,  setPageSize});
     }else {
-        return renderTable(props.meta.data || [], false);
+        return renderTable(metaDataSource || [], false);
     }
     
 };
