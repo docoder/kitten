@@ -49,7 +49,8 @@ function _Form (props: IProps): JSX.Element {
     }, [])
     const { getParams, setFilter, setParams, hideModal } = Pages.useContainer()
     const items = useSelect(props.pageKey, props.formKey, props.items)
-    items.forEach((i:any) => {
+    const newItems = JSON.parse(JSON.stringify(items))
+    newItems.forEach((i:any) => {
         if (i.value && (typeof i.value === 'string') && i.value.startsWith('$.') && props.meta.modal) {
             const params = getParams(props.pageKey, props.meta.modal)
             if (params) {
@@ -80,7 +81,7 @@ function _Form (props: IProps): JSX.Element {
             }} 
             inModal={props.meta.modal && props.meta.modal.length > 0}
             className={props.className}
-            items={items}
+            items={newItems}
             columnsCount={props.meta.columnsCount}
             rowColCounts={props.meta.rowColCounts}
             disableGroupCol={props.meta.disableGroupCol}
