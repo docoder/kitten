@@ -42,7 +42,6 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
         }
     }, [])
     const { pageKey } = props
-    console.log('--->', state.data)
     return React.useMemo(() => (
         <PageComp pageKey={pageKey} style={{padding: 20, background: 'white'}}>
             <Stack 

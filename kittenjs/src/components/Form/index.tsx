@@ -55,7 +55,7 @@ function _Form (props: IProps): JSX.Element {
             const params = getParams(props.pageKey, props.meta.modal)
             if (params) {
                 const valueKey = i.value.split('.')[1]
-                i.value = params[valueKey] || []
+                i.value = params[valueKey]
             } 
         }
         if (i.meta && typeof i.meta.data === 'string' && i.meta.data.startsWith('$.')) {
