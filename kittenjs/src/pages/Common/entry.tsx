@@ -12,26 +12,16 @@ interface IProps {
     debugHooks?: string[]
     pageKey: string;
     history: any;
-}
-interface IPropsWithAPI extends IProps {
-    pageAPI: string;
-}
-interface IPropsWithJSON extends IProps {
     pageJSON: any[];
 }
-export function isEntryPropsWithAPI (item: IPropsWithAPI | IPropsWithJSON): item is IPropsWithAPI {
-    if ((item as IPropsWithAPI).pageAPI) {
-        return true
-    }
-    return false
-}
-export type EntryProps = IPropsWithAPI | IPropsWithJSON
+
+export type EntryProps = IProps
 function _Entry(props: EntryProps):JSX.Element {
     const { pageKey } = props;
     let pageAPI = undefined;
     let pageJSON = undefined;
-    if (isEntryPropsWithAPI(props)) {
-        pageAPI = props.pageAPI
+    if (props.config.pageAPI) {
+        pageAPI = props.config.pageAPI
     }else {
         pageJSON = props.pageJSON
     }

@@ -28,15 +28,21 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
     
     React.useEffect(() => {
         async function fetchPageJson(url: string) {
-            const data = await get(url)
-            dispatch({type, data})
+            const result = await get(url)
+            if (result && result.data && Array.isArray(result.data.pageJSON) ) {
+                dispatch({type, data: result.data.pageJSON})
+            }else {
+                dispatch({type, data: []})
+            }
+            
         }
         if ((!props.pageJSON || props.pageJSON.length <= 0) && props.pageAPI) {
             
-            fetchPageJson(`${props.pageAPI}?page=${props.pageKey}`)
+            fetchPageJson(`${props.pageAPI}?pageKey=${props.pageKey}`)
         }
     }, [])
     const { pageKey } = props
+    console.log('--->', state.data)
     return React.useMemo(() => (
         <PageComp pageKey={pageKey} style={{padding: 20, background: 'white'}}>
             <Stack 
@@ -50,4 +56,4 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
         </PageComp>
     ), [pageKey, state]);
 };
-export const Page = React.memo(PageContainer)
+export const Page = PageContainer

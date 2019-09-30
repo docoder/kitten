@@ -1,6 +1,6 @@
 import React from 'react'
 import { Index } from './pages/Common'
-import { Entry, EntryProps, isEntryPropsWithAPI } from './pages/Common/entry'
+import { Entry, EntryProps } from './pages/Common/entry'
 import { AppProvider, UIType, ConfigType, MenuItem, MenuGroup, isMenuGroup, AppHooks, PageSection, PageSectionItem} from './app'
 import { AppProps } from './components/Layout'
 import { FormItem } from './components/Form'
@@ -45,8 +45,6 @@ export {
 
     AppProps,
     EntryProps,
-    isEntryPropsWithAPI,
-
     TableColumn,
     FormItem
 }
