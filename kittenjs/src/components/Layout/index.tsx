@@ -8,6 +8,7 @@ export interface AppProps {
     className?: string
     config: ConfigType
     hide: boolean
+    logout?: Function
 }
 
 function _Layout(props: AppProps): JSX.Element {

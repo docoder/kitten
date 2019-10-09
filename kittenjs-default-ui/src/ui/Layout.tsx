@@ -76,7 +76,7 @@ export function Layout(
             collapsedTitle={config.appKey}
             menus={menus}
             pageLinks={pageLinks}
-            logout={() => {}}
+            logout={config.logoutBtnCallback}
         />
     )
 }

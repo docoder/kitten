@@ -109,6 +109,7 @@ export interface ConfigType {
     menus: (MenuGroup | MenuItem) [];
     pageAPI?: string;
     loginUrl?: string;
+    logoutBtnCallback?: Function;
 }
 export interface AppHooks {
     afterMenusFetched: Hook;

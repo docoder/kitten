@@ -550,6 +550,7 @@ const app = new Kitten(ui, {
     appTitle: 'Kitten Example',
     pageAPI: 'http://api.example.com/pages',
     loginUrl: 'http://api.example.com/login',
+    logoutBtnCallback: () => {},
     menus: [
         {
             key: 'dashbord',
