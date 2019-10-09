@@ -34,16 +34,17 @@ function _Stack(props: IProps): JSX.Element {
                 ...props.style
             }}>
             {props.items.map((c: any) => {
+                const meta = c.meta || {}
                 switch (c.type) {
                     case 'Table':
                         return (
                             <Table
                                 pageKey={props.pageKey}
                                 tableKey={c.key}
-                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 key={c.key}
                                 columns={c.items}
-                                meta={c.meta}
+                                meta={meta}
                                 forceUpdate={forceUpdate}
                                 history={props.history}
                             />
@@ -53,10 +54,10 @@ function _Stack(props: IProps): JSX.Element {
                             <Form
                                 pageKey={props.pageKey}
                                 formKey={c.key}
-                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 key={c.key}
                                 items={c.items}
-                                meta={c.meta}
+                                meta={meta}
                                 forceUpdate={forceUpdate}
                                 history={props.history}
                             />
@@ -68,8 +69,8 @@ function _Stack(props: IProps): JSX.Element {
                                 pageKey={props.pageKey}
                                 stackKey={c.key}
                                 items={c.items}
-                                direction={c.meta.direction}
-                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                direction={meta.direction}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 history={props.history}
                             />
                         )
@@ -79,8 +80,8 @@ function _Stack(props: IProps): JSX.Element {
                                 key={c.key}
                                 pageKey={props.pageKey}
                                 buttonKey={c.key}
-                                meta={c.meta}
-                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                meta={meta}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 forceUpdate={forceUpdate}
                                 history = {props.history}
                             />
@@ -92,10 +93,10 @@ function _Stack(props: IProps): JSX.Element {
                                 pageKey={props.pageKey}
                                 modalKey={c.key}
                                 contens={c.items}
-                                title={c.meta.label}
-                                width={c.meta.width}
+                                title={meta.label}
+                                width={meta.width}
                                 forceUpdate={forceUpdate}
-                                style={c.meta.style}
+                                style={meta.style}
                                 history={props.history}
                             />
                         )
@@ -105,8 +106,8 @@ function _Stack(props: IProps): JSX.Element {
                                 key={c.key}
                                 pageKey={props.pageKey}
                                 checkboxKey={c.key}
-                                meta={c.meta}
-                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...c.meta.style}}
+                                meta={meta}
+                                style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 forceUpdate={forceUpdate}
                             />
                         )

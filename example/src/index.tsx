@@ -584,6 +584,10 @@ const app = new Kitten(ui, {
                     pageJSON: JSON.parse(JSON.stringify(sub2PageJSON))
                 }
             ]
+        },
+        {
+            key: 'menu2',
+            label: '菜单 2'
         }
     ],
 }, [

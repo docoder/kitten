@@ -19,15 +19,12 @@ export type EntryProps = IProps
 function _Entry(props: EntryProps):JSX.Element {
     const { pageKey } = props;
     let pageAPI = undefined;
-    let pageJSON = undefined;
-    if (props.config.pageAPI) {
+    if (props.config) {
         pageAPI = props.config.pageAPI
-    }else {
-        pageJSON = props.pageJSON
     }
     return (
         <Pages.Provider>
-            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={pageJSON} history={props.history} />
+            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={props.pageJSON} history={props.history} />
         </Pages.Provider>
     );
 };
