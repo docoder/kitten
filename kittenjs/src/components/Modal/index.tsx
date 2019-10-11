@@ -16,9 +16,9 @@ interface IProps {
 function _Modal(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'modal', props.modalKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Modal', props.modalKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'modal', props.modalKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Modal', props.modalKey, props)
         }
     }, [])
     const { hideModal, isShowModal, getParams } = Pages.useContainer()

@@ -12,9 +12,9 @@ interface IProps {
 function _Alert(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, 'global', 'alert', props.type, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, 'global', 'Alert', props.type, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'alert', props.type, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'Alert', props.type, props)
         }
     }, [])
     const Comp = app.ui? app.ui.Alert : null

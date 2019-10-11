@@ -11,9 +11,9 @@ interface IProps {
 function _Loading(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, 'global', 'loading', props.type, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, 'global', 'Loading', props.type, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'loading', props.type, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, 'global', 'Loading', props.type, props)
         }
     }, [])
     const Comp = app.ui? app.ui.Loading : null

@@ -112,7 +112,7 @@ export interface ConfigType {
     logoutBtnCallback?: Function;
 }
 export interface AppHooks {
-    afterMenusFetched: Hook;
+    // afterMenusFetched: Hook;
     
     afterPageLoaded: Hook;
     afterPageUnloaded: Hook;
@@ -120,14 +120,16 @@ export interface AppHooks {
     afterComponentLoaded: Hook;
     afterComponentUnloaded: Hook;
 
-    beforeFormSelectFetched: Hook;
-    afterFormSelectFetched: Hook;
+    beforeSelectDataFetched: Hook;
+    afterSelectDataFetched: Hook;
 
     beforeTableDataSourceFetched: Hook;
     afterTableDataSourceFetched: Hook;
 
-    beforeFormItemsFinalization: Hook;
+    beforeFormItemFinalization: Hook;
+    beforeFormAllItemsFinalization: Hook;
     beforeTableColumnFinalization: Hook;
+    beforeTableAllColumnsFinalization: Hook;
 
     beforeButtonClick: Hook;
     beforeFormSubmit: Hook;
@@ -144,30 +146,43 @@ class HooksProvider {
     hooks: AppHooks;
     constructor(plugins: Plugin[], logHooks?: string[]) {
         this.hooks = {
-            afterMenusFetched: new SyncHook(['appKey', 'menus']),
+            // afterMenusFetched: new SyncHook(['appKey', 'menus']),
             afterPageLoaded: new SyncHook(['appKey', 'pageKey', 'props']),
             afterPageUnloaded: new SyncHook(['appKey', 'pageKey', 'props']),
             afterComponentLoaded: new SyncHook([
                 'appKey',
                 'pageKey',
-                'component',
+                'componentType',
                 'componetKey',
                 'props',
             ]),
             afterComponentUnloaded: new SyncHook([
                 'appKey',
                 'pageKey',
-                'compnent',
+                'componentType',
                 'componetKey',
                 'props',
             ]),
-            afterFormSelectFetched: new SyncHook([
+            beforeSelectDataFetched: new SyncHook([
                 'appKey',
                 'pageKey',
-                'formKey',
-                'formItems',
+                'componentKey',
+                'items',
+                'selectKey',
+            ]),
+            afterSelectDataFetched: new SyncHook([
+                'appKey',
+                'pageKey',
+                'componentKey',
+                'items',
                 'selectKey',
                 'selectData',
+            ]),
+            beforeTableDataSourceFetched: new SyncHook([
+                'appKey',
+                'pageKey',
+                'tableKey',
+                'columns',
             ]),
             afterTableDataSourceFetched: new SyncHook([
                 'appKey',
@@ -176,22 +191,16 @@ class HooksProvider {
                 'column',
                 'dataSource',
             ]),
-            beforeFormSelectFetched: new SyncHook([
-                'appKey',
-                'pageKey',
-                'formKey',
-                'formItems',
-                'selectKey',
-            ]),
-            beforeTableDataSourceFetched: new SyncHook([
+
+            beforeFormItemFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
+            beforeFormAllItemsFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
+            beforeTableColumnFinalization: new SyncHook([
                 'appKey',
                 'pageKey',
                 'tableKey',
-                'columns',
+                'column',
             ]),
-
-            beforeFormItemsFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
-            beforeTableColumnFinalization: new SyncHook([
+            beforeTableAllColumnsFinalization: new SyncHook([
                 'appKey',
                 'pageKey',
                 'tableKey',
@@ -200,8 +209,8 @@ class HooksProvider {
             
             beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
             beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values']),
-            beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkbokKey', 'value']),
-            afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'datasource', 'row'])
+            beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkboxKey', 'value']),
+            afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'dataSource', 'row'])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {

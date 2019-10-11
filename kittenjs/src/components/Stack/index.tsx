@@ -17,9 +17,9 @@ interface IProps {
 function _Stack(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'stack', props.stackKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Stack', props.stackKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'stack', props.stackKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Stack', props.stackKey, props)
         }
     }, [])
     const vertical = props.direction === 'vertical'

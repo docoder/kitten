@@ -20,7 +20,7 @@ const sub1PageJSON: PageSection[] = [
                 type: 'Button',
                 meta: {
                     label: 'sub2页面',
-                    link: '/sub2'  // / 表示为跟页面，非子页面
+                    link: '/sub2'  // / 表示为根页面，非子页面
                 }
             },
             {

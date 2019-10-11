@@ -39,6 +39,7 @@ export default class Sub1ListPlugin implements Plugin {
                 appKey: string,
                 pageKey: string,
                 component: string,
+                componentKey: string,
                 props: any,
             ) => {
             },
@@ -49,6 +50,7 @@ export default class Sub1ListPlugin implements Plugin {
                 appKey: string,
                 pageKey: string,
                 component: string,
+                componentKey: string,
                 props: any,
             ) => {
             },

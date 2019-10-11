@@ -13,9 +13,9 @@ interface IProps {
 function _Checkbox(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'checkbox', props.checkboxKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Checkbox', props.checkboxKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'checkbox', props.checkboxKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Checkbox', props.checkboxKey, props)
         }
     }, [])
     const { setParams } = Pages.useContainer()

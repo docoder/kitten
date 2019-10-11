@@ -25,9 +25,9 @@ export function useSelect(
     React.useEffect(() => {
         let mounted = true;
         async function fetchSelectData (itemKey: string, itemUrl: string, itemAlias: {[x:string]: string}) {
-            app.hooks.beforeFormSelectFetched.call(app.config.appKey, pageKey, componentKey, items, itemKey);
+            app.hooks.beforeSelectDataFetched.call(app.config.appKey, pageKey, componentKey, items, itemKey);
             const result = await get (itemUrl) || []
-            app.hooks.afterFormSelectFetched.call( app.config.appKey, pageKey, componentKey, items, itemKey, result.data);
+            app.hooks.afterSelectDataFetched.call( app.config.appKey, pageKey, componentKey, items, itemKey, result.data);
             //TODO: doc
             let data:any[] = []
             if (Array.isArray(result.data)) {

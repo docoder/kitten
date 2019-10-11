@@ -23,6 +23,7 @@ interface IProps {
         rowAction?: string
         label?: string
         modal?: string
+        alias?: {[x:string]: string}
         disablePagination?: boolean
         link?: string
     } 
@@ -65,9 +66,9 @@ function _Table(props: IProps): JSX.Element {
             dataSourceRef.current = props.meta.data
         }
         forceReload()
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'table', props.tableKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'table', props.tableKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Table', props.tableKey, props)
         }
     }, [])
     const { showModal, setParams, getParams } = Pages.useContainer()
@@ -213,7 +214,7 @@ function _Table(props: IProps): JSX.Element {
         app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-    
+    app.hooks.beforeTableAllColumnsFinalization.call(app.config.appKey, props.pageKey, props.tableKey, columns);
     function handleFormData(dataSource: any[]) {
         if(props.meta.form) {
             let ps: any = { list: dataSource }

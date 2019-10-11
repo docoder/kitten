@@ -9,9 +9,9 @@ interface IProps {
 function _Page(props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {   
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'page', props.pageKey,  props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Page', props.pageKey,  props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'page', props.pageKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Page', props.pageKey, props)
         }
     }, [])
     const Comp = app.ui? app.ui.Page : null

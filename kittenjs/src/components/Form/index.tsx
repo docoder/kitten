@@ -42,9 +42,9 @@ interface IProps {
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
     React.useEffect(() => {
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'form', props.formKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Form', props.formKey, props)
         return () => {
-            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'form', props.formKey, props)
+            app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Form', props.formKey, props)
         }
     }, [])
     const { getParams, setFilter, setParams, hideModal } = Pages.useContainer()
@@ -69,9 +69,9 @@ function _Form (props: IProps): JSX.Element {
                 }
             }
         }
-        app.hooks.beforeFormItemsFinalization.call(app.config.appKey, props.pageKey, props.formKey, items)
+        app.hooks.beforeFormItemFinalization.call(app.config.appKey, props.pageKey, props.formKey, i)
     });
-    
+    app.hooks.beforeFormAllItemsFinalization.call(app.config.appKey, props.pageKey, props.formKey, newItems)
     const submit = useSubmit(props.meta.url, props.meta.method, props.pageKey, props.meta.modal)
     const Comp = app.ui? app.ui.Form : null
     return (
