@@ -6,7 +6,7 @@ interface IProps {
     style?: React.CSSProperties
     title?: string
     width?: number
-    contens: PageSection[] 
+    contents: PageSection[] 
     pageKey: string
     modalKey: string
     forceUpdate: Function
@@ -58,7 +58,7 @@ function _Modal(props: IProps): JSX.Element {
         >
             <Stack 
                 pageKey={props.pageKey} 
-                items={props.contens} 
+                items={props.contents} 
                 direction="vertical" 
                 stackKey={`${props.pageKey}_${props.modalKey}_main_stack`} 
                 history={props.history}

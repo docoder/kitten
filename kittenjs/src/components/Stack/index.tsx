@@ -92,7 +92,7 @@ function _Stack(props: IProps): JSX.Element {
                                 key={c.key}
                                 pageKey={props.pageKey}
                                 modalKey={c.key}
-                                contens={c.items}
+                                contents={c.items}
                                 title={meta.label}
                                 width={meta.width}
                                 forceUpdate={forceUpdate}

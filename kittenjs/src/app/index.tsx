@@ -34,7 +34,7 @@ interface FetchMeta {
     alias?: {[x:string]: string}
 }
 export interface ActionMeta {
-    label: string
+    label?: string
     modal?: string
     link?: string
     url?: string
