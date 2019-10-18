@@ -48,3 +48,13 @@ async function REQ(method:string, url:string, loginUrl?:string, body?: Json) {
         throw error
     }
 }
+
+
+export const addParam = (url:string, param: string, value: string) => {
+    param = encodeURIComponent(param);
+    var a = document.createElement('a');
+    param += (value ? "=" + encodeURIComponent(value) : ""); 
+    a.href = url;
+    a.search += (a.search ? "&" : "") + param;
+    return a.href;
+}

@@ -5,7 +5,7 @@ const base = require('./webpack.base.config');
 module.exports = env => (smart(base(env), {
     mode: 'development',
     devServer: {
-        port: 3001,
+        port: 3210,
         progress: true,
         contentBase: './build',
         compress: true,

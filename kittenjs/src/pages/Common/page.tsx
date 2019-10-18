@@ -2,6 +2,7 @@ import React from 'react'
 import { App } from '../../app'
 import {Page as PageComp, Stack, Indicator} from '../../components'
 import { useGET } from '../../hooks/useGET'
+import { addParam } from '../../utils/http'
 
 function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any[], history: any}):JSX.Element {
     // console.log('>>>>PAGE>>>>', props)
@@ -37,8 +38,7 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
             
         }
         if ((!props.pageJSON || !Array.isArray(props.pageJSON)) && props.pageAPI) {
-            
-            fetchPageJson(`${props.pageAPI}?pageKey=${props.pageKey}`)
+            fetchPageJson(addParam(props.pageAPI, 'pageKey', props.pageKey))
         }
     }, [])
     const { pageKey } = props
