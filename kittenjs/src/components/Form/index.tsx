@@ -30,6 +30,7 @@ interface IProps {
         columnsCount: number;
         rowColCounts: number[];
         disableGroupCol: boolean;
+        actionsShow: boolean;
         params?: {[x:string]: any};
         accessories: any[];
         componentKey?: string;
@@ -85,6 +86,7 @@ function _Form (props: IProps): JSX.Element {
             columnsCount={props.meta.columnsCount}
             rowColCounts={props.meta.rowColCounts}
             disableGroupCol={props.meta.disableGroupCol}
+            actionsShow={props.meta.actionsShow}
             accessories={props.meta.accessories ? <Stack 
                 pageKey={props.pageKey} 
                 items={props.meta.accessories} 

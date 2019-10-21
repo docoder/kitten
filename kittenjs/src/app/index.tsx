@@ -52,6 +52,7 @@ interface LayoutMeta {
     width?: number
     columnsCount?: number
     rowColCounts?: number []
+    actionsShow?: boolean
     disableGroupCol?: boolean
     accessories?: PageSection []
     style?: {[x:string]: string}

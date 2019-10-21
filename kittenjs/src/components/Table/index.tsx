@@ -247,7 +247,14 @@ function _Table(props: IProps): JSX.Element {
     function renderTable(dataSource: any[], pagination: any) {
         const values = getParams(props.pageKey, props.tableKey) 
         if (values && Object.keys(values).length > 0) {
-            dataSource.push({[rowKey]: new Date().getTime(), ...values})
+            const found = dataSource.find( d => d[rowKey] === values[rowKey])
+            if (found){
+                Object.keys(found).forEach( k => {
+                    found[k] = values[k]
+                })
+            }else {
+                dataSource.push({[rowKey]: new Date().getTime(), ...values})
+            }
             setParams(props.pageKey, props.tableKey, {})
             setTimeout(() => {
                 handleFormData(dataSource)
