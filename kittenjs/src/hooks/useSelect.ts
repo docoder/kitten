@@ -52,6 +52,9 @@ export function useSelect(
             const selectItems = itms.filter(i => i.type === 'select')
             if (selectItems.length <= 0) return // 阻止无 select 的 items 造成一次重复渲染
             await Promise.all(selectItems.map(async i => {
+                if (i.meta) {
+                    i.meta.showSearch = true
+                }
                 if (i.meta && i.meta.data) {
                     return i
                 }else if (i.meta && i.meta.ref) {
@@ -77,9 +80,6 @@ export function useSelect(
                 // else {
                 //     throw new Error('The JSON format is not valid!')
                 // }
-                if (i.meta) {
-                    i.meta.showSearch = true
-                }
             }));
             if(mounted) dispatch({type, data: itms})
         }
