@@ -42,16 +42,22 @@ interface IProps {
 }
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
+    const items = React.useRef<FormItem[]>([]);
+    const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
+    function forceReload() {
+        _forceReload(1);
+    }
     React.useEffect(() => {
+        items.current = JSON.parse(JSON.stringify(props.items))
+        forceReload()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Form', props.formKey, props)
         return () => {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Form', props.formKey, props)
         }
     }, [])
-    const { getParams, setFilter, setParams, hideModal } = Pages.useContainer()
-    const items = useSelect(props.pageKey, props.formKey, props.items)
-    const newItems = items.map( i => ({...i}))
-    newItems.forEach((i:any) => {
+    const { getParams, setFilter, setParams, hideModal } = Pages.useContainer() 
+    
+    items.current.forEach((i:any) => {
         if (i.value && (typeof i.value === 'string') && i.value.startsWith('$.') && props.meta.modal) {
             const params = getParams(props.pageKey, props.meta.modal)
             if (params) {
@@ -72,6 +78,9 @@ function _Form (props: IProps): JSX.Element {
         }
         app.hooks.beforeFormItemFinalization.call(app.config.appKey, props.pageKey, props.formKey, i)
     });
+    
+    const newItems = useSelect(props.pageKey, props.formKey, items.current)
+
     app.hooks.beforeFormAllItemsFinalization.call(app.config.appKey, props.pageKey, props.formKey, newItems)
     const submit = useSubmit(props.meta.url, props.meta.method, props.pageKey, props.meta.modal)
     const Comp = app.ui? app.ui.Form : null
@@ -95,9 +104,9 @@ function _Form (props: IProps): JSX.Element {
                 history={props.history}
             /> : undefined}
             onSubmit={(values: {[key: string]: any}) => {
-                const keys = items.filter(i => !i.actionDisabled).map(i => i.key)
+                const keys = newItems.filter(i => !i.actionDisabled).map(i => i.key)
                 let keyAliasMap: any = {}
-                items.filter(i => i.alias).forEach(i => {
+                newItems.filter(i => i.alias).forEach(i => {
                     keyAliasMap[i.key] = i.alias 
                 });
                 let newValues: {[x:string]: any} = {}

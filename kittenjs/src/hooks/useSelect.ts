@@ -51,6 +51,7 @@ export function useSelect(
         async function handleSelect(itms: any[]) {
             const selectItems = itms.filter(i => i.type === 'select')
             if (selectItems.length <= 0) return // 阻止无 select 的 items 造成一次重复渲染
+
             await Promise.all(selectItems.map(async i => {
                 if (i.meta) {
                     i.meta.showSearch = true
@@ -64,11 +65,17 @@ export function useSelect(
                     }else if (i.meta.url) {
                         const originalUrl = i.meta.url
                         const refItem = itms.find(it => it.key === i.meta.ref)
-                        refItem.onChange = async (value: any) => {
+                        const refReq = async (value: string) => {
                             const url = originalUrl.replace('$refValue', value)
                             const selectData = await fetchSelectData(i.key, url, i.meta.alias);
                             i.meta.data = selectData
                             if(mounted) dispatch({type, data: itms})
+                        }
+                        if (refItem.value) {
+                            refReq(refItem.value)
+                        }
+                        refItem.onChange = async (value: any) => {
+                            refReq(value)
                         }
                         i.meta.data = []
                         return i
