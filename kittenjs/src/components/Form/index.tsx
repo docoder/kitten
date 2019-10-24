@@ -49,6 +49,7 @@ function _Form (props: IProps): JSX.Element {
         _forceReload(1);
     }
     React.useEffect(() => {
+        items.current = JSON.parse(JSON.stringify(props.items))
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Form', props.formKey, props)
         return () => {
             items.current = []
@@ -58,6 +59,9 @@ function _Form (props: IProps): JSX.Element {
     const { getParams, setFilter, setParams, hideModal } = Pages.useContainer() 
     
     items.current.forEach((i:any) => {
+        if (i.__done) {
+            return
+        }
         if (i.value && (typeof i.value === 'string') && i.value.startsWith('$.') && props.meta.modal) {
             const params = getParams(props.pageKey, props.meta.modal)
             if (params) {
@@ -76,6 +80,7 @@ function _Form (props: IProps): JSX.Element {
                 }
             }
         }
+        i.__done = true
         app.hooks.beforeFormItemFinalization.call(app.config.appKey, props.pageKey, props.formKey, i)
     });
     

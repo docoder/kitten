@@ -249,6 +249,9 @@ function _Table(props: IProps): JSX.Element {
         if (values && Object.keys(values).length > 0) {
             const found = dataSource.find( d => d[rowKey] === values[rowKey])
             if (found){
+                Object.keys(found).forEach( k => {
+                    found[k] = null
+                })
                 Object.keys(values).forEach( k => {
                     found[k] = values[k]
                 })
