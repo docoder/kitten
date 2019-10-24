@@ -44,12 +44,7 @@ interface IProps {
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
     const items = React.useRef<FormItem[]>(JSON.parse(JSON.stringify(props.items)));
-    const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
-    function forceReload() {
-        _forceReload(1);
-    }
     React.useEffect(() => {
-        items.current = JSON.parse(JSON.stringify(props.items))
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Form', props.formKey, props)
         return () => {
             items.current = []
@@ -84,7 +79,7 @@ function _Form (props: IProps): JSX.Element {
         app.hooks.beforeFormItemFinalization.call(app.config.appKey, props.pageKey, props.formKey, i)
     });
     
-    const newItems = useSelect(props.pageKey, props.formKey, items.current, reload)
+    const newItems = useSelect(props.pageKey, props.formKey, items.current, 1)
 
     app.hooks.beforeFormAllItemsFinalization.call(app.config.appKey, props.pageKey, props.formKey, newItems)
     const submit = useSubmit(props.meta.url, props.meta.method, props.pageKey, props.meta.modal)

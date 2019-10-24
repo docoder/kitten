@@ -36,9 +36,14 @@ interface IProps {
 
 function _Table(props: IProps): JSX.Element {
     const app = React.useContext(App)
-    const dataSourceRef = React.useRef<any[]>();
+    const dataSourceRef = React.useRef<any[]>([]);
+    const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
     function forceReload() {
         _forceReload(1);
+    }
+    const [reloadWithoutFetch, _forceReloadWithoutFetch] = React.useReducer(x => x + 1, 0);
+    function forceReloadWithoutFetch() {
+        _forceReloadWithoutFetch(1);
     }
     React.useEffect(() => {
         dataSourceRef.current = []
@@ -65,7 +70,7 @@ function _Table(props: IProps): JSX.Element {
         }else {
             dataSourceRef.current = props.meta.data
         }
-        forceReload()
+        forceReloadWithoutFetch()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
         return () => {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Table', props.tableKey, props)
@@ -76,7 +81,6 @@ function _Table(props: IProps): JSX.Element {
     const rowKey = keyItem ? keyItem.key : 'key'
     const get = useGET()
     const post = usePOST()
-    const [reload, _forceReload] = React.useReducer(x => x + 1, 0);
     
     
     async function extraRequest(meta: any, record: any) {
@@ -140,7 +144,7 @@ function _Table(props: IProps): JSX.Element {
         }
     }
 
-    let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns, reload)
+    let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns, 1)
     let emptyAction: any = undefined
     
     columns = columns.map((c: TableColumn) => {
