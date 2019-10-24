@@ -140,7 +140,7 @@ function _Table(props: IProps): JSX.Element {
         }
     }
 
-    let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns)
+    let columns: any [] = useSelect(props.pageKey, props.tableKey, props.columns, reload)
     let emptyAction: any = undefined
     
     columns = columns.map((c: TableColumn) => {

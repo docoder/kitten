@@ -6,7 +6,8 @@ import { getValueByKeypath } from '../utils/modal'
 export function useSelect(
     pageKey: string,
     componentKey: string,
-    items: any[]
+    items: any[],
+    reload: number
 ): FormItem[] {
     const app = React.useContext(App)
     const get = useGET()
@@ -92,6 +93,6 @@ export function useSelect(
         }
         handleSelect(items)
         return () => { mounted = false };
-    }, [pageKey, componentKey, items])
+    }, [pageKey, componentKey, items, reload])
     return state.data
 }
