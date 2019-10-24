@@ -90,7 +90,8 @@ export interface MenuItem {
     pageJSON?: PageSection[];
     index?: boolean;
     params?: string[];
-    subPages?: (MenuItem)[]
+    subPages?: (MenuItem)[];
+    subs?: MenuItem[];
 }
 export interface MenuGroup {
     key?: string

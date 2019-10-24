@@ -582,6 +582,17 @@ const app = new Kitten(ui, {
                     label: '子菜单 2', 
                     key: 'sub2',
                     pageJSON: JSON.parse(JSON.stringify(sub2PageJSON))
+                },
+                {
+                    label: '子菜单 3', 
+                    key: 'sub3',
+                    subs: [
+                        {
+                            label: '孖菜单', 
+                            key: 'subSub1',
+                            pageJSON: []
+                        }
+                    ]
                 }
             ]
         },
