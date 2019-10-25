@@ -108,6 +108,35 @@ const sub1PageJSON: PageSection[] = [
                 label: '项目',
             },
             {
+                key: 'time1',
+                label: '时间1',
+                meta: {
+                    format: 'timestamp$:YYYY-MM-DD HH:mm:ss'
+                }
+            },
+            {
+                key: 'time2',
+                label: '时间2',
+                meta: {
+                    format: 'date$:YYYY-MM-DD HH:mm:ss'
+                }
+            },
+            {
+                key: 'sql',
+                label: 'SQL',
+                meta: {
+                    format: 'code$:sql'
+                }
+            },
+            {
+                key: 'code',
+                label: '代码',
+                width: '100px',
+                meta: {
+                    format: 'code$:java'
+                }
+            },
+            {
                 key: 'operations',
                 label: '操作',
                 actions: [
@@ -121,7 +150,8 @@ const sub1PageJSON: PageSection[] = [
                             params: {
                                 number: '$.number',
                                 type: '$.type',
-                                items: '$.items'
+                                items: '$.items',
+                                code: '$.code'
                             },
                             // url: 'https://api.example.com/beforeSub1Edit',
                             // method: 'GET'
@@ -148,6 +178,19 @@ const sub1PageJSON: PageSection[] = [
                         {province: '0', provinceName: '北京', city: '0', cityName: '北京', item: '项目1'},
                         {province: '1', provinceName: '山东', city: '1', cityName: '烟台', item: '项目2'}
                     ],
+                    time1: '15441703671111',
+                    time2: '2019-10-15T09:12:57.000Z',
+                    sql: 'SELECT 0 AS id, 0 AS c_id, 0 AS o_id, 0 AS r_id, 0 AS w_id FROM table',
+                    code: `
+public class HelloWorld {
+
+    public static void main(String[] args) {
+        // Prints "Hello, World" to the terminal window.
+        System.out.println("Hello, World");
+    }
+
+}
+                        `
                 },
                 {
                     id: 2,
@@ -228,6 +271,11 @@ const sub1PageJSON: PageSection[] = [
                         label: '时间',
                         type: 'date',
                         showTime: true
+                    },
+                    {
+                        key: 'code',
+                        label: '代码',
+                        type: 'codeEditor'
                     }
                 ],
                 meta: {
@@ -388,12 +436,18 @@ const sub1PageJSON: PageSection[] = [
                             method: 'GET',
                         },
                     },
+                    {
+                        key: 'code',
+                        label: '代码',
+                        value: '$.code',
+                        type: 'codeEditor'
+                    }
                 ],
                 meta: {
                     url: 'https://api.example.com/sub1/edit',
                     modal: 'sub1EditModal',
                     method: 'POST',
-                    columnsCount: 2,
+                    labelPosition: 'top',
                     accessories: [
                         {
                             type: 'Table',

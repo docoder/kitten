@@ -28,7 +28,7 @@ const AccessoriesContainer = styled.div`
     margin-bottom: 20px;
 `
 export function Form(props: {[propName: string]: any}) {
-    // console.log('===FORM-PROPS===:', props)
+    console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
     props.items.map ((i:any) => {
         if (i.type === 'checkbox' || i.type === 'radio') {
@@ -46,6 +46,7 @@ export function Form(props: {[propName: string]: any}) {
             actionDirection="right"
             columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
             rowColCounts={props.rowColCounts}
+            labelPostion={props.labelPosition}
             discol={props.disableGroupCol}
             disableEnterSubmit={false}
             accessoryComponent={props.accessories ? () => <AccessoriesContainer>{props.accessories}</AccessoriesContainer>: undefined}

@@ -69,6 +69,7 @@ function _Table(props: IProps): JSX.Element {
         }else {
             dataSourceRef.current = props.meta.data
         }
+        handleFormData(dataSourceRef.current)
         forceReloadWithoutFetch()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
         return () => {

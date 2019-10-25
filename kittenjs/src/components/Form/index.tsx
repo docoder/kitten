@@ -29,6 +29,7 @@ interface IProps {
         modal?: string;
         columnsCount: number;
         rowColCounts: number[];
+        labelPosition?: string;
         disableGroupCol: boolean;
         actionsShow: boolean;
         params?: {[x:string]: any};
@@ -94,6 +95,7 @@ function _Form (props: IProps): JSX.Element {
             items={newItems}
             columnsCount={props.meta.columnsCount}
             rowColCounts={props.meta.rowColCounts}
+            labelPosition={props.meta.labelPosition}
             disableGroupCol={props.meta.disableGroupCol}
             actionsShow={props.meta.actionsShow}
             accessories={props.meta.accessories ? <Stack 
