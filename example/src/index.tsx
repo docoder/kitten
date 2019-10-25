@@ -222,6 +222,12 @@ const sub1PageJSON: PageSection[] = [
                                 'https://api.example.com/types',
                             method: 'GET',
                         },
+                    },
+                    {
+                        key: 'date',
+                        label: '时间',
+                        type: 'date',
+                        showTime: true
                     }
                 ],
                 meta: {
