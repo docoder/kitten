@@ -46,7 +46,6 @@ function _Table(props: IProps): JSX.Element {
         _forceReloadWithoutFetch(1);
     }
     React.useEffect(() => {
-        dataSourceRef.current = []
         if (props.meta.data && typeof props.meta.data === 'string') {
             if (props.meta.modal && props.meta.data.startsWith('$.')) {
                 const params = getParams(props.pageKey, props.meta.modal)
@@ -73,6 +72,7 @@ function _Table(props: IProps): JSX.Element {
         forceReloadWithoutFetch()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
         return () => {
+            dataSourceRef.current = []
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Table', props.tableKey, props)
         }
     }, [])
