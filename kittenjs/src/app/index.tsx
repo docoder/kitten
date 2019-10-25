@@ -75,6 +75,7 @@ export interface PageSectionItem {
     reg?: {pattern: string, message: string}
     value?: string
     disabled?: boolean
+    showTime?: boolean
 }
 export interface PageSection {
     type: string

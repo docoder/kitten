@@ -11,7 +11,7 @@ export function useSubmit(
 ) {
     const get = useGET()
     const post = usePOST()
-    const { hideModal, getParams } = Pages.useContainer()
+    const { setSuccess, hideModal, getParams } = Pages.useContainer()
     const send = React.useCallback(
         async (values: {[x:string]: any}) => {
             let result = null
@@ -24,6 +24,9 @@ export function useSubmit(
                     }
                     else window.location.reload(true)
                 } 
+                if (result && result.message) {
+                    setSuccess({message: result.message})
+                }
             }else {
                 result = await get(url, values)
             }
