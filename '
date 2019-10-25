@@ -1,0 +1,17 @@
+Form item date showTime
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Fri Oct 25 14:24:32 2019 +0800
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   example/src/index.tsx
+#	modified:   kittenjs-default-ui/package.json
+#	modified:   kittenjs/package.json
+#	modified:   kittenjs/src/app/index.tsx
+#	modified:   kittenjs/src/hooks/useSubmit.ts
+#
