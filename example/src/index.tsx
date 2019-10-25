@@ -108,6 +108,35 @@ const sub1PageJSON: PageSection[] = [
                 label: '项目',
             },
             {
+                key: 'time1',
+                label: '时间1',
+                meta: {
+                    format: 'timestamp$:YYYY-MM-DD HH:mm:ss'
+                }
+            },
+            {
+                key: 'time2',
+                label: '时间2',
+                meta: {
+                    format: 'date$:YYYY-MM-DD HH:mm:ss'
+                }
+            },
+            {
+                key: 'sql',
+                label: 'SQL',
+                meta: {
+                    format: 'code$:sql'
+                }
+            },
+            {
+                key: 'code',
+                label: '代码',
+                width: '100px',
+                meta: {
+                    format: 'code$:java'
+                }
+            },
+            {
                 key: 'operations',
                 label: '操作',
                 actions: [
@@ -148,6 +177,32 @@ const sub1PageJSON: PageSection[] = [
                         {province: '0', provinceName: '北京', city: '0', cityName: '北京', item: '项目1'},
                         {province: '1', provinceName: '山东', city: '1', cityName: '烟台', item: '项目2'}
                     ],
+                    time1: '15441703671111',
+                    time2: '2019-10-15T09:12:57.000Z',
+                    sql: 'SELECT 0 AS car_id, 0 AS city_id, 0 AS operator_id, 0 AS order_id, 0 AS warehouse_id',
+                    code: `
+import com.maodou.data.scenario.model.scenario.dto.ScenarioEntityDTO
+import com.maodou.data.processing.model.processing.dto.TrackingEventPlusV1DTO
+import java.util.Map
+import com.maodou.data.scenario.common.util.JsonUtil2
+
+rule "Car imprest apply pass rule with gouzhishui"
+    when
+        resultScenarioEntityDTO: ScenarioEntityDTO(scenarioId == -1);
+
+        map: Map(containsKey("gouzhishui"))
+
+        trackingEventPlusV1DTO1000101230: TrackingEventPlusV1DTO(actionId == 1000101230)
+
+        eval(map.containsKey("gouzhishui"))
+    then
+        resultScenarioEntityDTO.setScenarioId(10008);
+
+        map.put("content", "obligation");
+
+        resultScenarioEntityDTO.setScenarioContent(JsonUtil2.toJsonWithGson(map));
+    end
+                        `
                 },
                 {
                     id: 2,

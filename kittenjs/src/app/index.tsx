@@ -57,6 +57,9 @@ interface LayoutMeta {
     accessories?: PageSection []
     style?: {[x:string]: string}
 }
+interface FormatMeta {
+    format?: string
+}
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
 export interface TableAction {
@@ -68,7 +71,7 @@ export interface PageSectionItem {
     label: string
     id?: boolean
     type?: string
-    meta?: FetchMeta
+    meta?: FetchMeta | FormatMeta
     actions?: TableAction[]
     editable?: boolean
     required?: boolean
@@ -76,6 +79,7 @@ export interface PageSectionItem {
     value?: string
     disabled?: boolean
     showTime?: boolean
+    width?: string
 }
 export interface PageSection {
     type: string
