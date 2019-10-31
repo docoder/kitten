@@ -28,7 +28,7 @@ const TableTitle = styled.div`
 `
 
 export function Table(props: {[propName: string]: any}) {
-    console.log('===TABLE-PROPS===:', props)
+    // console.log('===TABLE-PROPS===:', props)
     const [ignored, _forceUpdate] = React.useReducer(x => x + 1, 0);
     function forceUpdate() {
         _forceUpdate(1);
