@@ -6,7 +6,7 @@ import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import java from 'react-syntax-highlighter/dist/esm/languages/prism/java';
 import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql';
-import tomorrow from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow';
+import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vs';
 import moment from 'moment';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
@@ -43,20 +43,20 @@ export function Table(props: {[propName: string]: any}) {
                 c.render = (text: string, record: any) => {
                     const codeFormat = format.split('$:').map((s: string) => s.trim()).filter((s: string) => s)
                     const timeFormat = codeFormat[1]
-                    return (
+                    return text ? (
                         <span>{moment(new Date(format.startsWith('timestamp$:')?(+text):text)).format(timeFormat)}</span>
-                    )
+                    ): (<div></div>)
                 }
             }
             if (format.startsWith('code$:')) {
                 c.render = (text: string, record: any) => {
                     const codeLang = format.split('$:').map((s: string) => s.trim()).filter((s: string) => s)
                     const lang = codeLang[1].toLowerCase()
-                    return (
-                        <SyntaxHighlighter language={lang} style={tomorrow}>
+                    return text ? (
+                        <SyntaxHighlighter language={lang} style={vs}>
                         {text}
                         </SyntaxHighlighter>
-                    )
+                    ): (<div></div>)
                 }
             }
         }
