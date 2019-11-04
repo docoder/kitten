@@ -272,10 +272,14 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ant-colony-ui@1.6.12:
-  version "1.6.12"
-  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.6.12.tgz#7f17576ca6d6874749f1b54677797318d5fb6847"
-  integrity sha512-nqkNLozwnmZaBzySA4ANCUT0f6J9Ot9Qy3hVOFYvoV+1gJcyimOiq2IxJTDs/cjUnwxbFSSpqI/gWzdaekFKwg==
+ant-colony-ui@1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.7.2.tgz#75e4d97d703eeff63785a880052c6f48425aa09e"
+  integrity sha512-gAXo51uXK6LytaGzejDiFRIlnkpclJCqaOlhIO+fDK1Cexv9qTEa2Y3SuSR1OvqcKRaVLrlTydz4eA0Nb6b4eA==
+  dependencies:
+    css-initials "^0.3.1"
+    prismjs "^1.17.1"
+    react-simple-code-editor "^0.10.0"
 
 antd@3.21.4:
   version "3.21.4"
@@ -600,6 +604,11 @@ css-color-keywords@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/css-color-keywords/-/css-color-keywords-1.0.0.tgz#fea2616dc676b2962686b3af8dbdbe180b244e05"
   integrity sha1-/qJhbcZ2spYmhrOvjb2+GAskTgU=
+
+css-initials@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/css-initials/-/css-initials-0.3.1.tgz#0406d78e586fd12b9984a3f7d8a87fcbb2073208"
+  integrity sha512-fkshKv9vV8AmcxkAWVQ9DmEAKiqe09GHdnFaXecp0NIfsGnXIHVJAHfsxdRy9KXV0/KiWdjBqrCYto2fYIO4xQ==
 
 css-to-react-native@^2.2.2:
   version "2.3.1"
@@ -1445,7 +1454,7 @@ postcss-value-parser@^3.3.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
 
-prismjs@^1.8.4, prismjs@~1.17.0:
+prismjs@^1.17.1, prismjs@^1.8.4, prismjs@~1.17.0:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
   integrity sha512-PrEDJAFdUGbOP6xK/UsfkC5ghJsPJviKgnQOoxaDbBjwc8op68Quupwt1DeAFoG8GImPhiKXAvvsH7wDSLsu1Q==
@@ -1987,6 +1996,11 @@ react-router@5.0.1:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-simple-code-editor@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.10.0.tgz#73e7ac550a928069715482aeb33ccba36efe2373"
+  integrity sha512-bL5W5mAxSW6+cLwqqVWY47Silqgy2DKDTR4hDBrLrUqC5BXc29YVx17l2IZk5v36VcDEq1Bszu2oHm1qBwKqBA==
 
 react-slick@~0.24.0:
   version "0.24.0"

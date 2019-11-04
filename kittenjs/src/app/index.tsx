@@ -52,6 +52,7 @@ interface LayoutMeta {
     width?: number
     columnsCount?: number
     rowColCounts?: number []
+    labelPosition?: string
     actionsShow?: boolean
     disableGroupCol?: boolean
     accessories?: PageSection []

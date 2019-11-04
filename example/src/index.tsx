@@ -150,7 +150,8 @@ const sub1PageJSON: PageSection[] = [
                             params: {
                                 number: '$.number',
                                 type: '$.type',
-                                items: '$.items'
+                                items: '$.items',
+                                code: '$.code'
                             },
                             // url: 'https://api.example.com/beforeSub1Edit',
                             // method: 'GET'
@@ -283,6 +284,11 @@ rule "Car imprest apply pass rule with gouzhishui"
                         label: '时间',
                         type: 'date',
                         showTime: true
+                    },
+                    {
+                        key: 'code',
+                        label: '代码',
+                        type: 'codeEditor'
                     }
                 ],
                 meta: {
@@ -443,12 +449,18 @@ rule "Car imprest apply pass rule with gouzhishui"
                             method: 'GET',
                         },
                     },
+                    {
+                        key: 'code',
+                        label: '代码',
+                        value: '$.code',
+                        type: 'codeEditor'
+                    }
                 ],
                 meta: {
                     url: 'https://api.example.com/sub1/edit',
                     modal: 'sub1EditModal',
                     method: 'POST',
-                    columnsCount: 2,
+                    labelPosition: 'top',
                     accessories: [
                         {
                             type: 'Table',
