@@ -605,6 +605,16 @@ const sub2PageJSON: PageSection[] = [
     }
 ]
 
+const subSub1PageJSON: PageSection[] = [
+    {
+        type: 'Tabs',
+        key: 'subSub1Tabs',
+        items: [
+
+        ]
+    }
+]
+
 const app = new Kitten(ui, {
     appKey: "ke",
     appTitle: 'Kitten Example',
@@ -615,13 +625,14 @@ const app = new Kitten(ui, {
         {
             key: 'dashbord',
             label: '仪表盘',
-            pageJSON: []
+            pageJSON: [], 
         }, {
             label: '菜单 1',
             subs: [
                 {
                     label: '子菜单 1', 
                     key: 'sub1',
+                    index: true,
                     pageJSON: JSON.parse(JSON.stringify(sub1PageJSON)),
                     subPages: [
                         {

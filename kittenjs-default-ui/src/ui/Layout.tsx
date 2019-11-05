@@ -1,12 +1,11 @@
 import React from 'react';
-import {NavFrame} from 'ant-colony-ui';
+import {NewFrame} from 'ant-colony-ui';
 import { Entry, MenuItem, MenuGroup, isMenuGroup } from 'kittenjs'
 import { connectRoute } from '../utils/connectRoute';
 interface PageLink {
     page: any;
     label: string;
     link: string;
-    index: boolean;
 }
 export function Layout(
     props: {[x: string]: any},
@@ -71,7 +70,7 @@ export function Layout(
         }
     });
     return (
-        <NavFrame
+        <NewFrame
             title={config.appTitle}
             collapsedTitle={config.appKey}
             menus={menus}

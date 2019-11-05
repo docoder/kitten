@@ -28,7 +28,7 @@ const AccessoriesContainer = styled.div`
     margin-bottom: 20px;
 `
 export function Form(props: {[propName: string]: any}) {
-    console.log('===FORM-PROPS===:', props)
+    // console.log('===FORM-PROPS===:', props)
     const RealForm = props.inModal ? ModalForm : AntForm
     props.items.map ((i:any) => {
         if (i.type === 'checkbox' || i.type === 'radio') {
