@@ -272,10 +272,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ant-colony-ui@1.7.3:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.7.3.tgz#aa1da1c24174ed90b3f5039c0c919941249102d9"
-  integrity sha512-DyII8IMToLG6gI7WFed2Ao92hwQrv702gAlvFSEUc0DyhInzxEznPw6tSWapFFcUUeJVWxQiB9mju8MZkc0o8g==
+ant-colony-ui@1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/ant-colony-ui/-/ant-colony-ui-1.7.4.tgz#46b4cac52e6d6ceb7abb4678a85f63527ff7cf4c"
+  integrity sha512-QbHqn+zXJzg/HF4dm7hxn/NHam0U65HXn96es7jkEIXe9AT4hEa3nuQVScZEtDwvjJZndEQarKfTp8g0+Py64g==
   dependencies:
     css-initials "^0.3.1"
     prismjs "^1.17.1"
