@@ -162,7 +162,7 @@ app.render(Renderer,  document.getElementById('root')!)
 
 - 菜单配置
 
-  ```json
+  ```js
   [
           {
               key: 'dashbord',
