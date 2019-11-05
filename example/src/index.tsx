@@ -526,92 +526,118 @@ public class HelloWorld {
 ]
 const sub2PageJSON: PageSection[] = [
     {
-        type: 'Form',
-        key: 'sub2Filter',
+        type: 'Tabs',
+        key: 'subSub1Tabs',
         items: [
-            {key: 'id', label: 'ID'},
-            {key: 'order', label: '单号'},
             {
-                key: 'user',
-                label: '用户',
-                type: 'select',
-                meta: {
-                    data: [
-                        {value: '0', label: '用户1'},
-                        {value: '1', label: '用户2'},
-                        {value: '2', label: '用户3'}
-                    ],
-                    url:
-                    'https://api.example.com/users',
-                    method: 'GET',
-                },
+                key: 'tab1',
+                label: '选项1',
+                items: [
+                    {
+                        type: 'Form',
+                        key: 'sub2Filter',
+                        items: [
+                            {key: 'id', label: 'ID'},
+                            {key: 'order', label: '单号'},
+                            {
+                                key: 'user',
+                                label: '用户',
+                                type: 'select',
+                                meta: {
+                                    data: [
+                                        {value: '0', label: '用户1'},
+                                        {value: '1', label: '用户2'},
+                                        {value: '2', label: '用户3'}
+                                    ],
+                                    url:
+                                    'https://api.example.com/users',
+                                    method: 'GET',
+                                },
+                            },
+                        ],
+                        meta: {
+                            filter: 'sub2Table',
+                        },
+                    },
+                    {
+                        type: 'Table',
+                        key: 'sub2Table',
+                        items: [
+                            {key: 'id', label: 'ID'},
+                            {
+                                key: 'order',
+                                label: '单号',
+                                editable: true,
+                                reg: { pattern: '^[A-Z0-9]{9}$', message: '格式输入有误！'},
+                                meta: {
+                                    url: 'https://api.example.com/updateList',
+                                    method: 'POST',
+                                    params: {
+                                        post: {
+                                            id: '$.id',
+                                            order: '$.order'
+                                        }
+                                    }
+                                },
+                            },
+                            {
+                                key: 'user', 
+                                label: '用户', 
+                                editable: true, 
+                                type: 'select', 
+                                meta: {
+                                    data: [
+                                        {value: '1', label: 'test1'},
+                                        {value: '2', label: 'test2'}
+                                    ]
+                                }
+                            },
+                            {
+                                key: 'info',
+                                label: '信息',
+                            }
+                        ],
+                        meta: {
+                            data: [
+                                {
+                                    id: 1,
+                                    order: '123456789',
+                                    user: '1',
+                                    info: 'testInfo1'
+                                }
+                            ],
+                            url:
+                            'https://api.example.com/sub2/list',
+                            method: 'GET'
+                        },
+                    }
+                ]
             },
-        ],
-        meta: {
-            filter: 'sub2Table',
-        },
-    },
-    {
-        type: 'Table',
-        key: 'sub2Table',
-        items: [
-            {key: 'id', label: 'ID'},
             {
-                key: 'order',
-                label: '单号',
-                editable: true,
-                reg: { pattern: '^[A-Z0-9]{9}$', message: '格式输入有误！'},
-                meta: {
-                    url: 'https://api.example.com/updateList',
-                    method: 'POST',
-                    params: {
-                        post: {
-                            id: '$.id',
-                            order: '$.order'
+                key: 'tab2',
+                label: '选项2',
+                items: [
+                    {
+                        key: 'tab2Button',
+                        type: 'Button',
+                        meta: {
+                            label: '选项2按钮'
                         }
                     }
-                },
-            },
-            {
-                key: 'user', 
-                label: '用户', 
-                editable: true, 
-                type: 'select', 
-                meta: {
-                    data: [
-                        {value: '1', label: 'test1'},
-                        {value: '2', label: 'test2'}
-                    ]
-                }
-            },
-            {
-                key: 'info',
-                label: '信息',
+                ]
             }
-        ],
-        meta: {
-            data: [
-                {
-                    id: 1,
-                    order: '123456789',
-                    user: '1',
-                    info: 'testInfo1'
-                }
-            ],
-            url:
-            'https://api.example.com/sub2/list',
-            method: 'GET'
-        },
+        ]
     }
+    
 ]
 
 const subSub1PageJSON: PageSection[] = [
     {
-        type: 'Tabs',
-        key: 'subSub1Tabs',
-        items: [
-
-        ]
+        key: 'tab1Button',
+        type: 'Button',
+        meta: {
+            label: '孖按钮'
+        }
     }
 ]
 
@@ -661,7 +687,7 @@ const app = new Kitten(ui, {
                         {
                             label: '孖菜单', 
                             key: 'subSub1',
-                            pageJSON: []
+                            pageJSON: JSON.parse(JSON.stringify(subSub1PageJSON))
                         }
                     ]
                 }

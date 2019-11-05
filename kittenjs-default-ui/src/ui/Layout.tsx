@@ -69,7 +69,6 @@ export function Layout(
             throw new Error('Menus Json 不合法，缺少字段 key 或 subs');
         }
     });
-    console.log('---->>>', pageLinks)
     return (
         <NewFrame
             title={config.appTitle}

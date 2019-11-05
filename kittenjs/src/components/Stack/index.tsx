@@ -5,6 +5,7 @@ import { Table } from '../Table'
 import { Form } from '../Form'
 import { Modal } from '../Modal'
 import { Checkbox } from '../Checkbox'
+import { Tabs } from '../Tabs'
 interface IProps {
     style?: React.CSSProperties;
     pageKey: string;
@@ -96,6 +97,17 @@ function _Stack(props: IProps): JSX.Element {
                                 title={meta.label}
                                 width={meta.width}
                                 forceUpdate={forceUpdate}
+                                style={meta.style}
+                                history={props.history}
+                            />
+                        )
+                    case 'Tabs': 
+                        return (
+                            <Tabs
+                                key={c.key}
+                                pageKey={props.pageKey}
+                                tabsKey={c.key}
+                                items={c.items}
                                 style={meta.style}
                                 history={props.history}
                             />

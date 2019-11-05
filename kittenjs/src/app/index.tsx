@@ -13,6 +13,7 @@ interface UI {
     Table: any
     Layout: any
     Checkbox: any
+    Tabs: any
 }
 export type UIType = UI | null
 
@@ -87,8 +88,15 @@ export interface PageSection {
     key: string
     alias?: string
     actionDisabled?: boolean
-    items?: (PageSectionItem | PageSection)[]
+    items?: (TabItem | PageSectionItem | PageSection)[]
     meta?: Meta
+}
+export interface TabItem {
+    key: string;
+    label: string;
+    items: (PageSection)[];
+    meta?: ActionMeta;
+    default?: boolean;
 }
 export interface MenuItem {
     key: string;
@@ -144,6 +152,8 @@ export interface AppHooks {
     beforeCheckboxChange: Hook;
 
     afterTableCellChanged: Hook;
+
+    onTabChange: Hook;
 }
 interface AppType {
     ui: UIType
@@ -218,7 +228,8 @@ class HooksProvider {
             beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
             beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values']),
             beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkboxKey', 'value']),
-            afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'dataSource', 'row'])
+            afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'dataSource', 'row']),
+            onTabChange: new SyncHook(['appKey', 'pageKey', 'tabsKey', 'tabKey', 'props'])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {
