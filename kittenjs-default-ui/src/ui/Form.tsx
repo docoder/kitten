@@ -1,6 +1,7 @@
 import React from 'react'
 import {Form as AntForm} from 'ant-colony-ui';
 import styled from 'styled-components';
+import moment from 'moment';
 const ModalForm = styled(AntForm)`
     & .ant-form {
         background: white;
@@ -33,6 +34,15 @@ export function Form(props: {[propName: string]: any}) {
     props.items.map ((i:any) => {
         if (i.type === 'checkbox' || i.type === 'radio') {
             i.data = i.meta.data
+        }
+        if (i.meta && i.meta.format && i.value && !i.formated && i.disabled) {
+            const format = i.meta.format.trim()
+            if (format.startsWith('timestamp$:') || format.startsWith('date$:')){
+                const codeFormat = format.split('$:').map((s: string) => s.trim()).filter((s: string) => s)
+                const timeFormat = codeFormat[1]
+                i.value = moment(new Date(format.startsWith('timestamp$:')?(+i.value):i.value)).format(timeFormat)
+                i.formated = true
+            }
         }
         return {...i}
     })

@@ -151,6 +151,8 @@ const sub1PageJSON: PageSection[] = [
                                 number: '$.number',
                                 type: '$.type',
                                 items: '$.items',
+                                time1: '$.time1',
+                                time2: '$.time2',
                                 code: '$.code'
                             },
                             // url: 'https://api.example.com/beforeSub1Edit',
@@ -441,7 +443,24 @@ public class HelloWorld {
                         label: '代码',
                         value: '$.code',
                         type: 'codeEditor'
-                    }
+                    },
+                    {
+                        key: 'time1',
+                        label: '时间1',
+                        value: '$.time1',
+                        disabled: true,
+                        meta: {
+                            format: 'timestamp$:YYYY-MM-DD HH:mm:ss'
+                        }
+                    },
+                    {
+                        key: 'time2',
+                        label: '时间2',
+                        value: '$.time2',
+                        meta: {
+                            format: 'date$:YYYY-MM-DD HH:mm:ss'
+                        }
+                    },
                 ],
                 meta: {
                     url: 'https://api.example.com/sub1/edit',
