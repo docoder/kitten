@@ -452,6 +452,29 @@ app.render(Renderer,  document.getElementById('root')!)
   - vertical: 与 top 类似，但使用的是 row col 布局
   - inline: 行内布局
 
+#### submitTitle
+
+- Form
+- 表单提交按钮文字配置
+
+#### clearTitle
+
+- Form
+- 表单清空按钮文字配置
+
+#### actionDirection
+
+- Form
+- 表单提交清空按钮的布局
+  - left
+  - right
+  - center
+
+#### clearButtonShow
+
+- Form
+- 是否显示表单清空按钮
+
 ### items 
 
 Form 或 Table 中的条目
