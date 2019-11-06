@@ -91,6 +91,8 @@ const sub1PageJSON: PageSection[] = [
         ],
         meta: {
             filter: 'sub1Table',
+            submitTitle: '查询',
+            clearTitle: '清空'
         },
     },
     {
@@ -285,6 +287,7 @@ public class HelloWorld {
                     modal: 'sub1AddModal',
                     method: 'POST',
                     columnsCount: 2,
+                    actionDirection: 'left',
                     accessories: [
                         {
                             type: 'Table',

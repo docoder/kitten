@@ -58,6 +58,10 @@ interface LayoutMeta {
     disableGroupCol?: boolean
     accessories?: PageSection []
     style?: {[x:string]: string}
+    submitTitle?: string
+    clearTitle?: string
+    actionDirection?: string
+    clearButtonShow?: boolean
 }
 interface FormatMeta {
     format?: string

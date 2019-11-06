@@ -53,7 +53,10 @@ export function Form(props: {[propName: string]: any}) {
             forms={props.items}
             onSubmit={props.onSubmit}
             actionsShow={props.actionsShow}
-            actionDirection="right"
+            submitTitle={props.submitTitle}
+            clearTitle={props.clearTitle}
+            actionDirection={props.actionDirection || "right"}
+            clearButtonShow={props.clearButtonShow}
             columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
             rowColCounts={props.rowColCounts}
             labelPostion={props.labelPosition}

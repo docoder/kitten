@@ -35,6 +35,10 @@ interface IProps {
         params?: {[x:string]: any};
         accessories: any[];
         componentKey?: string;
+        submitTitle?: string
+        clearTitle?: string
+        actionDirection?: string
+        clearButtonShow?: boolean
     };
     pageKey: string; 
     formKey: string;
@@ -98,6 +102,10 @@ function _Form (props: IProps): JSX.Element {
             labelPosition={props.meta.labelPosition}
             disableGroupCol={props.meta.disableGroupCol}
             actionsShow={props.meta.actionsShow}
+            submitTitle={props.meta.submitTitle}
+            clearTitle={props.meta.clearTitle}
+            actionDirection={props.meta.actionDirection}
+            clearButtonShow={props.meta.clearButtonShow}
             accessories={props.meta.accessories ? <Stack 
                 pageKey={props.pageKey} 
                 items={props.meta.accessories} 
