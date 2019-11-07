@@ -537,6 +537,11 @@ Form 或 Table 中的条目
 - Form, Table
 - 默认值
 
+#### placeholder
+
+- Form
+- 输入占位符字符串
+
 #### disabled
 
 - Form, Table
