@@ -40,7 +40,7 @@ const sub1PageJSON: PageSection[] = [
         type: 'Form',
         key: 'sub1Filter',
         items: [
-            {key: 'id', label: 'ID'},
+            {key: 'id', label: 'ID', placeholder: '请输入唯一标识'},
             {key: 'number', label: '编码'},
             {
                 key: 'type',

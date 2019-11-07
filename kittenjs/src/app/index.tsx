@@ -86,6 +86,7 @@ export interface PageSectionItem {
     disabled?: boolean
     showTime?: boolean
     width?: string
+    placeholder?: string
 }
 export interface PageSection {
     type: string

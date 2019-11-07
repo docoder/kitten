@@ -615,19 +615,25 @@ Form 或 Table 中的条目
       - 字段值，可以为 `$.` 或 `$#` 开头
         - `$.` 会取 Table 中的字段值
         - `$#` 会取请求 url 返回数据中的字段值
-
-    - confirm
-
-      - 操作按钮点击是否需要确认操作
+        
+      
+- show
+    
+  - 按钮是否显示，true 或 false
+      - 支持`$.` , 会取 Table 中的字段值的真假值
+    
+- confirm
+    
+  - 操作按钮点击是否需要确认操作
       - 如**删除**操作经常需要确认，则将其置为true
-
-    - confirmLabel
-
-      - 操作确认弹出框的提示信息
+    
+- confirmLabel
+    
+  - 操作确认弹出框的提示信息
       - 如： '确定删除?'
-
+    
     - rowAction
-
+    
       ```js
       actions: [
         {
@@ -642,16 +648,16 @@ Form 或 Table 中的条目
           meta: {
             label: "删除",
             rowAction: "delete"
-          }
+      }
         }
       ]
-      ```
-
-      - insert，当点击操作按钮时，会增加一行；当 Table 为空时，此按钮会显示为占位符位置，点击可增加一行
+  ```
+    
+  - insert，当点击操作按钮时，会增加一行；当 Table 为空时，此按钮会显示为占位符位置，点击可增加一行
       - delete，当点击操作按钮时，会删除一行
-
+    
     - link
-
+    
       - 跳转页面，同 Section meta 中的 link
 
 #### alias
