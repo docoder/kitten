@@ -63,8 +63,9 @@ interface LayoutMeta {
     actionDirection?: string
     clearButtonShow?: boolean
 }
-interface FormatMeta {
+interface ItemMeta {
     format?: string
+    width?: string
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 
@@ -77,7 +78,7 @@ export interface PageSectionItem {
     label: string
     id?: boolean
     type?: string
-    meta?: FetchMeta | FormatMeta
+    meta?: FetchMeta | ItemMeta
     actions?: TableAction[]
     editable?: boolean
     required?: boolean

@@ -26,6 +26,12 @@ const TableTitle = styled.div`
     font-size: 12px;
     margin-bottom: 10px;
 `
+const CodeCell = styled.div`
+    overflow: auto;
+    & pre {
+        background: transparent !important;
+    }
+`
 
 export function Table(props: {[propName: string]: any}) {
     // console.log('===TABLE-PROPS===:', props)
@@ -53,12 +59,18 @@ export function Table(props: {[propName: string]: any}) {
                     const codeLang = format.split('$:').map((s: string) => s.trim()).filter((s: string) => s)
                     const lang = codeLang[1].toLowerCase()
                     return text ? (
-                        <SyntaxHighlighter language={lang} style={coy}>
-                        {text}
-                        </SyntaxHighlighter>
+                        <CodeCell style={c.width ? {width: c.width}: {}}>
+                            <SyntaxHighlighter language={lang} style={coy}>
+                            {text}
+                            </SyntaxHighlighter>
+                        </CodeCell>
                     ): (<div></div>)
                 }
             }
+        }
+        
+        if (c.meta && c.meta.width) {
+            c.width = c.meta.width
         }
         return {...c}
     })

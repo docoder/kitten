@@ -126,6 +126,7 @@ const sub1PageJSON: PageSection[] = [
             {
                 key: 'sql',
                 label: 'SQL',
+                width: '200px',
                 meta: {
                     format: 'code$:sql'
                 }
@@ -133,9 +134,9 @@ const sub1PageJSON: PageSection[] = [
             {
                 key: 'code',
                 label: '代码',
-                width: '100px',
                 meta: {
-                    format: 'code$:java'
+                    format: 'code$:java',
+                    width: '200px'
                 }
             },
             {
