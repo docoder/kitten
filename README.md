@@ -673,6 +673,11 @@ Form 或 Table 中的条目
 
 #### meta
 
+- width
+  - Table
+  - Table 列的宽度，单位： 'px'
+    - 如： '100px'
+
 - format
   - Table,  Form
   - Table 列的格式化，支持 三种，timestamp，date，code，需要以 `$:`分隔

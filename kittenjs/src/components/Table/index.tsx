@@ -67,7 +67,7 @@ function _Table(props: IProps): JSX.Element {
                 dataSourceRef.current = []
             }
         }else {
-            dataSourceRef.current = props.meta.data
+            dataSourceRef.current = JSON.parse(JSON.stringify(props.meta.data))
         }
         handleFormData(dataSourceRef.current)
         forceReloadWithoutFetch()
