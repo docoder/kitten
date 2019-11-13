@@ -67,7 +67,11 @@ function _Table(props: IProps): JSX.Element {
                 dataSourceRef.current = []
             }
         }else {
-            dataSourceRef.current = JSON.parse(JSON.stringify(props.meta.data || []))
+            try {
+                dataSourceRef.current = JSON.parse(JSON.stringify(props.meta.data || []))
+            } catch (error) {
+                dataSourceRef.current = []
+            }
         }
         handleFormData(dataSourceRef.current)
         forceReloadWithoutFetch()

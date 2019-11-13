@@ -47,22 +47,26 @@ export function Form(props: {[propName: string]: any}) {
         return {...i}
     })
     return (
-        <RealForm
+        <div
             style={props.style}
             className={props.className}
-            forms={props.items}
-            onSubmit={props.onSubmit}
-            actionsShow={props.actionsShow}
-            submitTitle={props.submitTitle}
-            clearTitle={props.clearTitle}
-            actionDirection={props.actionDirection || "right"}
-            clearButtonShow={props.clearButtonShow}
-            columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
-            rowColCounts={props.rowColCounts}
-            labelPostion={props.labelPosition}
-            discol={props.disableGroupCol}
-            disableEnterSubmit={false}
-            accessoryComponent={props.accessories ? () => <AccessoriesContainer>{props.accessories}</AccessoriesContainer>: undefined}
-        />
+        >
+            <RealForm
+                forms={props.items}
+                onSubmit={props.onSubmit}
+                actionsShow={props.actionsShow}
+                submitTitle={props.submitTitle}
+                clearTitle={props.clearTitle}
+                actionDirection={props.actionDirection || "right"}
+                clearButtonShow={props.clearButtonShow}
+                columnCount={props.columnsCount ? props.columnsCount : (props.inModal ? 1 : 4)}
+                rowColCounts={props.rowColCounts}
+                labelPostion={props.labelPosition}
+                discol={props.disableGroupCol}
+                disableEnterSubmit={false}
+                accessoryComponent={props.accessories ? () => <AccessoriesContainer>{props.accessories}</AccessoriesContainer>: undefined}
+            />
+        </div>
+        
     ) 
 }

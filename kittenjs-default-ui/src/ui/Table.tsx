@@ -75,12 +75,13 @@ export function Table(props: {[propName: string]: any}) {
         return {...c}
     })
     return (
-        <>
+        <div
+            style={props.style}
+            className={props.className}
+        >
         {props.title && <TableTitle>{props.title}:</TableTitle>}
         <StyledTable
             emptyAction={props.emptyAction}
-            style={props.style}
-            className={props.className}
             columns={props.columns}
             dataSource={props.dataSource}
             rowKey={props.rowKey}
@@ -102,7 +103,7 @@ export function Table(props: {[propName: string]: any}) {
                 forceUpdate()
             }}
         />
-        </>
+        </div>
     ) 
 }
 

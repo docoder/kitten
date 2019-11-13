@@ -631,7 +631,8 @@ const sub2PageJSON: PageSection[] = [
                             ],
                             url:
                             'https://api.example.com/sub2/list',
-                            method: 'GET'
+                            method: 'GET',
+                            disablePagination: true
                         },
                     }
                 ]
