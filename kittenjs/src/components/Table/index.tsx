@@ -220,10 +220,10 @@ function _Table(props: IProps): JSX.Element {
             })
         }
 
-        app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, c);
+        app.hooks.beforeTableColumnFinalization.call(app.config.appKey, props.pageKey, props.tableKey, props, c);
         return {...c, actions, dataIndex: c.key, title: c.label}
     })
-    app.hooks.beforeTableAllColumnsFinalization.call(app.config.appKey, props.pageKey, props.tableKey, columns);
+    app.hooks.beforeTableAllColumnsFinalization.call(app.config.appKey, props.pageKey, props.tableKey, props, columns);
     function handleFormData(dataSource: any[]) {
         if(props.meta.form) {
             let ps: any = { list: dataSource }

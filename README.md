@@ -296,12 +296,6 @@ app.render(Renderer,  document.getElementById('root')!)
 
 - pageKey
   - 唯一的页面标识，以字母开头的字母或数字及下划线组合
-- 菜单名称
-  - 菜单名称会显示在菜单栏，与 pageKey 一起形成菜单配置，挂载页面
-- 菜单顺序
-  - 决定菜单由上至下的排列顺序
-- 父菜单名称
-  - 起分组的作用，如果要在同一父菜单下，则须配置相同名称，不挂载页面
 
 ## Section
 
@@ -313,10 +307,6 @@ app.render(Renderer,  document.getElementById('root')!)
 
 - 组件块类型
   - Table, Form, Button, Stack, Checkbox, Modal
-
-### parentSectionKey
-
-- 例如：Stack, Modal 可以有子 Section，当配置其子 Section 时需要填写父 Section 的 section key
 
 ### meta
 

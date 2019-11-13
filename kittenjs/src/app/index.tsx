@@ -216,19 +216,21 @@ class HooksProvider {
                 'dataSource',
             ]),
 
-            beforeFormItemFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
-            beforeFormAllItemsFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'items']),
+            beforeFormItemFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'props', 'item']),
+            beforeFormAllItemsFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'props', 'items']),
             beforeTableColumnFinalization: new SyncHook([
                 'appKey',
                 'pageKey',
                 'tableKey',
+                'props', 
                 'column',
             ]),
             beforeTableAllColumnsFinalization: new SyncHook([
                 'appKey',
                 'pageKey',
                 'tableKey',
-                'column',
+                'props', 
+                'columns',
             ]),
             
             beforeButtonClick: new SyncHook(['appKey', 'pageKey', 'buttonKey']),
