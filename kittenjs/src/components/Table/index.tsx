@@ -73,7 +73,9 @@ function _Table(props: IProps): JSX.Element {
                 dataSourceRef.current = []
             }
         }
-        handleFormData(dataSourceRef.current)
+        setTimeout(() => {
+            handleFormData(dataSourceRef.current)
+        }, 0);
         forceReloadWithoutFetch()
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
         return () => {
@@ -86,7 +88,6 @@ function _Table(props: IProps): JSX.Element {
     const rowKey = keyItem ? keyItem.key : 'key'
     const get = useGET()
     const post = usePOST()
-    
     
     async function extraRequest(meta: any, record: any) {
         let result: any = null

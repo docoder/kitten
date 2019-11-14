@@ -4,7 +4,7 @@ export default class Sub1ListPlugin implements Plugin {
     apply(hooks: AppHooks) {
         hooks.beforeTableColumnFinalization.tap(
             'Sub1List--beforeTableColumnFinalization',
-            (appKey: string, pageKey: string, tableKey: string, column: TableColumn) => {
+            (appKey: string, pageKey: string, tableKey: string, props: any, column: TableColumn) => {
                 if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return;
                 if (column.key === 'number') {
                     column.editable = (record: any) => {

@@ -268,16 +268,16 @@ app.render(Renderer,  document.getElementById('root')!)
     - appKey, pageKey, tableKey, columns, dataSource
     - Table 在请求接口获取数据**后**调用
   - beforeFormItemFinalization
-    - appKey, pageKey, formKey, item
+    - appKey, pageKey, formKey, props, item
     - 在 Form 的 每个item (表单条目) 最终确定前调用
   - beforeFormAllItemsFinalization
-    - appKey, pageKey, formKey, items
+    - appKey, pageKey, formKey, props, items
     - 在 Form 的所有 items 最终确定前调用
   - beforeTableColumnFinalization
-    - appKey, pageKey, tableKey, column
+    - appKey, pageKey, tableKey, props, column
     - 在 Table 的每个 Column (列) 最终确定前调用
   - beforeTableAllColumnsFinalization
-    - appKey, pageKey, tableKey, columns
+    - appKey, pageKey, tableKey, props, columns
     - 在 Table 的所有 Columns 最终确定前调用
   - beforeButtonClick
     - appKey, pageKey, buttonKey
@@ -306,7 +306,7 @@ app.render(Renderer,  document.getElementById('root')!)
 ### type
 
 - 组件块类型
-  - Table, Form, Button, Stack, Checkbox, Modal
+  - Table, Form, Button, Stack, Checkbox, Modal, Tabs
 
 ### meta
 
@@ -611,22 +611,22 @@ Form 或 Table 中的条目
         - `$.` 会取 Table 中的字段值
         - `$#` 会取请求 url 返回数据中的字段值
         
-      
+  
 - show
-    
+  
   - 按钮是否显示，true 或 false
       - 支持`$.` , 会取 Table 中的字段值的真假值
-    
+  
 - confirm
-    
+  
   - 操作按钮点击是否需要确认操作
       - 如**删除**操作经常需要确认，则将其置为true
-    
+  
 - confirmLabel
-    
+  
   - 操作确认弹出框的提示信息
       - 如： '确定删除?'
-    
+      
     - rowAction
     
       ```js
@@ -646,6 +646,7 @@ Form 或 Table 中的条目
       }
         }
       ]
+      ```
   ```
     
   - insert，当点击操作按钮时，会增加一行；当 Table 为空时，此按钮会显示为占位符位置，点击可增加一行
@@ -654,6 +655,7 @@ Form 或 Table 中的条目
     - link
     
       - 跳转页面，同 Section meta 中的 link
+  ```
 
 #### alias
 
