@@ -36,11 +36,15 @@ export function Layout(
             exact: exact
         };
     };
-    const handleSubPages = (m: MenuItem) => {
+    const handleSubPages = (m: MenuItem, path: string) => {
         if (m.subPages) {
             m.subPages.forEach( sp => {
-                pageLinks.push(getPageLink({...sp, key: `${m.key}/${sp.key}`}, false));
+                const newPath = `${path}/${sp.key}`;
+                pageLinks.push(getPageLink({...sp, key: newPath}, sp.subPages ? true:false));
+                handleSubPages(sp, newPath)
             })
+        }else {
+            return
         }
     }
     menus.forEach((m: MenuItem | MenuGroup) => {
@@ -50,21 +54,21 @@ export function Layout(
                     s.subs.forEach(ss => {
                         if (ss.key) {
                             pageLinks.push(getPageLink(ss));
-                            handleSubPages(ss); 
+                            handleSubPages(ss, ss.key); 
                         } else {
                             throw new Error('Menus Json 不合法，缺少字段 key');
                         }
                     });
                 } else if (s.key) {
                     pageLinks.push(getPageLink(s));
-                    handleSubPages(s); 
+                    handleSubPages(s, s.key); 
                 } else {
                     throw new Error('Menus Json 不合法，缺少字段 key');
                 }
             });
         } else if (m.key) {
             pageLinks.push(getPageLink(m));
-            handleSubPages(m);
+            handleSubPages(m, m.key);
         } else {
             throw new Error('Menus Json 不合法，缺少字段 key 或 subs');
         }

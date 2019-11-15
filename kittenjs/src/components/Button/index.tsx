@@ -38,7 +38,7 @@ function _Button(props: IProps): JSX.Element {
                 }else if(link.startsWith('/')) {
                     props.history.push(link.substring(1))
                 }else {
-                    props.history.push(`${props.pageKey}/${link}`) 
+                    props.history.push(`/${props.pageKey}/${link}`) 
                 }
                 
             }

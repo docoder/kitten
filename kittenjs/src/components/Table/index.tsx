@@ -210,7 +210,7 @@ function _Table(props: IProps): JSX.Element {
                             if(link.startsWith('/')) {
                                 props.history.push(link.substring(1))
                             }else {
-                                props.history.push(`${props.pageKey}/${link}`) 
+                                props.history.push(`/${props.pageKey}/${link}`) 
                             }
                         }else {
                             extraRequest(a.meta, record)

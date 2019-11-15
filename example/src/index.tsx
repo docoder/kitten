@@ -695,7 +695,28 @@ const app = new Kitten(ui, {
                                     label: '返回',
                                     link: '<'
                                 }
-                            }]
+                            },{
+                                key: 'toSubSub',
+                                type: 'Button',
+                                meta: {
+                                    label: '孖页面',
+                                    link: 'subSubPage'
+                                }
+                            }],
+                            subPages: [
+                                {
+                                    key: 'subSubPage',
+                                    label: '孖页面1',
+                                    pageJSON: [{
+                                        key: 'backToSubSub1',
+                                        type: 'Button',
+                                        meta: {
+                                            label: '返回',
+                                            link: '<'
+                                        }
+                                    }]
+                                }
+                            ]
                         }
                     ]
                 },

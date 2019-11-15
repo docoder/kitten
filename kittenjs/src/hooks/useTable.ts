@@ -1,6 +1,7 @@
 import React from 'react'
 import {App} from '../app'
 import { useGET } from '../hooks/useGET'
+import { usePOST } from '../hooks/usePOST'
 import { Pages } from '../pages'
 import { getValueByKeypath } from '../utils/modal'
 
@@ -22,6 +23,7 @@ export function useTable(
 ): {dataSource: any[], currentPage: number, total: number, pageSize: number, setCurrentPage: Function, setPageSize: Function} {
     const app = React.useContext(App);
     const get = useGET()
+    const post = usePOST()
     const filter = Pages.useContainer().getFilter(pageKey, tableKey)
     const { getParams } = Pages.useContainer()
     const dataType = `${pageKey.toUpperCase()}_${tableKey.toUpperCase()}_TABLE_DATA_FETCHED`
@@ -87,11 +89,17 @@ export function useTable(
                     if (meta.alias.list) listKey = meta.alias.list
                     if (meta.alias.total) totalKey = meta.alias.total
                 }
+                let req: any = get
+                let reqParamKey = 'get'
+                if (meta.method && meta.method.toLowerCase() === 'post') {
+                    req = post
+                    reqParamKey = 'post'
+                }
                 const values:any = {}
-                if (meta.params && meta.params.get) {
-                    const get = meta.params.get
-                    Object.keys(get).forEach((k:any) => {
-                        const value = get[k]
+                if (meta.params && meta.params[reqParamKey]) {
+                    const reqParam = meta.params[reqParamKey]
+                    Object.keys(reqParam).forEach((k:any) => {
+                        const value = reqParam[k]
                         if (meta.modal && value.startsWith('$.')) {
                             const params = getParams(pageKey, meta.modal)
                             values[k] = params[value.split('.')[1]]
@@ -101,7 +109,7 @@ export function useTable(
                     })
                 }
                 if (meta.disablePagination) {
-                    const result = await get(u, {...filter, ...values})
+                    const result = await req(u, {...filter, ...values})
                     if (result && result.data ) {
                         let list = getValueByKeypath(result.data, listKey)
                         if (list) {
@@ -112,7 +120,7 @@ export function useTable(
                         totalCount = 0
                     }
                 }else {
-                    const result = await get(u, {...filter, ...values, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
+                    const result = await req(u, {...filter, ...values, [currentPageKey]: currentPage, [pageSizeKey]: pageSize})
                     if (result && result.data ) {
                         let list = getValueByKeypath(result.data, listKey)
                         let total = getValueByKeypath(result.data, totalKey)

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Plugin, AppHooks, TableColumn } from 'kittenjs'
 export default class OtherListPlugin implements Plugin {
     apply(hooks: AppHooks) {
