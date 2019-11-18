@@ -21,12 +21,14 @@ export default class Sub1ListPlugin implements Plugin {
                 }
             },
         );
+        hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any) => {
+            if (appKey !== 'ke' || pageKey !== 'sub1' || componentKey !== 'sub1Table') return;  
+            props.meta.params = {get: {customParam: '1'}}
+        })
         hooks.beforeTableDataSourceFetched.tap(
             'Sub1List--beforeTableDataSourceFetched', 
             (appKey: string, pageKey: string, tableKey: string, columns: any, pagination: any) => {
                 if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return; 
-                console.log('sub1Table--beforeTableDataSourceFetched:', columns, pagination)
-
         })
         hooks.afterTableDataSourceFetched.tap(
             'Sub1List--afterTableDataSourceFetched', 

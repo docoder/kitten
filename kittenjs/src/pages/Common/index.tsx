@@ -10,6 +10,14 @@ function _Index (): JSX.Element {
         <Layout
             config={app.config}
             hide={hide}
+            renderSiderTopSection={() => {
+                const section = app.hooks.renderSiderTopSection.call(app.config.appKey)
+                if (!section || (typeof section === 'string')) {
+                    return null
+                }else {
+                    return section
+                }
+            }}
             renderRoutes={(RouteComponents: {Route: any, Switch: any, Redirect: any}, mainRender: Function) => {
                 return app.hooks.renderCustomRoutes.call(app.config.appKey, RouteComponents, mainRender)
             }}

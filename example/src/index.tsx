@@ -3,6 +3,7 @@ import { Renderer, ui } from 'kittenjs-default-ui'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 import OtherRoutePagePlugin from './plugins/OtherRoutePagePlugin'
+import GlobalCustomPlugin from './plugins/GlobalCustomPlugin'
 const sub1PageJSON: PageSection[] = [
     {
         type: 'Stack',
@@ -748,7 +749,8 @@ const app = new Kitten(ui, {
 }, [
     new Sub1ListPlugin(),
     new OtherListPlugin(),
-    new OtherRoutePagePlugin()
+    new OtherRoutePagePlugin(),
+    new GlobalCustomPlugin()
 ], [
     'beforeTableColumnFinalization'
 ])

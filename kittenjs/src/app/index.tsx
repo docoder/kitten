@@ -134,6 +134,7 @@ export interface ConfigType {
     logoutBtnCallback?: Function;
 }
 export interface AppHooks {
+    renderSiderTopSection: Hook;
     renderCustomRoutes: Hook;
     // afterMenusFetched: Hook;
     
@@ -171,6 +172,7 @@ class HooksProvider {
     hooks: AppHooks;
     constructor(plugins: Plugin[], logHooks?: string[]) {
         this.hooks = {
+            renderSiderTopSection: new SyncWaterfallHook(['appKey']),
             renderCustomRoutes: new SyncWaterfallHook(['appKey', 'RouteComponents', 'mainRender']),
             // afterMenusFetched: new SyncHook(['appKey', 'menus']),
             afterPageLoaded: new SyncHook(['appKey', 'pageKey', 'props']),

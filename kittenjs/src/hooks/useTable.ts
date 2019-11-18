@@ -17,6 +17,7 @@ export function useTable(
         method: string,
         params?: {[x:string]: any}
         modal?: string,
+        componentKey?: string,
         disablePagination?: boolean
     },
     reload: number
@@ -101,9 +102,10 @@ export function useTable(
                     const reqParam = meta.params[reqParamKey]
                     Object.keys(reqParam).forEach((k:any) => {
                         const value = reqParam[k]
-                        if (meta.modal && value.startsWith('$.')) {
-                            const params = getParams(pageKey, meta.modal)
-                            values[k] = params[value.split('.')[1]]
+                        const cKey = meta.modal || meta.componentKey || tableKey || null
+                        if (cKey && value.startsWith('$.')) {
+                            const params = getParams(pageKey, cKey)
+                            if (params) {values[k] = params[value.split('.')[1]]}
                         }else {
                             values[k] = value
                         }

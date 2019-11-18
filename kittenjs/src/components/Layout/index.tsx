@@ -10,6 +10,7 @@ export interface AppProps {
     hide: boolean
     logout?: Function
     renderRoutes?: Function
+    renderSiderTopSection?: Function
 }
 
 function _Layout(props: AppProps): JSX.Element {
@@ -24,6 +25,7 @@ function _Layout(props: AppProps): JSX.Element {
             config={props.config}
             hide={props.hide}
             renderRoutes={props.renderRoutes}
+            renderSiderTopSection={props.renderSiderTopSection}
         />
     );
 };

@@ -82,6 +82,7 @@ export function Layout(
             pageLinks={pageLinks}
             logout={config.logoutBtnCallback}
             renderRoutes={props.renderRoutes}
+            renderSiderTopSection={props.renderSiderTopSection}
         />
     )
 }

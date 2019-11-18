@@ -19,10 +19,11 @@ interface IProps {
         pageSize?: number,
         form?: string,
         method: string,
-        params?: {form: {key: string, fields: string[]}},
+        params?: any,
         rowAction?: string
         label?: string
         modal?: string
+        componentKey?: string
         alias?: {[x:string]: string}
         disablePagination?: boolean
         link?: string

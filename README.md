@@ -243,6 +243,28 @@ app.render(Renderer,  document.getElementById('root')!)
 
 - 目前 AppHooks 有 (还不完善，之后会根据业务需求来增加和迭代) :
 
+  - renderCustomRoutes
+    - appKey, RouteComponents, mainRender
+    - 可自定义路由，用于添加自定义页面
+    - RouteComponents, 包含三个 react-router-dom  路由组件
+      - Route
+      - Switch
+      - Redirect
+    - mainRender, 整个 kitten 应用变为一个组件, 需要至少有一个路由指向进行渲染
+		
+  	```jsx
+  	hooks.renderCustomRoutes.tap('OtherRoutePage--renderCustomRoutes', (appkey: string, RouteComponents: any, mainRender: Function) => {
+  	  const {Route, Switch, Redirect} = RouteComponents
+  	  return (
+  	    <>
+  	    <Route exact path="/" component={() => <Redirect to="/main" />} />
+  	    <Route path="/login" component={() => <div>Login</div>} />
+  	    <Route path="/main" component={mainRender} />
+  	    </>
+  	  )
+  	})
+  	```
+  	
   - afterPageLoaded
     - appKey, pageKey, props
     - 页面加载时调用
@@ -262,10 +284,10 @@ app.render(Renderer,  document.getElementById('root')!)
     - appKey, pageKey, componentKey, items, selectKey, selectData
     - Form 或 Table 有 Select 时，在请求接口获取 Select 数据**后**调用
   - beforeTableDataSourceFetched
-    - appKey, pageKey, tableKey, columns
+    - appKey, pageKey, tableKey, columns, pagination
     - Table 在请求接口获取数据**前**调用
   - afterTableDataSourceFetched
-    - appKey, pageKey, tableKey, columns, dataSource
+    - appKey, pageKey, tableKey, columns, dataSource, pagination
     - Table 在请求接口获取数据**后**调用
   - beforeFormItemFinalization
     - appKey, pageKey, formKey, props, item
