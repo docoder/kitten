@@ -68,6 +68,7 @@ export function useTable(
                 p,
                 t,
                 columns,
+                {total: 0, currentPage, pageSize}
             );
             let dataSource = []
             let totalCount = 0
@@ -138,6 +139,7 @@ export function useTable(
                 t,
                 columns,
                 dataSource,
+                {total: totalCount, currentPage, pageSize}
             );
             //TODO: doc: better to config "id: true", or use index key
             if (mounted) dispatch({type: dataType, dataSource: dataSource.map((d: any, i: number) => ({...d, key: i})), total: totalCount})

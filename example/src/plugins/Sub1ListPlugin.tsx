@@ -21,6 +21,20 @@ export default class Sub1ListPlugin implements Plugin {
                 }
             },
         );
+        hooks.beforeTableDataSourceFetched.tap(
+            'Sub1List--beforeTableDataSourceFetched', 
+            (appKey: string, pageKey: string, tableKey: string, columns: any, pagination: any) => {
+                if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return; 
+                console.log('sub1Table--beforeTableDataSourceFetched:', columns, pagination)
+
+        })
+        hooks.afterTableDataSourceFetched.tap(
+            'Sub1List--afterTableDataSourceFetched', 
+            (appKey: string, pageKey: string, tableKey: string, columns: any, dataSource: any, pagination: any) => {
+                if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return; 
+                console.log('sub1Table--afterTableDataSourceFetched:', columns, dataSource, pagination)
+
+        })
         hooks.afterPageLoaded.tap(
             'Sub1List--afterEntryLoaded',
             (appKey: string, pageKey: string, pageJson: any) => {

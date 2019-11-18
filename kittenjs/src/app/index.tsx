@@ -209,6 +209,7 @@ class HooksProvider {
                 'pageKey',
                 'tableKey',
                 'columns',
+                'pagination'
             ]),
             afterTableDataSourceFetched: new SyncHook([
                 'appKey',
@@ -216,6 +217,7 @@ class HooksProvider {
                 'tableKey',
                 'column',
                 'dataSource',
+                'pagination'
             ]),
 
             beforeFormItemFinalization: new SyncHook(['appKey', 'pageKey', 'formKey', 'props', 'item']),
