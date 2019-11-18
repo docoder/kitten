@@ -1,5 +1,5 @@
 import React from 'react';
-import {SyncHook, Hook} from 'tapable';
+import {SyncHook, SyncWaterfallHook, Hook} from 'tapable';
 import { Plugin } from '../plugins';
 import { debugHooks } from './debug-hooks';
 
@@ -134,6 +134,7 @@ export interface ConfigType {
     logoutBtnCallback?: Function;
 }
 export interface AppHooks {
+    renderCustomRoutes: Hook;
     // afterMenusFetched: Hook;
     
     afterPageLoaded: Hook;
@@ -170,6 +171,7 @@ class HooksProvider {
     hooks: AppHooks;
     constructor(plugins: Plugin[], logHooks?: string[]) {
         this.hooks = {
+            renderCustomRoutes: new SyncWaterfallHook(['appKey', 'RouteComponents', 'mainRender']),
             // afterMenusFetched: new SyncHook(['appKey', 'menus']),
             afterPageLoaded: new SyncHook(['appKey', 'pageKey', 'props']),
             afterPageUnloaded: new SyncHook(['appKey', 'pageKey', 'props']),

@@ -32,6 +32,7 @@ interface IProps {
     tableKey: string;
     forceUpdate: Function;
     history: any;
+    match: any;
 }
 
 function _Table(props: IProps): JSX.Element {
@@ -210,7 +211,7 @@ function _Table(props: IProps): JSX.Element {
                             if(link.startsWith('/')) {
                                 props.history.push(link.substring(1))
                             }else {
-                                props.history.push(`/${props.pageKey}/${link}`) 
+                                props.history.push(`${props.match.url}/${link}`) 
                             }
                         }else {
                             extraRequest(a.meta, record)

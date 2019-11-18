@@ -11,6 +11,7 @@ interface IProps {
     modalKey: string
     forceUpdate: Function
     history: any;
+    match: any;
 }
 
 function _Modal(props: IProps): JSX.Element {
@@ -62,6 +63,7 @@ function _Modal(props: IProps): JSX.Element {
                 direction="vertical" 
                 stackKey={`${props.pageKey}_${props.modalKey}_main_stack`} 
                 history={props.history}
+                match={props.match}
             />
         </Comp>
     );

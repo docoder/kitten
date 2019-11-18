@@ -4,7 +4,7 @@ import {Page as PageComp, Stack, Indicator} from '../../components'
 import { useGET } from '../../hooks/useGET'
 import { addParam } from '../../utils/http'
 
-function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any[], history: any}):JSX.Element {
+function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any[], history: any, match: any}):JSX.Element {
     // console.log('>>>>PAGE>>>>', props)
     const app = React.useContext(App)
     React.useEffect(() => {   
@@ -50,6 +50,7 @@ function PageContainer(props: {pageKey: string, pageAPI?: string, pageJSON?: any
                 direction="vertical" 
                 stackKey={`${pageKey}_main_stack`} 
                 history={props.history}
+                match={props.match}
             />
             <Indicator />
         </PageComp>

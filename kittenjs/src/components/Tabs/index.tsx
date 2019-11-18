@@ -8,6 +8,7 @@ interface IProps {
     items: TabItem[];
     tabsKey: string;
     history: any;
+    match: any;
 }
 
 function _Tabs(props: IProps): JSX.Element {
@@ -41,6 +42,7 @@ function _Tabs(props: IProps): JSX.Element {
                             direction="vertical" 
                             stackKey={`${props.pageKey}_${props.tabsKey}_${i.key}_main_stack`} 
                             history={props.history}
+                            match={props.match}
                         />
                     </TabPanel>
                 )

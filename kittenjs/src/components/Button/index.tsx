@@ -9,6 +9,7 @@ interface IProps {
     buttonKey: string;
     forceUpdate: Function;
     history: any;
+    match: any;
 }
 
 function _Button(props: IProps): JSX.Element {
@@ -38,7 +39,7 @@ function _Button(props: IProps): JSX.Element {
                 }else if(link.startsWith('/')) {
                     props.history.push(link.substring(1))
                 }else {
-                    props.history.push(`/${props.pageKey}/${link}`) 
+                    props.history.push(`${props.match.url}/${link}`) 
                 }
                 
             }

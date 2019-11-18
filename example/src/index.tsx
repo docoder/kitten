@@ -2,6 +2,7 @@ import { Kitten, PageSection } from 'kittenjs'
 import { Renderer, ui } from 'kittenjs-default-ui'
 import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
+import OtherRoutePagePlugin from './plugins/OtherRoutePagePlugin'
 const sub1PageJSON: PageSection[] = [
     {
         type: 'Stack',
@@ -669,7 +670,8 @@ const app = new Kitten(ui, {
     appKey: "ke",
     appTitle: 'Kitten Example',
     pageAPI: 'http://api.example.com/pages',
-    loginUrl: 'http://api.example.com/login',
+    // loginUrl: 'http://api.example.com/login',
+    loginUrl:'/login',
     logoutBtnCallback: () => {},
     menus: [
         {
@@ -745,7 +747,8 @@ const app = new Kitten(ui, {
     ],
 }, [
     new Sub1ListPlugin(),
-    new OtherListPlugin()
+    new OtherListPlugin(),
+    new OtherRoutePagePlugin()
 ], [
     'beforeTableColumnFinalization'
 ])

@@ -13,6 +13,7 @@ interface IProps {
     direction: string;
     stackKey: string;
     history: any;
+    match: any;
 }
 
 function _Stack(props: IProps): JSX.Element {
@@ -48,6 +49,7 @@ function _Stack(props: IProps): JSX.Element {
                                 meta={meta}
                                 forceUpdate={forceUpdate}
                                 history={props.history}
+                                match={props.match}
                             />
                         );
                     case 'Form':
@@ -61,6 +63,7 @@ function _Stack(props: IProps): JSX.Element {
                                 meta={meta}
                                 forceUpdate={forceUpdate}
                                 history={props.history}
+                                match={props.match}
                             />
                         )
                     case 'Stack':
@@ -73,6 +76,7 @@ function _Stack(props: IProps): JSX.Element {
                                 direction={meta.direction}
                                 style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 history={props.history}
+                                match={props.match}
                             />
                         )
                     case 'Button':
@@ -85,6 +89,7 @@ function _Stack(props: IProps): JSX.Element {
                                 style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 forceUpdate={forceUpdate}
                                 history = {props.history}
+                                match={props.match}
                             />
                         )
                     case 'Modal': 
@@ -99,6 +104,7 @@ function _Stack(props: IProps): JSX.Element {
                                 forceUpdate={forceUpdate}
                                 style={meta.style}
                                 history={props.history}
+                                match={props.match}
                             />
                         )
                     case 'Tabs': 
@@ -110,6 +116,7 @@ function _Stack(props: IProps): JSX.Element {
                                 items={c.items}
                                 style={meta.style}
                                 history={props.history}
+                                match={props.match}
                             />
                         )
                     case 'Checkbox':

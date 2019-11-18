@@ -9,6 +9,7 @@ export interface AppProps {
     config: ConfigType
     hide: boolean
     logout?: Function
+    renderRoutes?: Function
 }
 
 function _Layout(props: AppProps): JSX.Element {
@@ -22,6 +23,7 @@ function _Layout(props: AppProps): JSX.Element {
             className={props.className}
             config={props.config}
             hide={props.hide}
+            renderRoutes={props.renderRoutes}
         />
     );
 };

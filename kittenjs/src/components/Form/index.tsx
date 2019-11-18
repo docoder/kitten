@@ -44,6 +44,7 @@ interface IProps {
     formKey: string;
     forceUpdate: Function;
     history: any;
+    match: any;
 }
 // let formItems: FormItem[] = []
 function _Form (props: IProps): JSX.Element {
@@ -112,6 +113,7 @@ function _Form (props: IProps): JSX.Element {
                 direction="vertical" 
                 stackKey={`${props.pageKey}_${props.formKey}_accessories_stack`} 
                 history={props.history}
+                match={props.match}
             /> : undefined}
             onSubmit={(values: {[key: string]: any}) => {
                 const keys = newItems.filter(i => !i.actionDisabled).map(i => i.key)

@@ -1,5 +1,6 @@
 import React from 'react';
 import {NewFrame} from 'ant-colony-ui';
+// import NewFrame from './NewFrame';
 import { Entry, MenuItem, MenuGroup, isMenuGroup } from 'kittenjs'
 import { connectRoute } from '../utils/connectRoute';
 interface PageLink {
@@ -80,6 +81,7 @@ export function Layout(
             menus={menus}
             pageLinks={pageLinks}
             logout={config.logoutBtnCallback}
+            renderRoutes={props.renderRoutes}
         />
     )
 }
