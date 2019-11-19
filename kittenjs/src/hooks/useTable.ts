@@ -146,7 +146,9 @@ export function useTable(
             //TODO: doc: better to config "id: true", or use index key
             if (mounted) dispatch({type: dataType, dataSource: dataSource.map((d: any, i: number) => ({...d, key: i})), total: totalCount})
         }
-        fetchTableData(pageKey, tableKey, meta.url);
+        if (meta.url) {
+            fetchTableData(pageKey, tableKey, meta.url);
+        }
         return () => {mounted = false}
     }, [pageKey, tableKey, meta.url, filter, currentPage, pageSize, reload]);
 

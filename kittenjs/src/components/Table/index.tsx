@@ -308,9 +308,8 @@ function _Table(props: IProps): JSX.Element {
                 }: false}
             />)
     }
-
+    const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
     if (props.meta && props.meta.url) {
-        const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
         return renderTable(dataSource, props.meta.disablePagination ? false : {currentPage, total, pageSize, setCurrentPage,  setPageSize});
     }else {
         return renderTable(dataSourceRef.current || [], false);
