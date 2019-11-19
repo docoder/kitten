@@ -21,9 +21,10 @@ export default class Sub1ListPlugin implements Plugin {
                 }
             },
         );
-        hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any) => {
+        hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any, rest: any) => {
             if (appKey !== 'ke' || pageKey !== 'sub1' || componentKey !== 'sub1Table') return;  
             props.meta.params = {get: {customParam: '1'}}
+            console.log('Sub1List--afterComponentLoaded--rest', rest)
         })
         hooks.beforeTableDataSourceFetched.tap(
             'Sub1List--beforeTableDataSourceFetched', 
@@ -49,17 +50,7 @@ export default class Sub1ListPlugin implements Plugin {
                 if (appKey !== 'ke' || pageKey !== 'sub1') return;
             },
         );
-        hooks.afterComponentLoaded.tap(
-            'Sub1List--afterComponentLoaded',
-            (
-                appKey: string,
-                pageKey: string,
-                component: string,
-                componentKey: string,
-                props: any,
-            ) => {
-            },
-        );
+        
         hooks.afterComponentUnloaded.tap(
             'Sub1List--afterComponentUnloaded',
             (

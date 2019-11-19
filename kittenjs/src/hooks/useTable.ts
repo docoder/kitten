@@ -103,7 +103,7 @@ export function useTable(
                     Object.keys(reqParam).forEach((k:any) => {
                         const value = reqParam[k]
                         const cKey = meta.modal || meta.componentKey || tableKey || null
-                        if (cKey && value.startsWith('$.')) {
+                        if (cKey && value && (value+'').startsWith('$.')) {
                             const params = getParams(pageKey, cKey)
                             if (params) {values[k] = params[value.split('.')[1]]}
                         }else {

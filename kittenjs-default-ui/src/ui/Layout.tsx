@@ -81,6 +81,7 @@ export function Layout(
             menus={menus}
             pageLinks={pageLinks}
             logout={config.logoutBtnCallback}
+            renderHeaderActions={props.renderHeaderActions}
             renderRoutes={props.renderRoutes}
             renderSiderTopSection={props.renderSiderTopSection}
         />

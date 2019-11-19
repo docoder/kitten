@@ -18,6 +18,14 @@ function _Index (): JSX.Element {
                     return section
                 }
             }}
+            renderHeaderActions={() =>{
+                const actions = app.hooks.renderHeaderActions.call(app.config.appKey)
+                if (!actions || (typeof actions === 'string')) {
+                    return null
+                }else {
+                    return actions
+                }
+            }}
             renderRoutes={(RouteComponents: {Route: any, Switch: any, Redirect: any}, mainRender: Function) => {
                 return app.hooks.renderCustomRoutes.call(app.config.appKey, RouteComponents, mainRender)
             }}

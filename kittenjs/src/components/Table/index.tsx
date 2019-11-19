@@ -79,7 +79,7 @@ function _Table(props: IProps): JSX.Element {
             handleFormData(dataSourceRef.current)
         }, 0);
         forceReloadWithoutFetch()
-        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props)
+        app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Table', props.tableKey, props, { forceReload, forceReloadWithoutFetch })
         return () => {
             dataSourceRef.current = []
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Table', props.tableKey, props)
@@ -117,7 +117,7 @@ function _Table(props: IProps): JSX.Element {
                     const post = params.post
                     Object.keys(post).forEach((k:any) => {
                         const value = post[k]
-                        if (value.startsWith('$.')) {
+                        if (value && (value+'').startsWith('$.')) {
                             values[k] = record[value.split('.')[1]] 
                         }else {
                             values[k] = value
@@ -137,9 +137,9 @@ function _Table(props: IProps): JSX.Element {
             keys.forEach(k => {
                 if (k === 'post' || k === 'get') return
                 const value = aParams[k] 
-                if (value.startsWith('$.')) {
+                if (value && (value+'').startsWith('$.')) {
                     params[k] = record[value.split('.')[1]] 
-                }else if(value.startsWith('$#') && result) {
+                }else if(value && (value+'').startsWith('$#') && result) {
                     params[k] = result.data[value.split('#')[1]]
                 }else {
                     params[k] = value

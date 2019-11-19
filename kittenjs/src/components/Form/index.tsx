@@ -136,7 +136,7 @@ function _Form (props: IProps): JSX.Element {
                     if (keys && keys.length > 0) {
                         keys.forEach((k:string) => {
                             const value = post[k]
-                            if (value.startsWith('$.') && props.meta.modal) {
+                            if (value && (value+'').startsWith('$.') && props.meta.modal) {
                                 const modalParams = getParams(props.pageKey, props.meta.modal)
                                 if (post) {
                                     const valueKey = value.split('.')[1]

@@ -3,7 +3,7 @@ import { Plugin, AppHooks, } from 'kittenjs'
 
 export default class GlobalCustomPlugin implements Plugin {
     apply(hooks: AppHooks) {
-        hooks.renderSiderTopSection.tap('OtherList--beforeTableColumnFinalization', (appkey: string) => {
+        hooks.renderSiderTopSection.tap('OtherList--renderSiderTopSection', (appkey: string) => {
             return (
                 <div style={{ 
                     padding: 20,
