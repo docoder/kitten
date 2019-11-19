@@ -137,6 +137,7 @@ export interface AppHooks {
     renderHeaderActions: Hook;
     renderSiderTopSection: Hook;
     renderCustomRoutes: Hook;
+    beforeTablePaginationFinalization: Hook;
     // afterMenusFetched: Hook;
     
     afterPageLoaded: Hook;
@@ -176,6 +177,14 @@ class HooksProvider {
             renderHeaderActions: new SyncWaterfallHook(['appKey']),
             renderSiderTopSection: new SyncWaterfallHook(['appKey']),
             renderCustomRoutes: new SyncWaterfallHook(['appKey', 'RouteComponents', 'mainRender']),
+            beforeTablePaginationFinalization: new SyncHook([
+                'appKey',
+                'pageKey',
+                'tableKey',
+                'props',
+                'dataSource', 
+                'pagination'
+            ]),
             // afterMenusFetched: new SyncHook(['appKey', 'menus']),
             afterPageLoaded: new SyncHook(['appKey', 'pageKey', 'props']),
             afterPageUnloaded: new SyncHook(['appKey', 'pageKey', 'props']),

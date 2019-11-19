@@ -21,6 +21,12 @@ export default class Sub1ListPlugin implements Plugin {
                 }
             },
         );
+        hooks.beforeTablePaginationFinalization.tap('Sub1List--beforeTablePaginationFinalization', (
+            appKey: string, pageKey: string, tableKey: string, props: any, dataSource: any, pagination: any 
+        ) => {
+            if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return;  
+            pagination.extraPagination = {showTotal: (total: number) => `共 ${(pagination.total / pagination.pageSize)} 页, 共 ${total} 条数据`}
+        })
         hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any, rest: any) => {
             if (appKey !== 'ke' || pageKey !== 'sub1' || componentKey !== 'sub1Table') return;  
             props.meta.params = {get: {customParam: '1'}}

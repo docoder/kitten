@@ -304,13 +304,17 @@ function _Table(props: IProps): JSX.Element {
                     current: pagination.currentPage,
                     total: pagination.total,
                     pageSize: pagination.pageSize,
-                    position: 'both'
+                    position: 'both',
+                    ...pagination.extraPagination
                 }: false}
             />)
     }
     const { dataSource, currentPage, total, pageSize, setCurrentPage,  setPageSize } = useTable(props.pageKey, props.tableKey, columns, props.meta, reload);
     if (props.meta && props.meta.url) {
-        return renderTable(dataSource, props.meta.disablePagination ? false : {currentPage, total, pageSize, setCurrentPage,  setPageSize});
+        let extraPagination = {}
+        const pagination = {currentPage, total, pageSize, setCurrentPage, setPageSize, extraPagination}
+        app.hooks.beforeTablePaginationFinalization.call(app.config.appKey, props.pageKey, props.tableKey, props, dataSource, pagination); 
+        return renderTable(dataSource, props.meta.disablePagination ? false : pagination);
     }else {
         return renderTable(dataSourceRef.current || [], false);
     }
