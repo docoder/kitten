@@ -6,7 +6,7 @@ export function fetch2(url: string, options?: any, loginUrl: string = '') {
     return fetch(realUrl, opt)
         .then(response => response.json())
         .then((json) => {
-            if (json.code === 40003 || json.code === 201 || json.code=== 401) {
+            if (json.code === 40003 || json.code === 50003 || json.code === 201 || json.code=== 401) {
                 const return_login = loginUrl + '?returnUrl=' + encodeURIComponent(href)
                 window.location.replace(return_login)
                 throw new Error('Please Login First!')
