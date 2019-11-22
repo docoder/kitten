@@ -6,6 +6,8 @@ import { Form } from '../Form'
 import { Modal } from '../Modal'
 import { Checkbox } from '../Checkbox'
 import { Tabs } from '../Tabs'
+import { Panel } from '../Panel'
+import { Iframe } from '../Iframe'
 interface IProps {
     style?: React.CSSProperties;
     pageKey: string;
@@ -119,6 +121,20 @@ function _Stack(props: IProps): JSX.Element {
                                 match={props.match}
                             />
                         )
+                    case 'Panel':
+                        return (
+                            <Panel
+                                key={c.key}
+                                pageKey={props.pageKey}
+                                panelKey={c.key}
+                                items={c.items}
+                                style={meta.style}
+                                history={props.history}
+                                match={props.match}
+                                forceUpdate={forceUpdate}
+                                meta={meta}
+                            />
+                        )
                     case 'Checkbox':
                         return (
                             <Checkbox
@@ -128,6 +144,16 @@ function _Stack(props: IProps): JSX.Element {
                                 meta={meta}
                                 style={{...(vertical ? {marginBottom: 20} : {marginRight: 10}), ...meta.style}}
                                 forceUpdate={forceUpdate}
+                            />
+                        )
+                    case 'Iframe':
+                        return (
+                            <Iframe
+                                key={c.key}
+                                pageKey={props.pageKey}
+                                iframeKey={c.key}
+                                style={meta.style}
+                                meta={meta}
                             />
                         )
                     default:

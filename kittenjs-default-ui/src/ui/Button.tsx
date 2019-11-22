@@ -7,8 +7,8 @@ export function Button(props: {[propName: string]: any}) {
             title={props.label} 
             onClick={props.onClick}
         />
-    if (props.url && props.url.length > 0) {
-        element = <a href={props.url}>{element}</a>
+    if (props.href&& props.href.length > 0) {
+        element = <a href={props.href}>{element}</a>
     }
     return (
         <div style={props.style} className={props.className}>{element}</div>

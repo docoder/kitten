@@ -328,7 +328,9 @@ app.render(Renderer,  document.getElementById('root')!)
 ### type
 
 - 组件块类型
-  - Table, Form, Button, Stack, Checkbox, Modal, Tabs
+  - Table, Form, Button, Stack, Checkbox, Modal, Tabs, Panel, Iframe
+  - Panel
+    - items 要么全是 Sections (配置了 type)，要么全是 Items (不配置 type, 配置 key, label, value)
 
 ### meta
 
@@ -389,8 +391,9 @@ app.render(Renderer,  document.getElementById('root')!)
 
 #### width
 
-- Modal
-- Modal 的宽度 (数字类型), 如：800
+- Modal, Panel
+- Modal 的宽度， 如：800px
+- Panel 的宽度，通常为 Panel 的 子 Panel 时进行配置，来布局，通常为百分比，如： 25%
 
 #### filter
 
@@ -400,15 +403,17 @@ app.render(Renderer,  document.getElementById('root')!)
 
 #### direction
 
-- Stack
+- Stack, Panel
 - Stack 是一个布局 section, 分为由上到下垂直布局和由左到右水平布局
+- Panel 对子 Panel 的布局
 - horizontal，水平布局
 - vertical，垂直布局
 
 #### columnsCount
 
-- Form
+- Form, Panel
 - Form 的表单条目的列数，用于布局
+- Panel 控制 items 的列数，用于布局
 
 #### rowColCounts
 
@@ -486,6 +491,33 @@ app.render(Renderer,  document.getElementById('root')!)
 
 - Form
 - 是否显示表单清空按钮
+
+#### href
+
+- Iframe, Button
+- Iframe 加载页面
+- Button 跳转链接
+
+#### headerBgColor
+
+- Panel
+- Panel header 的背景颜色
+
+#### headerColor
+
+- Panel
+- Panel header 字体颜色
+
+#### block
+
+- Iframe
+- 为 ture 时，Iframe 为块级普通 iframe, 可配置 style 控制宽高等, 也可放入 Stack 来被布局
+- 不配置或为 false 时，Iframe 为 页面级 iframe, 宽度高度撑满并随窗口改变而改变，可配置 offset 进行高度的调整
+
+#### offset
+
+- Iframe
+- Iframe 为 页面级 iframe 时, 可配置 offset 进行高度的调整
 
 ### items 
 
@@ -691,7 +723,6 @@ Form 或 Table 中的条目
   - Table
   - Table 列的宽度，单位： 'px'
     - 如： '100px'
-
 - format
   - Table,  Form
   - Table 列的格式化，支持 三种，timestamp，date，code，需要以 `$:`分隔
@@ -707,15 +738,28 @@ Form 或 Table 中的条目
     - 支持两种，timestamp，date 需要以 `$:`分隔
       - timestamp`$:`YYYY-MM-DD HH:mm:ss
       - date`$:`YYYY-MM-DD HH:mm:ss
+- size
+  - Panel
+  - 可配置为 big, extrabig 来控制 Panel item 的 value 字体的大小
 
 **当 Form 或 Table 的条目 type 为 select 类型 (包括 tags, multiple) 时有效 **
 
 - url
-  - Form, Table
+  - Form, Table, Panel
   - 请求 select 数据 URL
+  - Panel item 的 value 可点击发送请求，必须配置 method
 - method
-  - Form, Table
+  - Form, Table， Panel
   - 请求 select 数据 method
+  - Panel item 的 value 可点击发送请求，必须配置 url
+
+- link
+  - Panel
+  - Panel item 的 value 可点击跳转页面
+  - '/pageKey'，/ 表示为根页面，非子页面
+  - 'subPageKey', 子页面
+  - '<', 页面返回上一页面
+
 - ref
   - Form, Table
   - 联动依赖的条目的 key

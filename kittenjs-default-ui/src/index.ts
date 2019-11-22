@@ -10,6 +10,7 @@ import { Button } from './ui/Button'
 import { Modal } from './ui/Modal'
 import { Checkbox } from './ui/Checkbox'
 import { Tabs } from './ui/Tabs'
+import { Panel } from './ui/Panel'
 const ui = {
     Page,
     Table,
@@ -20,7 +21,8 @@ const ui = {
     Button,
     Modal,
     Checkbox,
-    Tabs
+    Tabs,
+    Panel
 }
 const Renderer = ReactDOM
 export {

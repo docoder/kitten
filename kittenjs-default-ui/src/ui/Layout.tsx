@@ -8,6 +8,13 @@ interface PageLink {
     label: string;
     link: string;
 }
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
 export function Layout(
     props: {[x: string]: any},
 ) {
@@ -74,6 +81,7 @@ export function Layout(
             throw new Error('Menus Json 不合法，缺少字段 key 或 subs');
         }
     });
+    const hide = inIframe()
     return (
         <NewFrame
             title={config.appTitle}
@@ -84,6 +92,8 @@ export function Layout(
             renderHeaderActions={props.renderHeaderActions}
             renderRoutes={props.renderRoutes}
             renderSiderTopSection={props.renderSiderTopSection}
+            headerHide={hide}
+            sideMenusHide={hide}
         />
     )
 }

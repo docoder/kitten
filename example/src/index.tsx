@@ -4,6 +4,168 @@ import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 import OtherRoutePagePlugin from './plugins/OtherRoutePagePlugin'
 import GlobalCustomPlugin from './plugins/GlobalCustomPlugin'
+const dashbordJSON: PageSection[] = [
+    {
+        type: 'Panel', 
+        key: 'dashboard1Panel',
+        items: [
+            {
+                type: 'Panel',
+                key: 'dashboardItemPanel1',
+                items: [
+                    {key: 'field11', label: '字段11', value: '值11'},
+                    {key: 'field12', label: '字段12', value: '值12'},
+                ],
+                meta: {
+                    label: '面板1',
+                    width: '10%'
+                }
+            },
+            {
+                type: 'Panel',
+                key: 'dashboardItemPanel2',
+                items: [
+                    {key: 'field21', label: '字段21', value: '值21'},
+                    {key: 'field22', label: '字段22', value: '值22'},
+                    {key: 'field23', label: '字段23', value: '值23'},
+                ],
+                meta: {
+                    label: '面板2',
+                    width: '15%',
+                    headerColor: 'white',
+                    headerBgColor: '#42A881'
+                }
+            },
+            {
+                type: 'Panel',
+                key: 'dashboardItemPanel3',
+                items: [
+                    {key: 'field31', label: '字段31', value: '值31'},
+                    {key: 'field32', label: '', value: '值32', size: 'extrabig'},
+                    {key: 'field33', label: '字段33', value: '值33'},
+                    {key: 'field34', label: '字段34', value: '值34'}
+                ],
+                meta: {
+                    label: '面板3',
+                    width: '25%',
+                    columnsCount: 1
+                }
+            },
+            {
+                type: 'Panel',
+                key: 'dashboardItemPanel4',
+                items: [
+                    {key: 'field41', label: '字段41', value: '值41', size: 'big'},
+                    {key: 'field42', label: '字段42', value: '值42', size: 'big'},
+                    {key: 'field43', label: '字段43', value: '值43', meta: {url: 'http://example.com/43', method: 'GET'}},
+                    {key: 'field44', label: '字段44', value: '值44', meta: {href: 'http://example.com/44'}},
+                    {key: 'field45', label: '字段45', value: '值45', meta: {link: '/sub1'}}
+                ],
+                meta: {
+                    label: '面板4',
+                    width: '50%',
+                    columnsCount: 2
+                }
+            }
+        ],
+        meta: {
+            label: '版块1',
+            direction: 'horizontal'
+        }
+    },
+    {
+        type: 'Panel', 
+        key: 'dashboard2Panel',
+        items: [
+            {
+                type: 'Panel',
+                key: 'dashboard2ItemPanel1',
+                items: [
+                    {key: 'field11', label: '字段11', value: '值11'},
+                    {key: 'field12', label: '字段12', value: '值12'},
+                ],
+                meta: {
+                    label: '标题'
+                }
+            },
+            {
+                type: 'Form', 
+                key: 'form1',
+                items: [
+                    {key: 'id', label: 'ID'},
+                    {
+                        key: 'info',
+                        label: '信息',
+                    } 
+                ],
+                meta: {
+                    filter: 'table1',
+                    actionDirection: 'left'
+                }
+            },
+            {
+                type: 'Table',
+                key: 'table1',
+                items: [
+                    {key: 'id', label: 'ID'},
+                    {
+                        key: 'info',
+                        label: '信息',
+                    }
+                ],
+                meta: {
+                    data: [
+                        {
+                            id: 1,
+                            info: 'testInfo1'
+                        }
+                    ],
+                    url:
+                    'https://api.example.com/sub2/list',
+                    method: 'GET',
+                    disablePagination: true
+                },
+            },
+            {
+                key: 'btn1',
+                type: 'Button',
+                meta: {
+                    label: '按钮'
+                }
+            }, 
+        ],
+        meta: {
+            label: '版块2'
+        }
+    },
+    {
+        type: 'Stack', 
+        key: 'iframesStack',
+        items: [
+            {
+                type: 'Iframe',
+                key: 'dashboardIframe1',
+                meta: {
+                    href: window.location.origin,
+                    block: true,
+                    style: {flex: 1, height: 300}
+                }
+            },
+            {
+                type: 'Iframe',
+                key: 'dashboardIframe2',
+                meta: {
+                    href: window.location.origin,
+                    block: true,
+                    style: {flex: 1, height: 300}
+                }
+            }
+        ],
+        meta: {
+            direction: 'horizontal'
+        }
+    }
+]
 const sub1PageJSON: PageSection[] = [
     {
         type: 'Stack',
@@ -30,7 +192,7 @@ const sub1PageJSON: PageSection[] = [
                 type: 'Button',
                 meta: {
                     label: '下载模板',
-                    url: 'https://api.example.com/sub1/download'
+                    href: 'https://api.example.com/sub1/download'
                 }
             }
         ],
@@ -659,10 +821,11 @@ const sub2PageJSON: PageSection[] = [
 
 const subSub1PageJSON: PageSection[] = [
     {
-        key: 'tab1Button',
-        type: 'Button',
+        type: 'Iframe',
+        key: 'iframe1',
         meta: {
-            label: '孖按钮'
+            href: window.location.origin,
+            offset: 64
         }
     }
 ]
@@ -678,7 +841,7 @@ const app = new Kitten(ui, {
         {
             key: 'dashbord',
             label: '仪表盘',
-            pageJSON: [], 
+            pageJSON: JSON.parse(JSON.stringify(dashbordJSON)), 
         }, {
             label: '菜单 1',
             subs: [

@@ -14,6 +14,7 @@ interface UI {
     Layout: any
     Checkbox: any
     Tabs: any
+    Panel: any
 }
 export type UIType = UI | null
 
@@ -39,6 +40,7 @@ export interface ActionMeta {
     modal?: string
     link?: string
     url?: string
+    href?: string
     params?: {[x:string]: any}
     method?: string
     confirm?: boolean
@@ -50,18 +52,22 @@ export interface ActionMeta {
 }
 interface LayoutMeta {
     direction?: string
-    width?: number
+    width?: string | number
     columnsCount?: number
     rowColCounts?: number []
     labelPosition?: string
     actionsShow?: boolean
     disableGroupCol?: boolean
     accessories?: PageSection []
-    style?: {[x:string]: string}
+    style?: {[x:string]: any}
     submitTitle?: string
     clearTitle?: string
     actionDirection?: string
     clearButtonShow?: boolean
+    headerBgColor?: string
+    headerColor?: string
+    block?: boolean
+    offset?: number | string
 }
 interface ItemMeta {
     format?: string
@@ -78,7 +84,7 @@ export interface PageSectionItem {
     label: string
     id?: boolean
     type?: string
-    meta?: FetchMeta | ItemMeta
+    meta?: FetchMeta | ItemMeta | ActionMeta
     actions?: TableAction[]
     editable?: boolean
     required?: boolean
@@ -88,6 +94,7 @@ export interface PageSectionItem {
     showTime?: boolean
     width?: string
     placeholder?: string
+    size?: string
 }
 export interface PageSection {
     type: string
