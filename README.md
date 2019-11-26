@@ -331,6 +331,10 @@ app.render(Renderer,  document.getElementById('root')!)
   - Table, Form, Button, Stack, Checkbox, Modal, Tabs, Panel, Iframe
   - Panel
     - items 要么全是 Sections (配置了 type)，要么全是 Items (不配置 type, 配置 key, label, value)
+    - item 的 meta 支持 `url` (当 item 的 value 不是 `$#` 时, 点击发送请求), ` link` (页面跳转), `href ` (链接跳转)
+    - Panel item 的 value 支持 `$.` 和 `$#`
+         - `$.` 获取 Panel 的 meta 的 url 请求返回数据的字段
+      - `$#` 获取 Panel Item 的 meta 的 url 请求返回数据的字段
 
 ### meta
 
