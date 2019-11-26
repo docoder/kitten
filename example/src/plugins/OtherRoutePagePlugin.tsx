@@ -3,7 +3,7 @@ import { Plugin, AppHooks } from 'kittenjs'
 export default class OtherRoutePagePlugin implements Plugin {
     apply(hooks: AppHooks) {
         hooks.renderCustomRoutes.tap('OtherRoutePage--renderCustomRoutes', (appkey: string, RouteComponents: any, mainRender: Function) => {
-            const {Route, Switch, Redirect} = RouteComponents
+            const {Route, Redirect} = RouteComponents
             return (
                 <>
                     <Route exact path="/" component={() => <Redirect to="/main" />} />

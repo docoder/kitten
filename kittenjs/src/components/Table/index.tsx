@@ -6,6 +6,7 @@ import { Pages } from '../../pages'
 import { useGET } from '../../hooks/useGET'
 import { usePOST } from '../../hooks/usePOST'
 import { useSelect } from '../../hooks/useSelect'
+import { getValueByKeypath } from '../../utils/modal'
 export interface TableColumn extends PageSectionItem {
     render?: any
     editable?: any
@@ -139,8 +140,8 @@ function _Table(props: IProps): JSX.Element {
                 const value = aParams[k] 
                 if (value && (value+'').startsWith('$.')) {
                     params[k] = record[value.split('.')[1]] 
-                }else if(value && (value+'').startsWith('$#') && result) {
-                    params[k] = result.data[value.split('#')[1]]
+                }else if(value && (value+'').startsWith('$#') && result && result.data) {
+                    params[k] = getValueByKeypath(result.data, value.split('#')[1])
                 }else {
                     params[k] = value
                 }

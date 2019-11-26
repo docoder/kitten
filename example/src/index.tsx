@@ -42,6 +42,7 @@ const dashbordJSON: PageSection[] = [
                 items: [
                     {key: 'field31', label: '字段31', value: '值31'},
                     {key: 'field32', label: '', value: '值32', size: 'extrabig'},
+                    // {key: 'field32', label: '', value: '$#count', size: 'extrabig', meta: {url: 'http://example.com/count', method: 'GET'}},
                     {key: 'field33', label: '字段33', value: '值33'},
                     {key: 'field34', label: '字段34', value: '值34'}
                 ],
@@ -57,6 +58,7 @@ const dashbordJSON: PageSection[] = [
                 items: [
                     {key: 'field41', label: '字段41', value: '值41', size: 'big'},
                     {key: 'field42', label: '字段42', value: '值42', size: 'big'},
+                    // {key: 'field42', label: '字段42', value: '$.total', size: 'big'},
                     {key: 'field43', label: '字段43', value: '值43', meta: {url: 'http://example.com/43', method: 'GET'}},
                     {key: 'field44', label: '字段44', value: '值44', meta: {href: 'http://example.com/44'}},
                     {key: 'field45', label: '字段45', value: '值45', meta: {link: '/sub1'}}
@@ -64,7 +66,9 @@ const dashbordJSON: PageSection[] = [
                 meta: {
                     label: '面板4',
                     width: '50%',
-                    columnsCount: 2
+                    columnsCount: 2,
+                    // url: 'http://example.com/dashboardItemPanel4/counts',
+                    // method: 'GET'
                 }
             }
         ],
