@@ -265,51 +265,85 @@ app.render(Renderer,  document.getElementById('root')!)
   	})
   	```
   	
+  - renderHeaderActions
+    
+    - appKey
+    
+  - renderSiderTopSection
+  
+    - appKey
+  
+  - renderCustomRoutes
+  
+    - appKey, RouteComponents, mainRender
+    - 可添加自定义路由，如，增加一个登陆页面
+  
   - afterPageLoaded
+    
     - appKey, pageKey, props
     - 页面加载时调用
+    
   - afterPageUnloaded
     - appKey, pageKey, props
     - 页面卸载时调用
+    
   - afterComponentLoaded
     - appKey, pageKey, componentType, componentKey, props
     - 组件加载时调用
+    
   - afterComponentUnloaded
     - appKey, pageKey, componentType, componentKey, props
     - 组件卸载时调用
+    
   - beforeSelectDataFetched
     - appKey, pageKey, componentKey, items, selectKey
     - Form 或 Table 有 Select 时，在请求接口获取 Select 数据**前**调用
+    
   - afterSelectDataFetched
     - appKey, pageKey, componentKey, items, selectKey, selectData
     - Form 或 Table 有 Select 时，在请求接口获取 Select 数据**后**调用
+    
   - beforeTableDataSourceFetched
     - appKey, pageKey, tableKey, columns, pagination
     - Table 在请求接口获取数据**前**调用
+    
   - afterTableDataSourceFetched
     - appKey, pageKey, tableKey, columns, dataSource, pagination
     - Table 在请求接口获取数据**后**调用
+    
+  - beforeTablePaginationFinalization
+  
+    - appKey，pageKey，tableKey，props，dataSource，pagination
+    - Table 分页最终确定前调用
+  
   - beforeFormItemFinalization
     - appKey, pageKey, formKey, props, item
     - 在 Form 的 每个item (表单条目) 最终确定前调用
+    
   - beforeFormAllItemsFinalization
     - appKey, pageKey, formKey, props, items
     - 在 Form 的所有 items 最终确定前调用
+    
   - beforeTableColumnFinalization
     - appKey, pageKey, tableKey, props, column
     - 在 Table 的每个 Column (列) 最终确定前调用
+    
   - beforeTableAllColumnsFinalization
     - appKey, pageKey, tableKey, props, columns
     - 在 Table 的所有 Columns 最终确定前调用
+    
   - beforeButtonClick
     - appKey, pageKey, buttonKey
     - 在 Button 点击前调用
+    
   - beforeFormSubmit
     - appKey, pageKey, formKey, values
     - 在 Form 提交前调用
+    
   - beforeCheckboxChange
     - appKey, pageKey, checkboxKey, value
     - 在 Checkbox 改变前调用
+    
   - afterTableCellChanged
     - appKey, pageKey, tableKey, dataSource, row
     - 在 Table Cell 为可编辑时，值改变后调用
