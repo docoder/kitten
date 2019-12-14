@@ -495,7 +495,7 @@ app.render(Renderer,  document.getElementById('root')!)
 #### actionsShow
 
 - Form
-- 是否显示 Form 的提交重置按钮，当 Form 用于纯展示时，可设为 true
+- 是否显示 Form 的提交重置按钮，当 Form 用于纯展示时，可设为 false
 
 #### labelPostion
 
