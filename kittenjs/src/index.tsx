@@ -32,6 +32,7 @@ class Kitten {
 export {
     Kitten,
     Entry,
+    AppProvider,
     Plugin,
     AppHooks,
     UIType,

@@ -33,6 +33,7 @@ export function Layout(
                         title={item.label}
                         pageKey={item.key}
                         pageJSON={item.pageJSON}
+                        pageAPI={config.pageAPI}
                     />
                 )
             },

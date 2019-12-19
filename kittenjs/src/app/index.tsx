@@ -134,8 +134,8 @@ export function isMenuGroup (item: MenuItem | MenuGroup): item is MenuGroup {
 
 export interface ConfigType {
     appKey: string;
-    appTitle: string;
-    menus: (MenuGroup | MenuItem) [];
+    appTitle?: string;
+    menus?: (MenuGroup | MenuItem) [];
     pageAPI?: string;
     loginUrl?: string;
     logoutBtnCallback?: Function;

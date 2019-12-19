@@ -5,27 +5,20 @@ import { Pages } from '../'
 import { Page } from './page'
 
 interface IProps {
-    title: string,
-    ui: UIType,
-    config: ConfigType
-    plugins: Plugin[]
-    debugHooks?: string[]
+    title?: string,
+    ui?: UIType,
     pageKey: string;
-    history: any;
-    match: any;
+    history?: any;
+    match?: any;
+    pageAPI?: string;
     pageJSON: any[];
 }
 
 export type EntryProps = IProps
 function _Entry(props: EntryProps):JSX.Element {
-    const { pageKey } = props;
-    let pageAPI = undefined;
-    if (props.config) {
-        pageAPI = props.config.pageAPI
-    }
     return (
         <Pages.Provider>
-            <Page pageKey={pageKey} pageAPI={pageAPI} pageJSON={props.pageJSON} history={props.history} match={props.match} />
+            <Page pageKey={props.pageKey} pageAPI={props.pageAPI} pageJSON={props.pageJSON} history={props.history} match={props.match} />
         </Pages.Provider>
     );
 };

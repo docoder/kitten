@@ -27,6 +27,130 @@ yarn add react kittenjs
 yarn add react-dom react-router-dom antd ant-colony-ui styled-components kittenjs-default-ui
 ```
 
+# 🔨 Usage
+
+**You can see [example ](https://github.com/docoder/kitten/tree/master/example) for detail**
+
+#### 1. Use as a whole application (`example/index.tsx`)
+
+```typescript
+import { Kitten } from 'kittenjs'
+import { Renderer, ui } from 'kittenjs-default-ui'
+import Sub1ListPlugin from './plugins/Sub1ListPlugin'
+import OtherListPlugin from './plugins/OtherListPlugin'
+const app = new Kitten(ui, {
+    appKey: "ke",
+    appTitle: 'Kitten Example',
+    pageAPI: 'http://api.example.com/pages',
+    loginUrl: 'http://api.example.com/login',
+    menus: [
+        {
+            key: 'dashbord',
+            label: '仪表盘',
+            index: true,
+            pageJSON: []
+        }, {
+            label: '菜单 1',
+            subs: [
+                {
+                    label: '子菜单 1',
+                    key: 'sub1',
+                },
+                {
+                    label: '子菜单 2',
+                    key: 'sub2'
+                }
+            ]
+        }
+    ],
+}, [
+    new Sub1ListPlugin(), // plugins
+    new OtherListPlugin()
+], [
+    'beforeTableColumnFinalization'  // debug kitten hooks
+])
+app.render(Renderer,  document.getElementById('root')!)
+```
+#### 2. Use as a partial component (`example/index-partial.tsx`)
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
+import { AppProvider, Entry, PageSection } from 'kittenjs'
+import { ui } from 'kittenjs-default-ui'
+import Page1ListPlugin from './plugins/Page1ListPlugin'
+
+function Header(props: any): JSX.Element {
+    return (
+        <div>
+            <Entry // Kitten entry component with pageAPI or pageJSON
+                pageKey="test-entry-header"
+                pageJSON={[
+                    {
+                        key: 'header',
+                        type: 'Button',
+                        meta: {
+                            label: 'Header'
+                        }
+                    }
+                ]}
+            />
+        </div>
+    )
+}
+
+const page1JSON: PageSection[] = [
+  //...
+]
+function Page1(props: any): JSX.Element {
+    return (
+        <div>
+            <Entry
+                pageAPI="http://api.example.com/pages"
+                pageKey="test-entry-page1"
+                pageJSON={page1JSON} // pageJSON can make pageAPI disabled
+                history={props.history}
+                match={props.match}
+            />
+        </div>
+    )
+}
+
+function App (props: any): JSX.Element {
+    return (
+        <div>
+            <Header />
+            <Router>
+                <Route exact path="/" component={() => <Redirect to="/main" />} />
+                <Route exact path="/main" component={Page1} />
+            </Router>
+        </div>
+        
+    )
+}
+
+ReactDOM.render(
+    <AppProvider // You should generally set up a <AppProvider> at the root of your app
+        ui={ui} 
+        config={{
+            appKey: 'Test-Entry'
+        }} 
+        plugins={[
+            new Page1ListPlugin() // plugins
+        ]}
+        debugHooks={[
+            'beforeTableColumnFinalization' // debug kitten hooks
+        ]}
+    >
+        <App />
+    </AppProvider>, 
+    document.getElementById('root')
+);
+```
+
+
+
 # ⌨️ Development
 
 #### 1.install
@@ -73,49 +197,6 @@ cd example
 yarn run dev
 ```
 
-# 🔨 Usage
-
-**You can see [example ](https://github.com/docoder/kitten/tree/master/example) for detail**
-
-```typescript
-import { Kitten } from 'kittenjs'
-import { Renderer, ui } from 'kittenjs-default-ui'
-import Sub1ListPlugin from './plugins/Sub1ListPlugin'
-import OtherListPlugin from './plugins/OtherListPlugin'
-const app = new Kitten(ui, {
-    appKey: "ke",
-    appTitle: 'Kitten Example',
-    pageAPI: 'http://api.example.com/pages',
-    loginUrl: 'http://api.example.com/login',
-    menus: [
-        {
-            key: 'dashbord',
-            label: '仪表盘',
-            index: true,
-            pageJSON: []
-        }, {
-            label: '菜单 1',
-            subs: [
-                {
-                    label: '子菜单 1',
-                    key: 'sub1',
-                },
-                {
-                    label: '子菜单 2',
-                    key: 'sub2'
-                }
-            ]
-        }
-    ],
-}, [
-    new Sub1ListPlugin(), // plugins
-    new OtherListPlugin()
-], [
-    'beforeTableColumnFinalization'  // debug kitten hooks
-])
-app.render(Renderer,  document.getElementById('root')!)
-```
-
 # 📖 Document
 
 ## Overview
@@ -135,8 +216,85 @@ const app = new Kitten(ui, { // 将 ui 传入，kitten 会使用此进行 UI 渲
 }, [
     new YourPlugin()
 ], [
+   'beforeTableColumnFinalization' // 输出指定插件的调试信息
 ])
 app.render(Renderer,  document.getElementById('root')!)
+```
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom"
+import { AppProvider, Entry, PageSection } from 'kittenjs'
+import { ui } from 'kittenjs-default-ui'
+import Page1ListPlugin from './plugins/Page1ListPlugin'
+
+function Header(props: any): JSX.Element {
+    return (
+        <div>
+            <Entry // Kitten entry 组件，可以配置 pageAPI 或 pageJSON
+                pageKey="test-entry-header"
+                pageJSON={[
+                    {
+                        key: 'header',
+                        type: 'Button',
+                        meta: {
+                            label: 'Header'
+                        }
+                    }
+                ]}
+            />
+        </div>
+    )
+}
+
+const page1JSON: PageSection[] = [
+  //...
+]
+function Page1(props: any): JSX.Element {
+    return (
+        <div>
+            <Entry
+                pageAPI="http://api.example.com/pages"
+                pageKey="test-entry-page1"
+                pageJSON={page1JSON} // 配置了 pageJSON 会使 pageAPI 无效
+                history={props.history}
+                match={props.match}
+            />
+        </div>
+    )
+}
+
+function App (props: any): JSX.Element {
+    return (
+        <div>
+            <Header />
+            <Router>
+                <Route exact path="/" component={() => <Redirect to="/main" />} />
+                <Route exact path="/main" component={Page1} />
+            </Router>
+        </div>
+        
+    )
+}
+
+ReactDOM.render(
+    <AppProvider // 需要在使用了 Kitten Entry 组件的最顶层处使用 <AppProvider> 包裹
+        ui={ui} 
+        config={{
+            appKey: 'Test-Entry'
+        }} 
+        plugins={[
+            new Page1ListPlugin() // 插件
+        ]}
+        debugHooks={[
+            'beforeTableColumnFinalization' // 输出指定插件的调试信息
+        ]}
+    >
+        <App />
+    </AppProvider>, 
+    document.getElementById('root')
+);
 ```
 
 ## App
