@@ -90,7 +90,7 @@ export function Table(props: {[propName: string]: any}) {
             columnsConfigGlobalTableKey={(props.columns.length < 6) ? undefined : `Kittenjs-Default-UI-Table-${props.appKey}-${props.pageKey}-${props.tableKey}`}
             pagination={props.pagination}
             onChange={(pagination: any) => {
-                props.onPageChange(pagination.current, pagination.pageSize) 
+                if (props.onPageChange) props.onPageChange(pagination.current, pagination.pageSize) 
             }}
             onCellSave={(row: any, dataIndex: string) => {
                 let newList = props.dataSource.slice(0);

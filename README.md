@@ -258,6 +258,8 @@ function Page1(props: any): JSX.Element {
                 pageAPI="http://api.example.com/pages"
                 pageKey="test-entry-page1"
                 pageJSON={page1JSON} // 配置了 pageJSON 会使 pageAPI 无效
+              	// Page1 在 Router 中可配置 history 和 match
+              	// 此时 page JSON 里可配置 link 等路由相关功能
                 history={props.history}
                 match={props.match}
             />
