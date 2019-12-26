@@ -100,11 +100,29 @@ const dashbordJSON: PageSection[] = [
                     {
                         key: 'info',
                         label: '信息',
-                    } 
+                    },
+                    {
+                        key: 'date',
+                        type: 'date',
+                        label: '日期',
+                    },
+                    {
+                        key: 'month',
+                        type: 'month',
+                        label: '月份',
+                    },
+                    {
+                        key: 'rangeDate',
+                        type: 'rangeDate',
+                        label: '日期范围',
+                    },
                 ],
                 meta: {
                     filter: 'table1',
-                    actionDirection: 'left'
+                    actionDirection: 'left',
+                    rowColCounts: [1,4],
+                    // url: '/test-submit',
+                    // method: 'post'
                 }
             },
             {

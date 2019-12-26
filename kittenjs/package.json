@@ -1,6 +1,6 @@
 {
   "name": "kittenjs",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Sever JSON Driving UI",
   "author": "docoder",
   "main": "build/index.js",

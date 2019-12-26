@@ -46,6 +46,23 @@ export function Form(props: {[propName: string]: any}) {
         }
         return {...i}
     })
+    const onSubmit = (values: any, ...rest: any[]) => {
+        // props.items.forEach((i: any) => {
+        //     if (i.type === 'date' || i.type === 'month') {
+        //         if (values[i.key]) {
+        //             values[i.key] = values[i.key].valueOf()
+        //         }
+        //         if (i.meta && i.meta.format) {
+                    
+        //         }
+        //     }else if (i.type === 'rangeDate') {
+        //         if (values[i.key] && values[i.key].length > 1) {
+        //             values[i.key] = [values[i.key][0].valueOf(), values[i.key][1].valueOf()]
+        //         }
+        //     }
+        // })
+        props.onSubmit(values, ...rest)
+    }
     return (
         <div
             style={props.style}
@@ -53,7 +70,7 @@ export function Form(props: {[propName: string]: any}) {
         >
             <RealForm
                 forms={props.items}
-                onSubmit={props.onSubmit}
+                onSubmit={onSubmit}
                 actionsShow={props.actionsShow}
                 submitTitle={props.submitTitle}
                 clearTitle={props.clearTitle}
