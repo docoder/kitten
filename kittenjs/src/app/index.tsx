@@ -72,6 +72,7 @@ interface LayoutMeta {
 interface ItemMeta {
     format?: string
     width?: string
+    size?: string;
 }
 export type Meta = FilterMeta | FetchMeta | ActionMeta | LayoutMeta | DataMeta | RefDataMeta
 

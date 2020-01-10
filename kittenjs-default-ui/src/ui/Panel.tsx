@@ -41,10 +41,10 @@ export function Panel(props: {[propName: string]: any}) {
             {
                 props.items.length > 0 ? props.items.map((i:any) => {
                     let fsize = 0
-                    if (i.size === 'big') {
+                    if (i.size === 'big' || (i.meta && i.meta.size && i.meta.size === 'big')) {
                         fsize = 16
                     }
-                    else if (i.size === 'extrabig') {
+                    else if (i.size === 'extrabig' || (i.meta && i.meta.size && i.meta.size === 'extrabig')) {
                         fsize = 30
                     }
                     const itemStyle: any = fsize ? {fontSize: fsize, fontWeight: 'bold'}:{}

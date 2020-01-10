@@ -57,7 +57,7 @@ const dashbordJSON: PageSection[] = [
                 key: 'dashboardItemPanel4',
                 items: [
                     {key: 'field41', label: '字段41', value: '值41', size: 'big'},
-                    {key: 'field42', label: '字段42', value: '值42', size: 'big'},
+                    {key: 'field42', label: '字段42', value: '值42', meta: { size: 'big' }},
                     // {key: 'field42', label: '字段42', value: '$.total', size: 'big'},
                     {key: 'field43', label: '字段43', value: '值43', meta: {url: 'http://example.com/43', method: 'GET'}},
                     {key: 'field44', label: '字段44', value: '值44', meta: {href: 'http://example.com/44'}},
