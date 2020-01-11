@@ -156,7 +156,7 @@ function _Form (props: IProps): JSX.Element {
                     }
                 }
                 else if(props.meta.filter) {
-                    setFilter(props.pageKey, props.meta.filter, newValues) 
+                    setFilter(props.pageKey, props.meta.filter, newValues)
                     if (props.meta.modal) {
                         hideModal(props.pageKey, props.meta.modal)
                     }
