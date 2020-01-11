@@ -4,6 +4,7 @@ import { Stack } from '../Stack'
 import { useGET } from '../../hooks/useGET'
 import { usePOST } from '../../hooks/usePOST'
 import { getValueByKeypath } from '../../utils/modal'
+import { Pages } from '../../pages'
 interface IProps {
     style?: React.CSSProperties;
     pageKey: string;
@@ -17,6 +18,8 @@ interface IProps {
 
 function _Panel (props: IProps): JSX.Element {
     const app = React.useContext(App)
+    const { getFilter } = Pages.useContainer()
+    const filterRef = React.useRef<any>({});
     const panelItems = React.useRef<(PageSection | PageSectionItem)[]>(JSON.parse(JSON.stringify(props.items)));
     React.useEffect(() => {   
         app.hooks.afterComponentLoaded.call(app.config.appKey, props.pageKey,'Panel', props.panelKey, props)
@@ -24,6 +27,13 @@ function _Panel (props: IProps): JSX.Element {
             app.hooks.afterComponentUnloaded.call(app.config.appKey, props.pageKey, 'Panel', props.panelKey, props)
         }
     }, [])
+    if (props.meta.filter) {
+        const filter = getFilter(props.pageKey, props.meta.filter)
+        if (filter !== filterRef.current){
+            props.meta.__fetched = false
+            filterRef.current = filter
+        }
+    }
     const get = useGET()
     const post = usePOST()
     const Comp = app.ui? app.ui.Panel : null
@@ -36,11 +46,12 @@ function _Panel (props: IProps): JSX.Element {
             const req = async (meta: any) => {
                 let result: any = null
                 const prm = meta.params
+                
                 if (!meta.method || meta.method.toUpperCase() === 'GET') {
-                    result = await get (meta.url, (prm&& prm.get) ? prm.get : {}) || []
+                    result = await get (meta.url, (prm&& prm.get) ? {...filterRef.current, ...prm.get} : {...filterRef.current}) || []
                     return result
                 }else if (meta.method.toUpperCase() === 'POST') {
-                    result = await post(meta.url, (prm && prm.post) ? prm.post : {})
+                    result = await post(meta.url, (prm && prm.post) ? {...filterRef.current, ...prm.post} : {})
                     return result
                 }
             }

@@ -82,17 +82,6 @@ const dashbordJSON: PageSection[] = [
         key: 'dashboard2Panel',
         items: [
             {
-                type: 'Panel',
-                key: 'dashboard2ItemPanel1',
-                items: [
-                    {key: 'field11', label: '字段11', value: '值11'},
-                    {key: 'field12', label: '字段12', value: '值12'},
-                ],
-                meta: {
-                    label: '标题'
-                }
-            },
-            {
                 type: 'Form', 
                 key: 'form1',
                 items: [
@@ -126,6 +115,21 @@ const dashbordJSON: PageSection[] = [
                 }
             },
             {
+                type: 'Panel',
+                key: 'dashboard2ItemPanel1',
+                items: [
+                    {key: 'field11', label: '字段11', value: '值11'},
+                    {key: 'field12', label: '字段12', value: '值12'},
+                ],
+                meta: {
+                    label: '标题',
+                    filter: 'table1',
+                    // url:
+                    // 'https://api.example.com/sub2/list',
+                    // method: 'GET',
+                }
+            },
+            {
                 type: 'Table',
                 key: 'table1',
                 items: [
@@ -142,9 +146,9 @@ const dashbordJSON: PageSection[] = [
                             info: 'testInfo1'
                         }
                     ],
-                    url:
-                    'https://api.example.com/sub2/list',
-                    method: 'GET',
+                    // url:
+                    // 'https://api.example.com/sub2/list',
+                    // method: 'GET',
                     disablePagination: true
                 },
             },
