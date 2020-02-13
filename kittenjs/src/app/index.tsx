@@ -172,6 +172,8 @@ export interface AppHooks {
     afterTableCellChanged: Hook;
 
     onTabChange: Hook;
+    beforeTableRender: Hook;
+    beforePanelFetch: Hook;
 }
 interface AppType {
     ui: UIType
@@ -185,7 +187,7 @@ class HooksProvider {
             renderHeaderActions: new SyncWaterfallHook(['appKey']),
             renderSiderTopSection: new SyncWaterfallHook(['appKey']),
             renderCustomRoutes: new SyncWaterfallHook(['appKey', 'RouteComponents', 'mainRender']),
-            beforeTablePaginationFinalization: new SyncHook([
+            beforeTablePaginationFinalization: new SyncWaterfallHook([
                 'appKey',
                 'pageKey',
                 'tableKey',
@@ -263,7 +265,23 @@ class HooksProvider {
             beforeFormSubmit: new SyncHook(['appKey', 'pageKey', 'formKey', 'values']),
             beforeCheckboxChange: new SyncHook(['appKey', 'pageKey', 'checkboxKey', 'value']),
             afterTableCellChanged: new SyncHook(['appKey', 'pageKey', 'tableKey', 'dataSource', 'row']),
-            onTabChange: new SyncHook(['appKey', 'pageKey', 'tabsKey', 'tabKey', 'props'])
+            onTabChange: new SyncHook(['appKey', 'pageKey', 'tabsKey', 'tabKey', 'props']),
+
+            beforeTableRender: new SyncWaterfallHook([
+                'appKey',
+                'pageKey',
+                'tableKey',
+                'props',
+                'columns',
+                'dataSource', 
+                'pagination'
+            ]),
+            beforePanelFetch: new SyncHook([
+                'appKey',
+                'pageKey',
+                'panelKey',
+                'props'
+            ]),
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {

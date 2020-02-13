@@ -27,6 +27,11 @@ export default class Sub1ListPlugin implements Plugin {
             if (appKey !== 'ke' || pageKey !== 'sub1' || tableKey !== 'sub1Table') return;  
             pagination.extraPagination = {showTotal: (total: number) => `共 ${(pagination.total / pagination.pageSize)} 页, 共 ${total} 条数据`}
         })
+        hooks.beforePanelFetch.tap('Sub1List--beforePanelFetch', (appKey: string, pageKey: string, panelKey: string, props: any) => {
+            if (appKey !== 'ke' || pageKey !== 'dashbord' || panelKey !== 'dashboardItemPanel4') return;  
+            props.meta.params = {get: {customParam: '1'}}
+            console.log('Sub1List--beforePanelFetch', props)
+        })
         hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any, rest: any) => {
             if (appKey !== 'ke' || pageKey !== 'sub1' || componentKey !== 'sub1Table') return;  
             props.meta.params = {get: {customParam: '1'}}

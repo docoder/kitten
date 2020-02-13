@@ -276,6 +276,10 @@ function _Table(props: IProps): JSX.Element {
                 handleFormData(dataSource)
             }, 0);
         } 
+        const result = app.hooks.beforeTableRender.call(app.config.appKey, props.pageKey, props.tableKey, props, columns, dataSource, pagination); 
+        if (result && (typeof result !== 'string')) {
+            return result
+        }
         return (<Comp
                 style={{
                     ...props.style,
@@ -314,7 +318,7 @@ function _Table(props: IProps): JSX.Element {
     if (props.meta && props.meta.url) {
         let extraPagination = {}
         const pagination = {currentPage, total, pageSize, setCurrentPage, setPageSize, extraPagination}
-        app.hooks.beforeTablePaginationFinalization.call(app.config.appKey, props.pageKey, props.tableKey, props, dataSource, pagination); 
+        app.hooks.beforeTablePaginationFinalization.call(app.config.appKey, props.pageKey, props.tableKey, props, dataSource, pagination);
         return renderTable(dataSource, props.meta.disablePagination ? false : pagination);
     }else {
         return renderTable(dataSourceRef.current || [], false);

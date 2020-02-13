@@ -24,7 +24,8 @@ function _PageIframe (props: IProps): JSX.Element {
                 height, 
                 overflow:'visible',
                 margin: '-20px',
-                marginTop: '-18px'
+                marginTop: '-18px',
+                width: '100%'
             }}
             src={props.url}
             frameBorder="0"

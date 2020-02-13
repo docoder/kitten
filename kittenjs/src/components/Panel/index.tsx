@@ -92,6 +92,7 @@ function _Panel (props: IProps): JSX.Element {
             }
             if (props.meta && props.meta.url && props.meta.method && !props.meta.__fetched) {
                 props.meta.__fetched = true
+                app.hooks.beforePanelFetch.call(app.config.appKey, props.pageKey, props.panelKey, props)
                 req(props.meta).then(result => {
                     if (result) {
                         handleItems(result.data)

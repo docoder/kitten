@@ -65,7 +65,7 @@ export function Panel(props: {[propName: string]: any}) {
                             key={i.key}
                             width={`${itemWidth}%`}
                         >
-                            <GridTitle>{i.label ? `${i.label}: `: ''}</GridTitle>
+                            <GridTitle>{i.label ? (typeof i.label === 'string' && i.label.trim() ? `${i.label}: `: ''): ''}</GridTitle>
                             {itemElement}
                         </StyledGrid>
                         )

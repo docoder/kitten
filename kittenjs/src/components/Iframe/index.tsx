@@ -11,7 +11,7 @@ function _Iframe (props: IProps): JSX.Element {
     return (
         props.meta && props.meta.block ? 
         <iframe
-            style={props.style}
+            style={{width: '100%', ...props.style}}
             src={props.meta.href}
             frameBorder="0"
         />
