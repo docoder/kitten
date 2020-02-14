@@ -1,6 +1,6 @@
 {
   "name": "kittenjs-default-ui",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Kittenjs default UI",
   "author": "docoder",
   "main": "build/index.js",

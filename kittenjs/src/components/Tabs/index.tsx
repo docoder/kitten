@@ -38,7 +38,7 @@ function _Tabs(props: IProps): JSX.Element {
                     <TabPanel tab={i.label} panelKey={i.key} key={i.key}>
                         <Stack 
                             pageKey={props.pageKey} 
-                            items={i.items} 
+                            items={i.items || []} 
                             direction="vertical" 
                             stackKey={`${props.pageKey}_${props.tabsKey}_${i.key}_main_stack`} 
                             history={props.history}
