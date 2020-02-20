@@ -32,6 +32,15 @@ export default class Sub1ListPlugin implements Plugin {
             props.meta.params = {get: {customParam: '1'}}
             console.log('Sub1List--beforePanelFetch', props)
         })
+        hooks.getNewIPaneltems.tap('Sub1List--getNewIPaneltems', (appKey: string, pageKey: string, panelKey: string, items: any) => {
+            if (appKey !== 'ke' || pageKey !== 'dashbord' || panelKey !== 'dashboardItemPanel4') return;  
+            items.map((i: any)=> {
+                if (i.meta && i.meta.url) {
+                    i.meta.url +='?test=true'
+                }
+            })
+            return items;
+        })
         hooks.afterComponentLoaded.tap('Sub1List--afterComponentLoaded', (appKey: string, pageKey: string, componentType: string, componentKey: string, props: any, rest: any) => {
             if (appKey !== 'ke' || pageKey !== 'sub1' || componentKey !== 'sub1Table') return;  
             props.meta.params = {get: {customParam: '1'}}

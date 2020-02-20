@@ -56,6 +56,10 @@ function _Panel (props: IProps): JSX.Element {
                 }
             }
             const handleItems = (panelData?: any) =>  {
+                const newItems = app.hooks.getNewIPaneltems.call(app.config.appKey, props.pageKey, props.panelKey, panelItems.current)
+                if (newItems && (typeof newItems !== 'string') && Array.isArray(newItems) && newItems.length > 0) {
+                    panelItems.current = newItems
+                }
                 panelItems.current.forEach( (i: any) => {
                     if (i.meta && i.meta.link) {
                         i.onClick = () => {

@@ -174,6 +174,7 @@ export interface AppHooks {
     onTabChange: Hook;
     beforeTableRender: Hook;
     beforePanelFetch: Hook;
+    getNewIPaneltems: SyncWaterfallHook;
 }
 interface AppType {
     ui: UIType
@@ -282,6 +283,12 @@ class HooksProvider {
                 'panelKey',
                 'props'
             ]),
+            getNewIPaneltems: new SyncWaterfallHook([
+                'appKey',
+                'pageKey',
+                'panelKey',
+                'items'
+            ])
         };
         if (Array.isArray(plugins)) {
             plugins.forEach(plugin => {
