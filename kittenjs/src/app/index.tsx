@@ -287,7 +287,8 @@ class HooksProvider {
                 'appKey',
                 'pageKey',
                 'panelKey',
-                'items'
+                'items',
+                'data'
             ])
         };
         if (Array.isArray(plugins)) {

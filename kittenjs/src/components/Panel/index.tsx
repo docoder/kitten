@@ -56,7 +56,7 @@ function _Panel (props: IProps): JSX.Element {
                 }
             }
             const handleItems = (panelData?: any) =>  {
-                const newItems = app.hooks.getNewIPaneltems.call(app.config.appKey, props.pageKey, props.panelKey, panelItems.current)
+                const newItems = app.hooks.getNewIPaneltems.call(app.config.appKey, props.pageKey, props.panelKey, panelItems.current, panelData)
                 if (newItems && (typeof newItems !== 'string') && Array.isArray(newItems) && newItems.length > 0) {
                     panelItems.current = newItems
                 }
@@ -105,7 +105,6 @@ function _Panel (props: IProps): JSX.Element {
             }else {
                 handleItems()
             }
-            
         }
     }
     return (
