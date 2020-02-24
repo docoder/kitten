@@ -58,7 +58,7 @@ export function Panel(props: {[propName: string]: any}) {
                         transition: 'color 0.3s'
                     } : itemStyle}>{i.value}</span>
                     if (i.meta && i.meta.href) {
-                        itemElement = <a style={itemStyle} href={i.meta.href}>{i.value}</a>
+                        itemElement = <a target='_blank' style={itemStyle} href={i.meta.href}>{i.value}</a>
                     }
                     return (
                         <StyledGrid
