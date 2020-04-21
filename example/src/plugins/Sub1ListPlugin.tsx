@@ -2,6 +2,14 @@ import React from 'react';
 import { Plugin, AppHooks, TableColumn } from 'kittenjs'
 export default class Sub1ListPlugin implements Plugin {
     apply(hooks: AppHooks) {
+        hooks.beforeFormAllItemsFinalization.tap('Sub1ListPlugin-beforeFormAllItemsFinalization', (appKey, pageKey, formKey, props, items) => {
+            if (formKey === 'sub1Filter') {
+                console.log('----1-->', items[0])
+                items[0].onChange = () => {
+                    console.log('----2-->', items[0])
+                }
+            }
+        })
         hooks.beforeTableColumnFinalization.tap(
             'Sub1List--beforeTableColumnFinalization',
             (appKey: string, pageKey: string, tableKey: string, props: any, column: TableColumn) => {
