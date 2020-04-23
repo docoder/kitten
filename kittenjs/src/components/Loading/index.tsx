@@ -26,4 +26,3 @@ function _Loading(props: IProps): JSX.Element {
     );
 };
 export const Loading = React.memo(_Loading)
- 

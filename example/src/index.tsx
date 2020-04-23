@@ -941,6 +941,6 @@ const app = new Kitten(ui, {
     new OtherRoutePagePlugin(),
     new GlobalCustomPlugin()
 ], [
-    // 'beforeTableColumnFinalization'
+    'beforeTableColumnFinalization'
 ])
 app.render(Renderer,  document.getElementById('root')!)

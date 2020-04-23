@@ -4,9 +4,8 @@ export default class Sub1ListPlugin implements Plugin {
     apply(hooks: AppHooks) {
         hooks.beforeFormAllItemsFinalization.tap('Sub1ListPlugin-beforeFormAllItemsFinalization', (appKey, pageKey, formKey, props, items) => {
             if (formKey === 'sub1Filter') {
-                console.log('----1-->', items[0])
-                items[0].onChange = () => {
-                    console.log('----2-->', items[0])
+                items[2].onSearch = (value: any) => {
+                    console.log('----onSearch-->', value)
                 }
             }
         })
