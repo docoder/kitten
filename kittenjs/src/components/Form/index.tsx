@@ -46,6 +46,30 @@ interface IProps {
     history: any;
     match: any;
 }
+function get_url_parm_list(str: string){
+    let params = str.substr(str.indexOf('?')+1);
+    const param_list=[];
+    while(params.indexOf('=')!=-1){
+        const ind=params.indexOf('=');
+        const k=params.substr(0,ind);
+        const sp=params.indexOf('&');
+        let v;
+        if(sp==-1){
+            v=params.substr(ind+1);
+            params='';
+        }else{
+            v=params.substr(ind+1,sp-(ind+1));
+            params=params.substr(sp+1);
+        }
+        const obj={
+            key:k,
+            val:v
+        }
+        param_list.push(obj);
+    }
+    return param_list;
+}
+
 // let formItems: FormItem[] = []
 function _Form (props: IProps): JSX.Element {
     const app = React.useContext(App)
@@ -70,6 +94,25 @@ function _Form (props: IProps): JSX.Element {
                 i.value = params[valueKey]
             } 
         }
+        if (i.meta && i.meta.url && i.meta.url.includes('$.') && props.meta.modal){
+            const params = getParams(props.pageKey, props.meta.modal)
+            if (params) {
+                let urlParams = get_url_parm_list(i.meta.url)
+                urlParams.forEach(p => {
+                    if (p.val.startsWith('$.')) {
+                        const valueKey = p.val.split('.')[1]
+                        p.val = params[valueKey]
+                    }
+                })
+                const urlWithoutParams = i.meta.url.split('?')[0]
+                let paramsStr = '?';
+                urlParams.forEach(p => {
+                    paramsStr += `${p.key}=${p.val}&`
+                })
+                i.meta.url = `${urlWithoutParams}${paramsStr.slice(0, -1)}`
+            }
+        }
+
         if (i.meta && typeof i.meta.data === 'string' && i.meta.data.startsWith('$.')) {
             if (props.meta.modal) {
                 const params = getParams(props.pageKey, props.meta.modal)
