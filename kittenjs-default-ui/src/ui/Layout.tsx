@@ -23,7 +23,7 @@ export function Layout(
     const menus = config.menus;
     let pageLinks: PageLink[] = [];
     const getPageLink = (item: MenuItem, exact: boolean = true) => {
-        const EntryComponent = connectRoute(Entry, `${item.label} | ${config.appTitle}`);
+        const EntryComponent = connectRoute(Entry, item.label ? `${item.label} | ${config.appTitle}` : config.appTitle);
         return {
             page: (ps: {location: string, [x: string]: any}) => {
                 return (
