@@ -4,6 +4,7 @@ import Sub1ListPlugin from './plugins/Sub1ListPlugin'
 import OtherListPlugin from './plugins/OtherListPlugin'
 import OtherRoutePagePlugin from './plugins/OtherRoutePagePlugin'
 import GlobalCustomPlugin from './plugins/GlobalCustomPlugin'
+import TableCellCommonPlugin from './plugins/TableCellCommonPlugin'
 const dashbordJSON: PageSection[] = [
     {
         type: 'Panel', 
@@ -330,6 +331,13 @@ const sub1PageJSON: PageSection[] = [
                 }
             },
             {
+                key: 'note',
+                label: '备注',
+                meta: {
+                    format: 'text$:multiLine'
+                }
+            },
+            {
                 key: 'operations',
                 label: '操作',
                 actions: [
@@ -385,8 +393,9 @@ public class HelloWorld {
     }
 
 }
-                        `
-                },
+                        `,
+                    note: 'line1\r\nline2\r\nline3'
+                    },
                 {
                     id: 2,
                     number: '',
@@ -939,7 +948,8 @@ const app = new Kitten(ui, {
     new Sub1ListPlugin(),
     new OtherListPlugin(),
     new OtherRoutePagePlugin(),
-    new GlobalCustomPlugin()
+    new GlobalCustomPlugin(),
+    new TableCellCommonPlugin()
 ], [
     'beforeTableColumnFinalization'
 ])
